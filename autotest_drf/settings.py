@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 自定义中间件
+    'user.middle.MyMiddleware'
 ]
 
 ROOT_URLCONF = 'autotest_drf.urls'
@@ -73,10 +77,22 @@ WSGI_APPLICATION = 'autotest_drf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# 本地MYSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'autotest_drf',
+        'USER': 'root',
+        'PASSWORD': 'test123456',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -103,9 +119,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+
+# 设置中文和时区
+LANGUAGE_CODE = 'zh-Hans'
+
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -118,3 +139,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# 数据库缓存设置
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+
+
+# rest framwork 全局配置
+REST_FRAMEWORK = {
+    # API版本设置
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ['v1', 'v2'],
+    'VERSION_PARAM': 'version',
+    # 解析设置
+    'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser', 'rest_framework.parsers.FormParser'],
+    # 分页配置
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',  # 默认分页类型
+    'PAGE_SIZE': 5,  # 默认每页显示的数据条数
+    # 序列化验证错误信息
+    'NON_FIELD_ERRORS_KEY': 'errors',
+    # 验证设置
+    'DEFAULT_AUTHENTICATION_CLASSES': ['user.authentication.TokenAuthentication', ],
+    # 节流、访问次数限制
+    'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
+    'DEFAULT_THROTTLE_RATES': {
+        # 设置每分钟访问10次
+        'limit': '10/minute',
+    },
+}
+
+
+# 邮箱设置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 导入邮件模块
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '18129832245@163.com'
+EMAIL_HOST_PASSWORD = 'Lin5535960'
+EMAIL_USE_SSL = True
