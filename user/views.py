@@ -1,11 +1,12 @@
 from django.core.mail import EmailMessage
 from django.contrib.auth.hashers import check_password
 from rest_framework.views import APIView
-from user.permission import UserPeimission
+from rest_framework.viewsets import ModelViewSet
+from user.permission import UserPeimission, EditPeimission
 from rest_framework.response import Response
 from rest_framework.pagination import CursorPagination
-from user.models import UserInfo
-from user.serializer import UserInfoSerializer
+from user.models import UserInfo, LoginRecord, Project, Pemission
+from user.serializer import UserInfoSerializer, ProjectSerializer, PermissionSerializer
 import string
 import random
 import hashlib
@@ -13,6 +14,13 @@ import time
 
 
 # Create your views here.
+# 添加权限
+class PermissionView(ModelViewSet):
+    queryset = Pemission.objects.all()
+    serializer_class = PermissionSerializer
+
+
+# 用户信息
 class UserView(APIView):
     permission_classes = [
         UserPeimission,
@@ -133,6 +141,7 @@ class UserView(APIView):
         return Response(data)
 
 
+# 用户登陆
 class LoginView(APIView):
     authentication_classes = []
 
@@ -174,12 +183,16 @@ class LoginView(APIView):
             ser_user = UserInfoSerializer(instance=user_obj)
             # 登陆成功，返回用户信息
             data['data'] = ser_user.data
+            # 添加一条登陆记录
+            login_record = LoginRecord(content_object=user_obj)
+            login_record.save()
 
         response = Response(data)
-        response.set_cookie(key + 'token', data['token'], max_age=60 * 5)
+        response.set_cookie(key + 'token', data['token'], max_age=60 * 60)
         return response
 
 
+# 获取验证码
 class CaptchaView(APIView):
     authentication_classes = []
 
@@ -234,3 +247,10 @@ class CaptchaView(APIView):
         if not data.get('errcode'):
             response.set_cookie(key, code, max_age=60 * 5)
         return response
+
+
+# 项目
+class ProjectView(ModelViewSet):
+    permission_classes = [EditPeimission, ]
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer

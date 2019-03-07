@@ -28,5 +28,25 @@ class LoginRecord(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
 
-    # 方便直接获取，不在数据表生成
+    # 方便直接生成，不在数据表生成
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+
+# 项目信息
+class Project(models.Model):
+    proname = models.CharField(max_length=20, null=True)
+    prodes = models.CharField(max_length=50, null=True)
+    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
+
+    # 数据库不生成，只用于链表查询
+    has_permission_users = GenericRelation('Pemission')
+
+
+# 权限
+class Pemission(models.Model):
+    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+
+    # 方便直接生成，不在数据表生成
     content_object = GenericForeignKey('content_type', 'object_id')

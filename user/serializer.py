@@ -1,14 +1,13 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from user.models import UserInfo
+from user.models import UserInfo, Project, Pemission
 
 
-# 关联模型
+# 用户信息
 class UserInfoSerializer(serializers.ModelSerializer):
     # write_only只写模式，序列化验证后不会通过API返回
     # read_only只读模式，序列化验证后不会写入数据库，只做返回用
     captcha = serializers.CharField(write_only=True)
-    serializers.SerializerMethodField
 
     class Meta:
         model = UserInfo
@@ -27,3 +26,17 @@ class UserInfoSerializer(serializers.ModelSerializer):
         if data.get('captcha'):
             data.pop('captcha')
         return data
+
+
+# 项目
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+
+# 权限
+class PermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pemission
+        fields = '__all__'

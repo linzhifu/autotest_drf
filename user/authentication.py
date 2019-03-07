@@ -6,7 +6,7 @@ from user.models import UserInfo
 
 class TokenAuthentication(BaseAuthentication):
     # 通过token认证
-    # 通过request.user=email  request.auth=token
+    # 通过request.user=user对象  request.auth=token
     # 不通过request.user=None  request.auth=None
     # 提供给后续权限认证
     def authenticate(self, request):
@@ -23,7 +23,7 @@ class TokenAuthentication(BaseAuthentication):
                 else:
                     return (None, None)
             else:
-                print(request.COOKIES)
+                print('Token验证报错，COOKIES信息为：',request.COOKIES)
                 return (None, None)
         else:
             # from rest_framework import exceptions

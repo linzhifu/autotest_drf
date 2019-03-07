@@ -132,7 +132,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -172,6 +172,8 @@ REST_FRAMEWORK = {
         # 设置每分钟访问10次
         'limit': '10/minute',
     },
+    # 定义异常处理
+    'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
 }
 
 
