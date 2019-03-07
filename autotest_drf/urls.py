@@ -23,12 +23,12 @@ from user import views
 # has a route that contains '(?P<', begins with a '^', or ends with
 # a '$'. This was likely an oversight when migrating to django.urls.path().
 router = routers.DefaultRouter()
+router.register('user', views.UserView)
 router.register('project', views.ProjectView)
 router.register('permission', views.PermissionView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'(?P<version>[v1|v2]+)/user', views.UserView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/captcha/', views.CaptchaView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),

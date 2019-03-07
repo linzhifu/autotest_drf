@@ -8,7 +8,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 class UserInfo(models.Model):
     username = models.CharField(max_length=20, null=True, blank=True)
     password = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     created_time = models.DateTimeField(auto_now_add=True)
     # 用户角色
     role_list = (

@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from user.permission import UserPeimission, EditPeimission
 from rest_framework.response import Response
-from rest_framework.pagination import CursorPagination
 from user.models import UserInfo, LoginRecord, Project, Pemission
 from user.serializer import UserInfoSerializer, ProjectSerializer, PermissionSerializer
 import string
@@ -21,124 +20,126 @@ class PermissionView(ModelViewSet):
 
 
 # 用户信息
-class UserView(APIView):
+class UserView(ModelViewSet):
     permission_classes = [
         UserPeimission,
     ]
+    queryset = UserInfo.objects.all()
+    serializer_class = UserInfoSerializer
 
-    # 获取用户信息
-    def get(self, request, *args, **kwargs):
-        # 返回信息格式
-        data = {'errcode': 0, 'errmsg': 'ok'}
-        users = UserInfo.objects.all()
-        pg = CursorPagination()
-        pg_users = pg.paginate_queryset(users, request, view=self)
-        ser = UserInfoSerializer(
-            instance=pg_users, many=True, context={'request': request})
-        data['data'] = ser.data
-        response = pg.get_paginated_response(data)
-        # safe=False 参数不仅仅可以为字典，也可以为列表
-        # response = JsonResponse(ser.data, safe=False)
+    # # 获取用户信息
+    # def get(self, request, *args, **kwargs):
+    #     # 返回信息格式
+    #     data = {'errcode': 0, 'errmsg': 'ok'}
+    #     users = UserInfo.objects.all()
+    #     pg = CursorPagination()
+    #     pg_users = pg.paginate_queryset(users, request, view=self)
+    #     ser = UserInfoSerializer(
+    #         instance=pg_users, many=True, context={'request': request})
+    #     data['data'] = ser.data
+    #     response = pg.get_paginated_response(data)
+    #     # safe=False 参数不仅仅可以为字典，也可以为列表
+    #     # response = JsonResponse(ser.data, safe=False)
 
-        return response
+    #     return response
 
-    # 创建新用户
-    def post(self, request, *args, **kwargs):
-        # 定制(email=admin,token=admin)
-        # 返回信息格式
-        data = {'errcode': 0, 'errmsg': 'ok'}
+    # # 创建新用户
+    # def post(self, request, *args, **kwargs):
+    #     # 定制(email=admin,token=admin)
+    #     # 返回信息格式
+    #     data = {'errcode': 0, 'errmsg': 'ok'}
 
-        # 获取post数据，已通过解析器转换为json格式
-        body_data = request.data
+    #     # 获取post数据，已通过解析器转换为json格式
+    #     body_data = request.data
 
-        # 通过邮箱判断用户是否已存在
-        email = body_data.get('email')
-        if UserInfo.objects.filter(email=email).first():
-            # 邮箱已存在，返回报错
-            data['errcode'] = 101
-            data['errmsg'] = '用户邮箱已存在'
+    #     # 通过邮箱判断用户是否已存在
+    #     email = body_data.get('email')
+    #     if UserInfo.objects.filter(email=email).first():
+    #         # 邮箱已存在，返回报错
+    #         data['errcode'] = 101
+    #         data['errmsg'] = '用户邮箱已存在'
 
-        else:
-            # 序列化数据，并做验证
-            # 默认情况下，序列化程序必须传递所有必填字段的值，
-            # 否则会引发验证错误。您可以使用该partial参数以允许部分更新
-            ser_user = UserInfoSerializer(
-                data=body_data, many=False, partial=True)
-            if ser_user.is_valid():
-                ser_user.save()
-            else:
-                # 验证不通过，返回错误提示
-                data['errcode'] = 102
-                data['errmsg'] = ser_user.errors
+    #     else:
+    #         # 序列化数据，并做验证
+    #         # 默认情况下，序列化程序必须传递所有必填字段的值，
+    #         # 否则会引发验证错误。您可以使用该partial参数以允许部分更新
+    #         ser_user = UserInfoSerializer(
+    #             data=body_data, many=False, partial=True)
+    #         if ser_user.is_valid():
+    #             ser_user.save()
+    #         else:
+    #             # 验证不通过，返回错误提示
+    #             data['errcode'] = 102
+    #             data['errmsg'] = ser_user.errors
 
-        return Response(data)
+    #     return Response(data)
 
-    # 更新用户信息
-    def patch(self, request, *args, **kwargs):
-        # 返回信息格式
-        data = {'errcode': 0, 'errmsg': 'ok'}
+    # # 更新用户信息
+    # def patch(self, request, *args, **kwargs):
+    #     # 返回信息格式
+    #     data = {'errcode': 0, 'errmsg': 'ok'}
 
-        # 获取post数据，已通过解析器转换为json格式
-        body_data = request.data
+    #     # 获取post数据，已通过解析器转换为json格式
+    #     body_data = request.data
 
-        # 通过邮箱判断用户是否存在
-        email = body_data.get('email')
-        key = email.split('@')[0] + email.split('@')[1]
-        captcha = body_data.get('captcha')
-        user_obj = UserInfo.objects.filter(email=email).first()
-        # 验证对象权限
-        self.check_object_permissions(request, user_obj)
-        if not user_obj:
-            # 用户不存在，返回报错
-            data['errcode'] = 103
-            data['errmsg'] = '用户不存在，无法更新'
+    #     # 通过邮箱判断用户是否存在
+    #     email = body_data.get('email')
+    #     key = email.split('@')[0] + email.split('@')[1]
+    #     captcha = body_data.get('captcha')
+    #     user_obj = UserInfo.objects.filter(email=email).first()
+    #     # 验证对象权限
+    #     self.check_object_permissions(request, user_obj)
+    #     if not user_obj:
+    #         # 用户不存在，返回报错
+    #         data['errcode'] = 103
+    #         data['errmsg'] = '用户不存在，无法更新'
 
-        elif not captcha:
-            # 验证码为空
-            data['errcode'] = 104
-            data['errmsg'] = '验证码不能为空'
+    #     elif not captcha:
+    #         # 验证码为空
+    #         data['errcode'] = 104
+    #         data['errmsg'] = '验证码不能为空'
 
-        elif captcha and captcha.lower() != request.COOKIES.get(key):
-            data['errcode'] = 105
-            data['errmsg'] = '验证码错误'
+    #     elif captcha and captcha.lower() != request.COOKIES.get(key):
+    #         data['errcode'] = 105
+    #         data['errmsg'] = '验证码错误'
 
-        else:
-            # 序列化数据，并做验证
-            # 默认情况下，序列化程序必须传递所有必填字段的值，
-            # 否则会引发验证错误。您可以使用该partial参数以允许部分更新
-            ser_user = UserInfoSerializer(
-                instance=user_obj, data=body_data, many=False, partial=True)
-            if ser_user.is_valid():
-                ser_user.save()
-            else:
-                # 验证不通过，返回错误提示
-                data['errcode'] = 106
-                data['errmsg'] = ser_user.errors
+    #     else:
+    #         # 序列化数据，并做验证
+    #         # 默认情况下，序列化程序必须传递所有必填字段的值，
+    #         # 否则会引发验证错误。您可以使用该partial参数以允许部分更新
+    #         ser_user = UserInfoSerializer(
+    #             instance=user_obj, data=body_data, many=False, partial=True)
+    #         if ser_user.is_valid():
+    #             ser_user.save()
+    #         else:
+    #             # 验证不通过，返回错误提示
+    #             data['errcode'] = 106
+    #             data['errmsg'] = ser_user.errors
 
-        return Response(data)
+    #     return Response(data)
 
-    # 删除用户
-    def delete(self, request, *args, **kwargs):
-        # 返回信息格式
-        data = {'errcode': 0, 'errmsg': 'ok'}
+    # # 删除用户
+    # def delete(self, request, *args, **kwargs):
+    #     # 返回信息格式
+    #     data = {'errcode': 0, 'errmsg': 'ok'}
 
-        # 获取post数据，已通过解析器转换为json格式
-        body_data = request.data
+    #     # 获取post数据，已通过解析器转换为json格式
+    #     body_data = request.data
 
-        # 通过邮箱判断用户是否存在
-        email = body_data.get('email')
-        user_obj = UserInfo.objects.filter(email=email).first()
-        # 验证对象权限
-        self.check_object_permissions(request, user_obj)
-        if not user_obj:
-            # 用户不存在，返回报错
-            data['errcode'] = 105
-            data['errmsg'] = '用户不存在，无法删除'
+    #     # 通过邮箱判断用户是否存在
+    #     email = body_data.get('email')
+    #     user_obj = UserInfo.objects.filter(email=email).first()
+    #     # 验证对象权限
+    #     self.check_object_permissions(request, user_obj)
+    #     if not user_obj:
+    #         # 用户不存在，返回报错
+    #         data['errcode'] = 105
+    #         data['errmsg'] = '用户不存在，无法删除'
 
-        else:
-            user_obj.delete()
+    #     else:
+    #         user_obj.delete()
 
-        return Response(data)
+    #     return Response(data)
 
 
 # 用户登陆

@@ -26,8 +26,8 @@ class UserPeimission(BasePermission):
         """
         Return `True` if permission is granted, `False` otherwise.
         """
-        # 只能自己操作自己
-        return request.user == obj
+        # 只能自己操作自己 或者是 管理员
+        return request.user == obj or obj.role
 
 
 # 编辑信息权限
