@@ -25,11 +25,11 @@ from user import views
 router = routers.DefaultRouter()
 router.register('user', views.UserView)
 router.register('project', views.ProjectView)
-router.register('permission', views.PermissionView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'(?P<version>[v1|v2]+)/captcha/', views.CaptchaView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/logout/', views.LogoutView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

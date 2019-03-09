@@ -1,20 +1,18 @@
-from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from user.models import UserInfo, Project, Pemission
+from user.models import Project
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 
+# django自带USER
 # 用户信息
-class UserInfoSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     # write_only只写模式，序列化验证后不会通过API返回
     # read_only只读模式，序列化验证后不会写入数据库，只做返回用
-    # captcha = serializers.CharField(write_only=True)
 
     class Meta:
-        model = UserInfo
-        fields = '__all__'
-        # fields = [
-        #     'id', 'username', 'password', 'email', 'created_time', 'captcha'
-        # ]
+        model = User
+        fields = ['username', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate_password(self, value):
@@ -22,27 +20,9 @@ class UserInfoSerializer(serializers.ModelSerializer):
         password = make_password(value)
         return password
 
-    # def validate(self, data):
-    #     # 数据验证完后，删除验证码
-    #     # captcha = data.get('captcha', '')
-    #     # print(data)
-    #     # if captcha and captcha == '123':
-    #     #     data.pop('captcha')
-    #     # else:
-    #     #     raise exceptions.ValidationError({'captcha': '验证码不正确'})
-    #     print('验证')
-    #     return data
-
 
 # 项目
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
-
-
-# 权限
-class PermissionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pemission
         fields = '__all__'

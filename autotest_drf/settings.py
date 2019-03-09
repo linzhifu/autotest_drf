@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'guardian',
     'user',
 ]
 
@@ -165,7 +166,13 @@ REST_FRAMEWORK = {
     # 序列化验证错误信息
     'NON_FIELD_ERRORS_KEY': 'errors',
     # 验证设置
-    'DEFAULT_AUTHENTICATION_CLASSES': ['user.authentication.TokenAuthentication', ],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication', ],
+    # 权限限制
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoObjectPermissions',
+        # 'user.permission.EditPeimission'
+    ],
     # 节流、访问次数限制
     'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
     'DEFAULT_THROTTLE_RATES': {
@@ -175,6 +182,13 @@ REST_FRAMEWORK = {
     # 定义异常处理
     'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
 }
+
+# BACKENDS认证机制
+AUTHENTICATION_BACKENDS = (
+    # django默认的backend
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 
 # 邮箱设置
