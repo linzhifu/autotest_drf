@@ -4,10 +4,15 @@ from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from user.models import LoginRecord, Project
-from user.serializer import ProjectSerializer, UserSerializer
+from rest_framework.authtoken.models import Token
+from django.core.cache import cache
+from django.contrib.auth.hashers import make_password
+from django_filters.rest_framework import DjangoFilterBackend
+from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase
+from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer
 import string
 import random
+from user.tests import webCase
 
 
 # Create your views here.
@@ -23,27 +28,58 @@ class LoginView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = {'errcode': 0, 'errmsg': 'ok'}
-        # 邮箱登陆
         body_data = request.data
-        username = body_data.get('username')
-        password = body_data.get('password')
-        user = auth.authenticate(username=username, password=password)
-        if not user:
-            data['errcode'] = 101
-            data['errmsg'] = '用户名或密码错误'
-        elif user.is_active:
-            # 验证通过
-            auth.login(request, user)
+        # 获取登陆方式
+        login_type = body_data.get('type')
+        # 用户名密码登陆
+        if login_type == 'username':
+            username = body_data.get('username')
+            password = body_data.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if not user:
+                data['errcode'] = 101
+                data['errmsg'] = '用户名或密码错误'
+            elif user.is_active:
+                # 验证通过,登陆用户，并返回用户信息
+                # auth.login(request, user)
+                ser = UserSerializer(instance=user)
+                data['data'] = ser.data
+            else:
+                data['errcode'] = 102
+                data['errmsg'] = '用户已被禁止登陆'
+        # 邮箱登陆
         else:
-            data['errcode'] = 102
-            data['errmsg'] = '用户已被禁止登陆'
-        response = Response(data)
-        # 添加登陆记录，并加入cookie记录
+            email = body_data.get('email')
+            captcha = body_data.get('captcha')
+            captcha_cache = cache.get(email)
+            if captcha == captcha_cache:
+                # 验证通过,登陆用户，并返回用户信息
+                user = User.objects.filter(email=email).first()
+                if not user:
+                    # 用户不存在，创建新用户，用户名默认为邮箱，密码123
+                    user = User.objects.create(
+                        username=email,
+                        email=email,
+                        password=make_password('123'))
+                ser = UserSerializer(instance=user)
+                data['data'] = ser.data
+            else:
+                data['errcode'] = 104
+                data['errmsg'] = '邮箱或验证码不正确'
+
         if data['errcode'] == 0:
-            if not request.COOKIES.get(username):
-                response.set_cookie(username, True, max_age=60 * 5)
+            # 返回token
+            # 存在就更新token，不存在就创建
+            token = Token.objects.filter(user=user).first()
+            if token:
+                token.delete()
+            token = Token.objects.create(user=user)
+            data['token'] = token.key
+            # 添加登陆记录，并加入数据库缓存
+            if not cache.get(user.username):
+                cache.set(user.username, 1, 60 * 60)
                 LoginRecord.objects.create(user=user)
-        return response
+        return Response(data)
 
 
 # 用户注销
@@ -66,12 +102,8 @@ class CaptchaView(APIView):
         data = {'errcode': 0, 'errmsg': 'ok'}
         email = request.GET.get('email', '')
 
-        # 获取email，因为cookie中的key不能包含@，所以这里去除@
-        email = request.GET.get('email', '')
-        key = email.split('@')[0] + email.split('@')[1]
-
-        # 判断验证码是否已经存在cookie中
-        if request.COOKIES.get(key, ''):
+        # 判断验证码是否已经存在缓存中
+        if cache.get(email, ''):
             data['errcode'] = 301
             data['errmsg'] = '验证码已发送，请稍后再获取'
 
@@ -107,14 +139,56 @@ class CaptchaView(APIView):
                 data['errcode'] = 302
                 data['errmsg'] = '发送失败'
 
-        response = Response(data=data)
         # 判断是否发送成功，加入缓存，有效期3min
         if not data.get('errcode'):
-            response.set_cookie(key, code, max_age=60 * 5)
-        return response
+            cache.set(email, code, 60 * 1)
+        return Response(data=data)
 
 
 # 项目
 class ProjectView(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+
+# 前端测试管理
+class WebManagerView(ModelViewSet):
+    queryset = WebManager.objects.all()
+    serializer_class = WebManagerSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('project', )
+
+
+# 前端测试案例
+class WebCaseView(ModelViewSet):
+    queryset = WebCase.objects.all()
+    serializer_class = WebCaseSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('webManager', )
+
+
+# 后端测试管理
+class ApiManagerView(ModelViewSet):
+    queryset = ApiManager.objects.all()
+    serializer_class = ApiManagerSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('project', )
+
+
+# 后端测试案例
+class ApiCaseView(ModelViewSet):
+    queryset = ApiCase.objects.all()
+    serializer_class = ApiCaseSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('apiManager', )
+
+
+# 前端测试案例测试
+class WebTest(APIView):
+    def post(self, request, *args, **kwargs):
+        data = {'errcode': 0, 'errmsg': 'ok'}
+        body_data = request.data
+        url = request.GET.get('url')
+        print(body_data)
+        webCase(url, body_data)
+        return Response(data)

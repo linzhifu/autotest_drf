@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user.models import LoginRecord, Project
+from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager
 
 
 # Register your models here.
@@ -23,6 +23,17 @@ class ProjectAdmin(admin.ModelAdmin):
         'user',
     ]
 
-    def save_models(self, request, obj):
-        obj.user = request.user
-        super().save_models()
+
+@admin.register(ApiManager)
+class ApiManagerAdmin(admin.ModelAdmin):
+    model = Project
+
+
+@admin.register(ApiCase)
+class ApiCaseAdmin(admin.ModelAdmin):
+    model = ApiCase
+
+
+@admin.register(WebManager)
+class WebManagerAdmin(admin.ModelAdmin):
+    model = WebManager

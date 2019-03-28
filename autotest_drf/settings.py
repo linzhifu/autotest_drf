@@ -37,14 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'guardian',
+    'corsheaders',
     'user',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,25 +166,27 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser', 'rest_framework.parsers.FormParser'],
     # 分页配置
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',  # 默认分页类型
-    'PAGE_SIZE': 5,  # 默认每页显示的数据条数
+    'PAGE_SIZE': 20,  # 默认每页显示的数据条数
     # 序列化验证错误信息
     'NON_FIELD_ERRORS_KEY': 'errors',
     # 验证设置
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication', ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication', ],
     # 权限限制
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-        # 'rest_framework.permissions.DjangoObjectPermissions',
-        # 'user.permission.EditPeimission'
-    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    #     # 'rest_framework.permissions.DjangoObjectPermissions',
+    #     # 'user.permission.EditPeimission'
+    # ],
     # 节流、访问次数限制
-    'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
-    'DEFAULT_THROTTLE_RATES': {
-        # 设置每分钟访问10次
-        'limit': '10/minute',
-    },
+    # 'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     # 设置每分钟访问10次
+    #     'limit': '10/minute',
+    # },
     # 定义异常处理
     'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
+    # django 过滤器
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
 # BACKENDS认证机制
@@ -198,3 +204,33 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = '18129832245@163.com'
 EMAIL_HOST_PASSWORD = 'Lin5535960'
 EMAIL_USE_SSL = True
+
+
+# 运行Vue跨越调试
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ('*')
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+CORS_ALLOW_HEADERS = (
+    'XMLHttpRequest',
+    'X_FILENAME',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'Pragma',
+)
