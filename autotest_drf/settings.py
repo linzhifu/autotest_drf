@@ -170,19 +170,23 @@ REST_FRAMEWORK = {
     # 序列化验证错误信息
     'NON_FIELD_ERRORS_KEY': 'errors',
     # 验证设置
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication', ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.SessionAuthentication',
+        'user.authentication.TokenAuthentication'
+    ],
     # 权限限制
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     # 'rest_framework.permissions.DjangoObjectPermissions',
-    #     # 'user.permission.EditPeimission'
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.DjangoObjectPermissions',
+        # 'user.permission.EditPeimission'
+    ],
     # 节流、访问次数限制
-    # 'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
-    # 'DEFAULT_THROTTLE_RATES': {
-    #     # 设置每分钟访问10次
-    #     'limit': '10/minute',
-    # },
+    'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
+    'DEFAULT_THROTTLE_RATES': {
+        # 设置每分钟访问10次
+        'limit': '30/minute',
+    },
     # 定义异常处理
     'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
     # django 过滤器

@@ -34,7 +34,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'(?P<version>[v1|v2]+)/captcha/', views.CaptchaView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
-    re_path(r'(?P<version>[v1|v2]+)/logout/', views.LogoutView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webTest/', views.WebTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

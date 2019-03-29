@@ -1,34 +1,25 @@
 from rest_framework.authentication import BaseAuthentication
-from user.models import UserInfo
+from rest_framework.authtoken.models import Token
+from django.core.cache import cache
+from django.contrib.auth.models import User
+
 
 # 自定义验证
-
-
 class TokenAuthentication(BaseAuthentication):
     # 通过token认证
-    # 通过request.user=user对象  request.auth=user.role
+    # 通过request.user=user对象  request.auth=user.token
     # 不通过request.user=None  request.auth=None
     # 提供给后续权限认证
     def authenticate(self, request):
-        email = request.GET.get('email')
+        userId = request.GET.get('userId')
         token = request.GET.get('token')
-        if token and email:
-            key = email.split('@')[0] + email.split('@')[1]
-            if token == request.COOKIES.get(key+'token'):
-                # 赋值request.user=user对象  request.auth=user.role
-                user = UserInfo.objects.filter(email=email).first()
-                if user:
-                    # 用户存在
-                    return (user, user.role)
-                else:
-                    return (None, None)
-            else:
-                print('Token验证报错，COOKIES信息为：', request.COOKIES)
-                return (None, None)
-        else:
-            # from rest_framework import exceptions
-            # raise exceptions.AuthenticationFailed({
-            #     'errocde': 901,
-            #     'errmsg': 'Token fail'
-            # })
-            return (None, None)
+        authen_user = (None, None)
+        if userId and token:
+            # 验证token
+            user = User.objects.filter(id=userId).first()
+            token_user = Token.objects.filter(user=user).first()
+            if token == token_user.key:
+                # token一致，验证token是否在有效时间内
+                if cache.get(userId):
+                    authen_user = (user, token)
+        return authen_user

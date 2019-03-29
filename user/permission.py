@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 
-
 # 自定义权限
+
 
 # 访问用户信息权限
 class UserPeimission(BasePermission):

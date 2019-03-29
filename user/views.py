@@ -16,14 +16,9 @@ from user.tests import webCase
 
 
 # Create your views here.
-# 用户信息
-class UserView(ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
 # 用户登陆
 class LoginView(APIView):
+    authentication_classes = []
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
@@ -75,20 +70,9 @@ class LoginView(APIView):
                 token.delete()
             token = Token.objects.create(user=user)
             data['token'] = token.key
-            # 添加登陆记录，并加入数据库缓存
-            if not cache.get(user.username):
-                cache.set(user.username, 1, 60 * 60)
-                LoginRecord.objects.create(user=user)
-        return Response(data)
-
-
-# 用户注销
-class LogoutView(APIView):
-    permission_classes = []
-
-    def get(self, request, *args, **kwargs):
-        data = {'errcode': 0, 'errmsg': 'ok'}
-        auth.logout(request)
+            # 添加登陆记录，并加入数据库缓存作为登陆凭证（24小时内有效）
+            cache.set(user.id, 1, 60 * 60 * 24)
+            LoginRecord.objects.create(user=user)
         return Response(data)
 
 
@@ -122,11 +106,14 @@ class CaptchaView(APIView):
                 # )
 
                 # 邮件内容为HTML
+                # 登陆地址
+                url = 'http://mpstest.longsys.com/'
                 html_content = "<p><strong>验证码：%s</strong></p>\
                     <p>This is an <font size=3 color='green'>\
-                    <strong>important</strong></font> message.</p>" % (code)
+                    <strong>important</strong></font> message.</p><br>\
+                    <a href='%s'>点击登陆<a>" % (code, url)
                 msg = EmailMessage(
-                    'LONGSYS自动化测试平台-%s' % (code),
+                    '自动化测试平台-%s' % (code),
                     html_content,
                     '18129832245@163.com',
                     [email],
@@ -143,6 +130,12 @@ class CaptchaView(APIView):
         if not data.get('errcode'):
             cache.set(email, code, 60 * 1)
         return Response(data=data)
+
+
+# 用户信息
+class UserView(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 # 项目
