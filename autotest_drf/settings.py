@@ -166,7 +166,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser', 'rest_framework.parsers.FormParser'],
     # 分页配置
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',  # 默认分页类型
-    'PAGE_SIZE': 20,  # 默认每页显示的数据条数
+    'PAGE_SIZE': 10,  # 默认每页显示的数据条数
     # 序列化验证错误信息
     'NON_FIELD_ERRORS_KEY': 'errors',
     # 验证设置
@@ -188,7 +188,7 @@ REST_FRAMEWORK = {
         'limit': '30/minute',
     },
     # 定义异常处理
-    'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
+    # 'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
     # django 过滤器
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }

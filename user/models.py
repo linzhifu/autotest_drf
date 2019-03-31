@@ -22,6 +22,9 @@ class Project(models.Model):
     class Meta:
         verbose_name_plural = '项目信息'
 
+    def __str__(self):
+        return self.proname
+
 
 # 前端测试管理
 class WebManager(models.Model):
@@ -32,10 +35,13 @@ class WebManager(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='创建人')
     project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, verbose_name='所属项目', null=True)
+        Project, on_delete=models.CASCADE, verbose_name='所属项目')
 
     class Meta:
         verbose_name_plural = '前端测试管理'
+
+    def __str__(self):
+        return self.webname
 
 
 # 后端测试管理
@@ -47,15 +53,19 @@ class ApiManager(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='创建人')
     project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, verbose_name='所属项目', null=True)
+        Project, on_delete=models.CASCADE, verbose_name='所属项目')
 
     class Meta:
         verbose_name_plural = '后端测试管理'
 
+    def __str__(self):
+        return self.apiname
+
 
 # 后端测试案例
 class ApiCase(models.Model):
-    apiManager = models.ForeignKey('ApiManager', on_delete=models.CASCADE)
+    apiManager = models.ForeignKey(
+        'ApiManager', on_delete=models.CASCADE, verbose_name='前端模块')
     # 接口标题
     apiname = models.CharField('接口名称', max_length=100, null=True)
     # 请求方法
@@ -72,7 +82,7 @@ class ApiCase(models.Model):
     # 请求参数和值param
     apiparam = models.TextField(
         '请求参数param', max_length=800, null=True, blank='None')
-    # 请求数据JSON
+    # 请求数据Body
     apijson = models.TextField(
         '请求数据json', max_length=800, null=True, blank='None')
     # 响应数据
@@ -89,6 +99,9 @@ class ApiCase(models.Model):
     update_time = models.DateTimeField('创建时间', auto_now=True)
     # 测试顺序
     index = models.IntegerField('测试序号', default=1)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
 
     class Meta:
         verbose_name_plural = '后端测试案例'
@@ -96,7 +109,8 @@ class ApiCase(models.Model):
 
 # 前端测试案例
 class WebCase(models.Model):
-    webManager = models.ForeignKey('WebManager', on_delete=models.CASCADE)
+    webManager = models.ForeignKey(
+        'WebManager', on_delete=models.CASCADE, verbose_name='前端模块')
     # 步骤名称
     webname = models.CharField('步骤名称', max_length=100, null=True)
     # Css选择器
@@ -118,6 +132,9 @@ class WebCase(models.Model):
     update_time = models.DateTimeField('创建时间', auto_now=True)
     # 测试顺序
     index = models.IntegerField('测试序号', default=1)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
 
     class Meta:
         verbose_name_plural = '前端测试案例'

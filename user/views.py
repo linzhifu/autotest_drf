@@ -178,6 +178,8 @@ class ApiCaseView(ModelViewSet):
 
 # 前端测试案例测试
 class WebTest(APIView):
+    permission_classes = []
+
     def post(self, request, *args, **kwargs):
         data = {'errcode': 0, 'errmsg': 'ok'}
         body_data = request.data

@@ -58,6 +58,7 @@ class WebManagerSerializer(serializers.ModelSerializer):
 # 前端测试案例
 class WebCaseSerializer(serializers.ModelSerializer):
     weburl = serializers.SerializerMethodField(read_only=True)
+    webparam = serializers.CharField(allow_null=True, allow_blank=True)
 
     def get_weburl(self, row):
         webManager = WebManager.objects.filter(id=row.webManager.id).first()
@@ -67,8 +68,9 @@ class WebCaseSerializer(serializers.ModelSerializer):
         model = WebCase
         fields = [
             'id', 'webname', 'webcss', 'weboprate', 'webparam', 'create_time',
-            'update_time', 'index', 'webManager', 'weburl', 'oprateOBj'
+            'update_time', 'index', 'webManager', 'weburl', 'oprateOBj', 'user'
         ]
+        # extra_kwargs = {'webparam': {'allow_null': True}}
 
 
 # 后端测试管理
@@ -110,5 +112,5 @@ class ApiCaseSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'apiname', 'apimethod', 'apiurl', 'apiparam', 'apijson',
             'apiresponse', 'update_time', 'create_time', 'index',
-            'apiManagerName', 'apiManagerUrl', 'apiManager'
+            'apiManagerName', 'apiManagerUrl', 'apiManager', 'user'
         ]
