@@ -8,11 +8,12 @@ from rest_framework.authtoken.models import Token
 from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
-from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase
-from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer
+from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, TestType, CheckWebCase
+from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, CheckWebCaseSerializer
+from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer
 import string
 import random
-from user.tests import webCase
+from user.tests import webCase, webTest
 
 
 # Create your views here.
@@ -157,7 +158,15 @@ class WebCaseView(ModelViewSet):
     queryset = WebCase.objects.all()
     serializer_class = WebCaseSerializer
     filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('webManager', )
+    filter_fields = ('testType', )
+
+
+# 前端测试数据验证
+class CheckWebCaseView(ModelViewSet):
+    queryset = CheckWebCase.objects.all()
+    serializer_class = CheckWebCaseSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('testType', )
 
 
 # 后端测试管理
@@ -176,14 +185,31 @@ class ApiCaseView(ModelViewSet):
     filter_fields = ('apiManager', )
 
 
-# 前端测试案例测试
-class WebTest(APIView):
+# 测试类型
+class TestTypeView(ModelViewSet):
+    queryset = TestType.objects.all()
+    serializer_class = TestTypeSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('content_type', 'object_id')
+
+
+# 前端测试案例单元测试
+class WebCaseTest(APIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
-        data = {'errcode': 0, 'errmsg': 'ok'}
         body_data = request.data
         url = request.GET.get('url')
-        print(body_data)
-        webCase(url, body_data)
+        data = webCase(url, body_data)
+        return Response(data)
+
+
+# 前端整体测试
+class WebTypeTest(APIView):
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        body_data = request.data
+        url = request.GET.get('url')
+        data = webTest(url, body_data)
         return Response(data)

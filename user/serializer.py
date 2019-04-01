@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from user.models import Project, WebManager, WebCase, ApiManager, ApiCase
-from django.contrib.auth.models import User
+from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, TestType, CheckWebCase
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User, ContentType
 
 
 # django自带USER
@@ -38,6 +38,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class WebManagerSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField(read_only=True)
     proname = serializers.SerializerMethodField(read_only=True)
+    contenttype = serializers.SerializerMethodField(read_only=True)
 
     def get_username(self, row):
         user = User.objects.filter(id=row.user.id).first()
@@ -47,29 +48,41 @@ class WebManagerSerializer(serializers.ModelSerializer):
         project = Project.objects.filter(id=row.project.id).first()
         return project.proname
 
+    def get_contenttype(self, row):
+        contenttype = ContentType.objects.get_for_model(WebManager)
+        return contenttype.id
+
     class Meta:
         model = WebManager
         fields = [
             'id', 'webname', 'webdes', 'user', 'username', 'project',
-            'proname', 'weburl'
+            'proname', 'weburl', 'result', 'update_time', 'contenttype'
         ]
+
+
+# 前端测试数据验证
+class CheckWebCaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CheckWebCase
+        fields = '__all__'
 
 
 # 前端测试案例
 class WebCaseSerializer(serializers.ModelSerializer):
-    weburl = serializers.SerializerMethodField(read_only=True)
-    webparam = serializers.CharField(allow_null=True, allow_blank=True)
+    # weburl = serializers.SerializerMethodField(read_only=True)
+    # webparam = serializers.CharField(allow_null=True, allow_blank=True)
 
-    def get_weburl(self, row):
-        webManager = WebManager.objects.filter(id=row.webManager.id).first()
-        return webManager.weburl
+    # def get_weburl(self, row):
+    #     webManager = WebManager.objects.filter(id=row.webManager.id).first()
+    #     return webManager.weburl
 
     class Meta:
         model = WebCase
-        fields = [
-            'id', 'webname', 'webcss', 'weboprate', 'webparam', 'create_time',
-            'update_time', 'index', 'webManager', 'weburl', 'oprateOBj', 'user'
-        ]
+        fields = '__all__'
+        # fields = [
+        #     'id', 'webname', 'webcss', 'weboprate', 'webparam', 'create_time',
+        #     'update_time', 'index', 'user'
+        # ]
         # extra_kwargs = {'webparam': {'allow_null': True}}
 
 
@@ -114,3 +127,10 @@ class ApiCaseSerializer(serializers.ModelSerializer):
             'apiresponse', 'update_time', 'create_time', 'index',
             'apiManagerName', 'apiManagerUrl', 'apiManager', 'user'
         ]
+
+
+# 测试分类
+class TestTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestType
+        fields = '__all__'

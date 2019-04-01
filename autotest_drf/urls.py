@@ -29,11 +29,14 @@ router.register('webManager', views.WebManagerView)
 router.register('apiManager', views.ApiManagerView)
 router.register('apiCase', views.ApiCaseView)
 router.register('webCase', views.WebCaseView)
+router.register('testType', views.TestTypeView)
+router.register('checkWebCase', views.CheckWebCaseView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'(?P<version>[v1|v2]+)/captcha/', views.CaptchaView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
-    re_path(r'(?P<version>[v1|v2]+)/webTest/', views.WebTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/webCaseTest/', views.WebCaseTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/webTypeTest/', views.WebTypeTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

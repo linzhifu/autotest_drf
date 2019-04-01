@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, WebCase
+from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, WebCase, TestType, CheckWebCase
 
 
 # Register your models here.
@@ -36,15 +36,8 @@ class ApiCaseAdmin(admin.ModelAdmin):
     model = ApiCase
 
     list_display = [
-        'apiname',
-        'apimethod',
-        'apiurl',
-        'apiManager',
-        'apistatus',
-        'create_time',
-        'update_time',
-        'index',
-        'user'
+        'apiname', 'apimethod', 'apiurl', 'apiManager', 'apistatus',
+        'create_time', 'update_time', 'index', 'user'
     ]
 
 
@@ -52,7 +45,19 @@ class ApiCaseAdmin(admin.ModelAdmin):
 class WebManagerAdmin(admin.ModelAdmin):
     model = WebManager
 
-    list_display = ['webname', 'webdes', 'weburl', 'user', 'project']
+    list_display = [
+        'webname', 'webdes', 'weburl', 'user', 'project', 'result',
+        'update_time'
+    ]
+
+
+@admin.register(CheckWebCase)
+class CheckWebCaseAdmin(admin.ModelAdmin):
+    model = CheckWebCase
+
+    list_display = [
+        'webname', 'testType', 'create_time', 'update_time', 'index', 'user'
+    ]
 
 
 @admin.register(WebCase)
@@ -60,10 +65,13 @@ class WebCaseAdmin(admin.ModelAdmin):
     model = WebCase
 
     list_display = [
-        'webname',
-        'webManager',
-        'create_time',
-        'update_time',
-        'index',
-        'user'
+        'webname', 'testType', 'create_time', 'update_time', 'index', 'user'
     ]
+
+
+@admin.register(TestType)
+class TestTypeAdmin(admin.ModelAdmin):
+    model = TestType
+
+    list_display = ('typename', 'typedes', 'content_object', 'index', 'user',
+                    'result', 'update_time')

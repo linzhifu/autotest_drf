@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 
 # Create your models here.
@@ -36,6 +37,11 @@ class WebManager(models.Model):
         User, on_delete=models.CASCADE, verbose_name='创建人')
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now_add=True)
+
+    # 数据库不生成，只用于链表查询
+    test_type = GenericRelation('TestType')
 
     class Meta:
         verbose_name_plural = '前端测试管理'
@@ -54,6 +60,9 @@ class ApiManager(models.Model):
         User, on_delete=models.CASCADE, verbose_name='创建人')
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
+
+    # 数据库不生成，只用于链表查询
+    test_type = GenericRelation('TestType')
 
     class Meta:
         verbose_name_plural = '后端测试管理'
@@ -109,27 +118,20 @@ class ApiCase(models.Model):
 
 # 前端测试案例
 class WebCase(models.Model):
-    webManager = models.ForeignKey(
-        'WebManager', on_delete=models.CASCADE, verbose_name='前端模块')
+    testType = models.ForeignKey(
+        'TestType', on_delete=models.CASCADE, verbose_name='测试分类')
     # 步骤名称
-    webname = models.CharField('步骤名称', max_length=100, null=True)
+    webname = models.CharField('步骤名称', max_length=100)
     # Css选择器
-    webcss = models.TextField('Css选择器', max_length=800, null=True)
+    webcss = models.TextField('Css选择器', max_length=800, null=True, blank=True)
     # 元素操作
-    weboprate = models.TextField(
-        '元素操作', max_length=800, null=True, blank='None')
+    weboprate = models.TextField('元素操作', max_length=800, null=True, blank=True)
     # 操作参数
-    webparam = models.TextField(
-        '操作参数',
-        max_length=500,
-        null=True,
-    )
-    # 操作类型
-    oprateOBj = models.CharField('操作类型', max_length=200, null=True)
+    webparam = models.TextField('操作参数', max_length=500, null=True, blank=True)
     # 创建时间-自动获取当前时间
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     # 更新时间-自动获取当前时间
-    update_time = models.DateTimeField('创建时间', auto_now=True)
+    update_time = models.DateTimeField('最近修改', auto_now=True)
     # 测试顺序
     index = models.IntegerField('测试序号', default=1)
     # 创建人
@@ -139,3 +141,57 @@ class WebCase(models.Model):
     class Meta:
         verbose_name_plural = '前端测试案例'
         ordering = ('index', )
+
+
+# 前端数据验证
+class CheckWebCase(models.Model):
+    testType = models.ForeignKey(
+        'TestType', on_delete=models.CASCADE, verbose_name='测试分类')
+    # 步骤名称
+    webname = models.CharField('步骤名称', max_length=100)
+    # Css选择器
+    webcss = models.TextField('Css选择器', max_length=800, null=True, blank=True)
+    # 元素操作
+    weboprate = models.TextField('元素操作', max_length=800, null=True, blank=True)
+    # 操作参数
+    webparam = models.TextField('操作参数', max_length=500, null=True, blank=True)
+    # 验证数据
+    checktext = models.TextField('验证数据', max_length=500, null=True, blank=True)
+    # 创建时间-自动获取当前时间
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    # 更新时间-自动获取当前时间
+    update_time = models.DateTimeField('最近修改', auto_now=True)
+    # 测试顺序
+    index = models.IntegerField('测试序号', default=1)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+
+    class Meta:
+        verbose_name_plural = '前端测试数据验证'
+        ordering = ('index', )
+
+
+# 测试类型分类
+class TestType(models.Model):
+    is_test = models.BooleanField(verbose_name='是否测试', default=True)
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+    typename = models.CharField(verbose_name='名称', max_length=500)
+    typedes = models.CharField(verbose_name='描述', max_length=500)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    # 测试顺序
+    index = models.IntegerField('测试序号', default=1)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+
+    # 方便直接生成，不在数据表生成
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        verbose_name_plural = '测试类型分类'
+        ordering = ('index', )
+
+    def __str__(self):
+        return self.typename
