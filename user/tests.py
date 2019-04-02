@@ -21,8 +21,11 @@ class DemoTest(TestCase):
 
 
 # 前端单元测试操作
-def webCase(url, oprates):
-    driver = webdriver.Chrome()
+def webCase(url, oprates, host):
+    desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
+    driver = webdriver.Remote(
+        host, desired_capabilities=desired_capabilities)
+    # driver = webdriver.Chrome()
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
@@ -30,7 +33,7 @@ def webCase(url, oprates):
     # 测试结果
     data = {'errcode': 0, 'errmsg': 'ok'}
     text = ''
-    print(oprates)
+    # print(oprates)
 
     # 操作前端页面
     try:
@@ -47,7 +50,7 @@ def webCase(url, oprates):
     except Exception as e:
         print(e)
         data['errcode'] = 101
-        data['errmsg'] = '获取元素异常，请检查CSS参数'
+        data['errmsg'] = e
         driver.quit()
         return data
 
@@ -63,8 +66,8 @@ def webCase(url, oprates):
             else:
                 text = method()
             sleep(1)
-            print(text)
-            print(oprate['checktext'])
+            # print(text)
+            # print(oprate['checktext'])
             if text != oprate['checktext']:
                 data['errcode'] = 102
                 data['errmsg'] = '验证数据不一致'
@@ -74,7 +77,7 @@ def webCase(url, oprates):
     except Exception as e:
         print(e)
         data['errcode'] = 103
-        data['errmsg'] = '获取文本异常,请检查参照参数'
+        data['errmsg'] = e
         driver.quit()
         return data
 
@@ -83,8 +86,11 @@ def webCase(url, oprates):
 
 
 # 前端整体测试
-def webTest(url, webTypes):
-    driver = webdriver.Chrome()
+def webTest(url, webTypes, host):
+    desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
+    driver = webdriver.Remote(
+        host, desired_capabilities=desired_capabilities)
+    # driver = webdriver.Chrome()
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
@@ -92,7 +98,7 @@ def webTest(url, webTypes):
     # 测试结果
     data = {'errcode': 0, 'errmsg': 'ok'}
     text = ''
-    print(webTypes)
+    # print(webTypes)
 
     for webType in webTypes:
         if webType['is_test']:
@@ -101,11 +107,12 @@ def webTest(url, webTypes):
             for webCase in webCases:
                 try:
                     element = wait.until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR, webCase.webcss)),
+                        EC.element_to_be_clickable((By.CSS_SELECTOR,
+                                                    webCase.webcss)),
                         message='找不到元素-%s' % (webCase.webcss))
                     method = getattr(element, webCase.weboprate)
                     if webCase.webparam:
-                        print(webCase.webparam)
+                        # print(webCase.webparam)
                         method(webCase.webparam)
                     else:
                         method()
@@ -113,7 +120,7 @@ def webTest(url, webTypes):
                 except Exception as e:
                     print(e)
                     data['errcode'] = 101
-                    data['errmsg'] = '获取元素异常，请检查CSS参数'
+                    data['errmsg'] = e
                     driver.quit()
                     return data
 
@@ -122,7 +129,8 @@ def webTest(url, webTypes):
             for checkWebCase in checkWebCases:
                 try:
                     element = wait.until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR, checkWebCase.webcss)),
+                        EC.element_to_be_clickable((By.CSS_SELECTOR,
+                                                    checkWebCase.webcss)),
                         message='找不到元素-%s' % (checkWebCase.webcss))
                     method = getattr(element, checkWebCase.weboprate)
                     if checkWebCase.webparam:
@@ -130,8 +138,8 @@ def webTest(url, webTypes):
                     else:
                         text = method()
                     sleep(1)
-                    print(text)
-                    print(checkWebCase.checktext)
+                    # print(text)
+                    # print(checkWebCase.checktext)
                     if text != checkWebCase.checktext:
                         data['errcode'] = 102
                         data['errmsg'] = '验证数据不一致'
@@ -141,7 +149,7 @@ def webTest(url, webTypes):
                 except Exception as e:
                     print(e)
                     data['errcode'] = 103
-                    data['errmsg'] = '获取数据异常,请检查CSS参数'
+                    data['errmsg'] = e
                     driver.quit()
                     return data
 

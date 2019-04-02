@@ -198,9 +198,15 @@ class WebCaseTest(APIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip+':4444/wd/hub'
+        print(host)
         body_data = request.data
         url = request.GET.get('url')
-        data = webCase(url, body_data)
+        data = webCase(url, body_data, host)
         return Response(data)
 
 
@@ -209,7 +215,13 @@ class WebTypeTest(APIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip+':4444/wd/hub'
+        print(host)
         body_data = request.data
         url = request.GET.get('url')
-        data = webTest(url, body_data)
+        data = webTest(url, body_data, host)
         return Response(data)

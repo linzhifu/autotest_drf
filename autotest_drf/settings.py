@@ -25,7 +25,7 @@ SECRET_KEY = '#3pc#_$9(e2423)32qc0r#_q9lzm@h(p7$thw$o4&pycriyloa'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
