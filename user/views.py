@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+# from rest_framework.filters import OrderingFilter
 from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
@@ -181,8 +182,8 @@ class ApiManagerView(ModelViewSet):
 class ApiCaseView(ModelViewSet):
     queryset = ApiCase.objects.all()
     serializer_class = ApiCaseSerializer
-    filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('apiManager', )
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('testType', )
 
 
 # 测试类型

@@ -19,6 +19,7 @@ class ProjectAdmin(admin.ModelAdmin):
     model = Project
 
     list_display = [
+        'id',
         'proname',
         'prodes',
         'user',
@@ -29,7 +30,7 @@ class ProjectAdmin(admin.ModelAdmin):
 class ApiManagerAdmin(admin.ModelAdmin):
     model = Project
 
-    list_display = ['apiname', 'apides', 'apiurl', 'user', 'project']
+    list_display = ['id', 'apiname', 'apides', 'apiurl', 'user', 'project']
 
 
 @admin.register(ApiCase)
@@ -37,7 +38,7 @@ class ApiCaseAdmin(admin.ModelAdmin):
     model = ApiCase
 
     list_display = [
-        'apiname', 'apimethod', 'apiurl', 'apiManager', 'apistatus',
+        'id', 'apiname', 'apimethod', 'apiurl', 'testType', 'result',
         'create_time', 'update_time', 'index', 'user'
     ]
 
@@ -47,7 +48,7 @@ class WebManagerAdmin(admin.ModelAdmin):
     model = WebManager
 
     list_display = [
-        'webname', 'webdes', 'weburl', 'user', 'project', 'result',
+        'id', 'webname', 'webdes', 'weburl', 'user', 'project', 'result',
         'update_time'
     ]
 
@@ -57,7 +58,8 @@ class CheckWebCaseAdmin(admin.ModelAdmin):
     model = CheckWebCase
 
     list_display = [
-        'webname', 'testType', 'create_time', 'update_time', 'index', 'user'
+        'id', 'webname', 'testType', 'create_time', 'update_time', 'index',
+        'user'
     ]
 
 
@@ -66,7 +68,8 @@ class WebCaseAdmin(admin.ModelAdmin):
     model = WebCase
 
     list_display = [
-        'webname', 'testType', 'create_time', 'update_time', 'index', 'user'
+        'id', 'webname', 'testType', 'create_time', 'update_time', 'index',
+        'user'
     ]
 
 
@@ -74,8 +77,8 @@ class WebCaseAdmin(admin.ModelAdmin):
 class TestTypeAdmin(admin.ModelAdmin):
     model = TestType
 
-    list_display = ('typename', 'typedes', 'content_object', 'index', 'user',
-                    'result', 'update_time')
+    list_display = ('id', 'typename', 'typedes', 'content_object', 'index',
+                    'user', 'result', 'update_time')
 
 
 @admin.register(TestRecord)

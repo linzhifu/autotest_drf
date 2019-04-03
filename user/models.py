@@ -23,6 +23,7 @@ class Project(models.Model):
 
     class Meta:
         verbose_name_plural = '项目信息'
+        ordering = ['proname']
 
     def __str__(self):
         return self.proname
@@ -65,9 +66,11 @@ class ApiManager(models.Model):
 
     # 数据库不生成，只用于链表查询
     test_type = GenericRelation('TestType')
+    test_record = GenericRelation('TestRecord')
 
     class Meta:
         verbose_name_plural = '后端测试管理'
+        ordering = ['apiname']
 
     def __str__(self):
         return self.apiname
@@ -75,10 +78,10 @@ class ApiManager(models.Model):
 
 # 后端测试案例
 class ApiCase(models.Model):
-    apiManager = models.ForeignKey(
-        'ApiManager', on_delete=models.CASCADE, verbose_name='前端模块')
+    testType = models.ForeignKey(
+        'TestType', on_delete=models.CASCADE, verbose_name='测试分类')
     # 接口标题
-    apiname = models.CharField('接口名称', max_length=100, null=True)
+    apiname = models.CharField('接口名称', max_length=100)
     # 请求方法
     REQUEST_METHOD = (('get', 'get'), ('post', 'post'), ('put', 'put'),
                       ('delete', 'delete'), ('patch', 'patch'))
@@ -87,27 +90,28 @@ class ApiCase(models.Model):
         choices=REQUEST_METHOD,
         default='get',
         max_length=200,
-        null=True)
+        null=True,
+        blank=True)
     # 地址
     apiurl = models.CharField('url地址', max_length=200, null=True)
     # 请求参数和值param
     apiparam = models.TextField(
-        '请求参数param', max_length=800, null=True, blank='None')
+        '请求参数param', max_length=800, null=True, blank=True)
     # 请求数据Body
     apijson = models.TextField(
-        '请求数据json', max_length=800, null=True, blank='None')
+        '请求数据json', max_length=800, null=True, blank=True)
     # 响应数据
     apiresponse = models.TextField(
-        '响应数据json',
-        max_length=5000,
-        null=True,
-    )
+        '响应数据json', max_length=5000, null=True, blank=True)
+    # 测试数据
+    testdata = models.TextField(
+        '测试数据', max_length=5000, null=True, blank=True)
     # 测试结果
-    apistatus = models.BooleanField('是否通过', default=True)
+    result = models.BooleanField('是否通过', default=False)
     # 创建时间-自动获取当前时间
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     # 更新时间-自动获取当前时间
-    update_time = models.DateTimeField('创建时间', auto_now=True)
+    update_time = models.DateTimeField('更新时间', auto_now=True)
     # 测试顺序
     index = models.IntegerField('测试序号', default=1)
     # 创建人
@@ -116,6 +120,7 @@ class ApiCase(models.Model):
 
     class Meta:
         verbose_name_plural = '后端测试案例'
+        ordering = ['index']
 
 
 # 前端测试案例

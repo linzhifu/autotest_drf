@@ -90,6 +90,7 @@ class WebCaseSerializer(serializers.ModelSerializer):
 class ApiManagerSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField(read_only=True)
     proname = serializers.SerializerMethodField(read_only=True)
+    contenttype = serializers.SerializerMethodField(read_only=True)
 
     def get_username(self, row):
         user = User.objects.filter(id=row.user.id).first()
@@ -99,34 +100,39 @@ class ApiManagerSerializer(serializers.ModelSerializer):
         project = Project.objects.filter(id=row.project.id).first()
         return project.proname
 
+    def get_contenttype(self, row):
+        contenttype = ContentType.objects.get_for_model(ApiManager)
+        return contenttype.id
+
     class Meta:
         model = ApiManager
         fields = [
             'id', 'apiname', 'apides', 'apiurl', 'user', 'username', 'project',
-            'proname'
+            'proname', 'contenttype'
         ]
 
 
 # 后端测试案例
 class ApiCaseSerializer(serializers.ModelSerializer):
-    apiManagerName = serializers.SerializerMethodField(read_only=True)
-    apiManagerUrl = serializers.SerializerMethodField(read_only=True)
+    # apiManagerName = serializers.SerializerMethodField(read_only=True)
+    # apiManagerUrl = serializers.SerializerMethodField(read_only=True)
 
-    def get_apiManagerName(self, row):
-        apiManager = ApiManager.objects.filter(id=row.apiManager.id).first()
-        return apiManager.apiname
+    # def get_apiManagerName(self, row):
+    #     apiManager = ApiManager.objects.filter(id=row.apiManager.id).first()
+    #     return apiManager.apiname
 
-    def get_apiManagerUrl(self, row):
-        apiManager = ApiManager.objects.filter(id=row.apiManager.id).first()
-        return apiManager.apiurl
+    # def get_apiManagerUrl(self, row):
+    #     apiManager = ApiManager.objects.filter(id=row.apiManager.id).first()
+    #     return apiManager.apiurl
 
     class Meta:
         model = ApiCase
-        fields = [
-            'id', 'apiname', 'apimethod', 'apiurl', 'apiparam', 'apijson',
-            'apiresponse', 'update_time', 'create_time', 'index',
-            'apiManagerName', 'apiManagerUrl', 'apiManager', 'user'
-        ]
+        fields = '__all__'
+        # fields = [
+        #     'id', 'apiname', 'apimethod', 'apiurl', 'apiparam', 'apijson',
+        #     'apiresponse', 'update_time', 'create_time', 'index',
+        #     'apiManagerName', 'apiManagerUrl', 'apiManager', 'user'
+        # ]
 
 
 # 测试分类

@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
     # 解析设置
     'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser', 'rest_framework.parsers.FormParser'],
     # 分页配置
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',  # 默认分页类型
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # 默认分页类型
     'PAGE_SIZE': 10,  # 默认每页显示的数据条数
     # 序列化验证错误信息
     'NON_FIELD_ERRORS_KEY': 'errors',
@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
     ],
     # 权限限制
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         # 'rest_framework.permissions.IsAdminUser',
         # 'rest_framework.permissions.DjangoObjectPermissions',
         # 'user.permission.EditPeimission'
@@ -184,8 +184,8 @@ REST_FRAMEWORK = {
     # 节流、访问次数限制
     'DEFAULT_THROTTLE_CLASSES': ['user.throttle.UserThrottle', ],
     'DEFAULT_THROTTLE_RATES': {
-        # 设置每分钟访问10次
-        'limit': '30/minute',
+        # 设置每分钟访问100次
+        'limit': '100/minute',
     },
     # 定义异常处理
     # 'EXCEPTION_HANDLER': 'user.exception.my_exception_handler',
