@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.utils import timezone
 
 
 # Create your models here.
@@ -42,6 +43,7 @@ class WebManager(models.Model):
 
     # 数据库不生成，只用于链表查询
     test_type = GenericRelation('TestType')
+    test_record = GenericRelation('TestRecord')
 
     class Meta:
         verbose_name_plural = '前端测试管理'
@@ -188,6 +190,8 @@ class TestType(models.Model):
 
     # 方便直接生成，不在数据表生成
     content_object = GenericForeignKey('content_type', 'object_id')
+    # 方便查询记录
+    test_record = GenericRelation('TestRecord')
 
     class Meta:
         verbose_name_plural = '测试类型分类'
@@ -195,3 +199,21 @@ class TestType(models.Model):
 
     def __str__(self):
         return self.typename
+
+
+# 测试记录
+class TestRecord(models.Model):
+    test_all = models.IntegerField(default=0)
+    test_pass = models.IntegerField(default=0)
+    test_fail = models.IntegerField(default=0)
+    test_time = models.DateField(default=timezone.now)
+    content_type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        verbose_name = '测试计数'
+        verbose_name_plural = '测试计数'
+        ordering = [
+            '-test_time',
+        ]

@@ -195,33 +195,39 @@ class TestTypeView(ModelViewSet):
 
 # 前端测试案例单元测试
 class WebCaseTest(APIView):
+    authentication_classes = []
     permission_classes = []
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_FORWARDED_FOR'):
             ip = request.META['HTTP_X_FORWARDED_FOR']
         else:
             ip = request.META['REMOTE_ADDR']
-        host = ip+':4444/wd/hub'
-        print(host)
-        body_data = request.data
+        host = ip + ':4444/wd/hub'
         url = request.GET.get('url')
-        data = webCase(url, body_data, host)
+        testType_id = request.GET.get('testType')
+        webType = TestType.objects.filter(id=testType_id).first()
+        webManager = WebManager.objects.filter(id=webType.object_id).first()
+        data = webCase(url, host, webType, webManager)
         return Response(data)
 
 
 # 前端整体测试
 class WebTypeTest(APIView):
+    authentication_classes = []
     permission_classes = []
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_FORWARDED_FOR'):
             ip = request.META['HTTP_X_FORWARDED_FOR']
         else:
             ip = request.META['REMOTE_ADDR']
-        host = ip+':4444/wd/hub'
-        print(host)
-        body_data = request.data
+        host = ip + ':4444/wd/hub'
         url = request.GET.get('url')
-        data = webTest(url, body_data, host)
+        content_type_id = request.GET.get('content_type')
+        object_id = request.GET.get('object_id')
+        webTypes = TestType.objects.filter(
+            object_id=object_id, content_type_id=content_type_id)
+        webManager = WebManager.objects.filter(id=object_id).first()
+        data = webTest(url, host, webTypes, webManager, testName=webManager.webname)
         return Response(data)
