@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+# from django.test import TestCase, Client
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -103,16 +103,22 @@ def save_log(fuc):
     return wrapper
 
 
-# django测试示例
-class DemoTest(TestCase):
-    def test(self):
-        client = Client()
-        response = client.post('http://127.0.0.1:8000/v1/login/', {
-            "email": "linzhifu222@163.com",
-            "password": "123"
-        })
-        print(response.content)
-        self.assertEqual(True, True)
+# django项目测试示例（量产云平台）
+# class DemoTest(TestCase):
+#     def test(self):
+#         client = Client()
+#         url = 'http://127.0.0.1:8000/'
+#         projectId = 52
+#         response = client.get(url + '/api/v1/projectTest/',
+#                               {"projectId": projectId})
+#         print(response.content)
+#         self.assertEqual(True, True)
+def test():
+    url = 'http://127.0.0.1:8000/'
+    params = {"projectId": 52}
+    response = requests.request(
+        'get', url + '/api/v1/projectTest/', params=params)
+    print(response.json())
 
 
 # 添加一次测试记录
@@ -467,7 +473,7 @@ def apiCase(url, apiType, apiManager):
 
 
 @save_log
-# 后端整体测试
+# 后端模块测试
 def apiTest(url, apiTypes, apiManager, testName, type):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
@@ -539,4 +545,4 @@ def apiTest(url, apiTypes, apiManager, testName, type):
 
 
 if __name__ == '__main__':
-    webCase()
+    test()

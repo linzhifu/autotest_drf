@@ -1,6 +1,6 @@
 from django.core.mail import EmailMessage
 from django.contrib import auth
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, ContentType
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -182,7 +182,7 @@ class ApiManagerView(ModelViewSet):
 class ApiCaseView(ModelViewSet):
     queryset = ApiCase.objects.all()
     serializer_class = ApiCaseSerializer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, )
     filter_fields = ('testType', )
 
 
@@ -213,7 +213,7 @@ class WebCaseTest(APIView):
         return Response(data)
 
 
-# 前端整体测试
+# 前端模块测试
 class WebTypeTest(APIView):
     authentication_classes = []
     permission_classes = []
@@ -230,7 +230,42 @@ class WebTypeTest(APIView):
         webTypes = TestType.objects.filter(
             object_id=object_id, content_type_id=content_type_id)
         webManager = WebManager.objects.filter(id=object_id).first()
-        data = webTest(url, host, webTypes, webManager, testName=webManager.webname, type='前端测试')
+        data = webTest(
+            url,
+            host,
+            webTypes,
+            webManager,
+            testName=webManager.webname,
+            type='前端测试')
+        return Response(data)
+
+
+# 前端整体测试
+class WebManagerTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4444/wd/hub'
+        projectId = request.GET.get('projectId')
+        webManagers = WebManager.objects.filter(project_id=projectId)
+        for webManager in webManagers:
+            content_type_id = ContentType.objects.get_for_model(WebManager)
+            webTypes = TestType.objects.filter(
+                object_id=webManager.id, content_type_id=content_type_id)
+            data = webTest(
+                webManager.weburl,
+                host,
+                webTypes,
+                webManager,
+                testName=webManager.webname,
+                type='前端测试')
+            if data['errcode']:
+                return Response(data)
         return Response(data)
 
 
@@ -248,7 +283,7 @@ class ApiCaseTest(APIView):
         return Response(data)
 
 
-# 后端整体测试
+# 后端模块测试
 class ApiTypeTest(APIView):
     authentication_classes = []
     permission_classes = []
@@ -260,5 +295,81 @@ class ApiTypeTest(APIView):
         apiTypes = TestType.objects.filter(
             object_id=object_id, content_type_id=content_type_id)
         apiManager = ApiManager.objects.filter(id=object_id).first()
-        data = apiTest(url, apiTypes, apiManager, testName=apiManager.apiname, type='后端测试')
+        data = apiTest(
+            url,
+            apiTypes,
+            apiManager,
+            testName=apiManager.apiname,
+            type='后端测试')
+        return Response(data)
+
+
+# 后端整体测试
+class ApiManagerTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        projectId = request.GET.get('projectId')
+        apiManagers = ApiManager.objects.filter(project_id=projectId)
+        for apiManager in apiManagers:
+            content_type_id = ContentType.objects.get_for_model(ApiManager)
+            apiTypes = TestType.objects.filter(
+                object_id=apiManager.id, content_type_id=content_type_id)
+            data = apiTest(
+                apiManager.apiurl,
+                apiTypes,
+                apiManager,
+                testName=apiManager.apiname,
+                type='后端测试')
+            if data['errcode']:
+                return Response(data)
+        return Response(data)
+
+
+# 项目测试
+class projectTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        projectId = request.GET.get('projectId')
+        # 后端测试
+        print('后端测试开始')
+        apiManagers = ApiManager.objects.filter(project_id=projectId)
+        for apiManager in apiManagers:
+            content_type_id = ContentType.objects.get_for_model(ApiManager)
+            apiTypes = TestType.objects.filter(
+                object_id=apiManager.id, content_type_id=content_type_id)
+            data = apiTest(
+                apiManager.apiurl,
+                apiTypes,
+                apiManager,
+                testName=apiManager.apiname,
+                type='后端测试')
+            if data['errcode']:
+                return Response(data)
+
+        # 前端测试
+        print('前端测试开始')
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4444/wd/hub'
+        webManagers = WebManager.objects.filter(project_id=projectId)
+        for webManager in webManagers:
+            content_type_id = ContentType.objects.get_for_model(WebManager)
+            webTypes = TestType.objects.filter(
+                object_id=webManager.id, content_type_id=content_type_id)
+            data = webTest(
+                webManager.weburl,
+                host,
+                webTypes,
+                webManager,
+                testName=webManager.webname,
+                type='前端测试')
+            if data['errcode']:
+                return Response(data)
+
         return Response(data)
