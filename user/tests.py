@@ -1,4 +1,4 @@
-# from django.test import TestCase, Client
+from django.test import TestCase, Client
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -48,15 +48,22 @@ loginCase = {
 def save_log(fuc):
     def wrapper(*args, **kwargs):
         testName = kwargs.get('testName')
+        testType = kwargs.get('type')
         # 测试目录
         logData = datetime.now().strftime('%Y-%m-%d')
-        LOGDIR = logData + '\\' + testName
+        logType = logData + '\\' + testType
+        LOGDIR = logType + '\\' + testName
 
         # 检查目录
         if os.path.exists(logData):
             pass
         else:
             os.mkdir(logData)
+
+        if os.path.exists(logType):
+            pass
+        else:
+            os.mkdir(logType)
 
         if os.path.exists(LOGDIR):
             pass
@@ -96,15 +103,16 @@ def save_log(fuc):
     return wrapper
 
 
-# class DemoTest(TestCase):
-#     def test(self):
-#         client = Client()
-#         response = client.post('http://127.0.0.1:8000/v1/login/', {
-#             "email": "linzhifu222@163.com",
-#             "password": "123"
-#         })
-#         print(response.content)
-#         self.assertEqual(True, True)
+# django测试示例
+class DemoTest(TestCase):
+    def test(self):
+        client = Client()
+        response = client.post('http://127.0.0.1:8000/v1/login/', {
+            "email": "linzhifu222@163.com",
+            "password": "123"
+        })
+        print(response.content)
+        self.assertEqual(True, True)
 
 
 # 添加一次测试记录
@@ -241,7 +249,7 @@ def webCase(url, host, webType, webManager):
 
 # 前端整体测试
 @save_log
-def webTest(url, host, webTypes, webManager, testName):
+def webTest(url, host, webTypes, webManager, testName, type):
     try:
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
         driver = webdriver.Remote(
@@ -460,7 +468,7 @@ def apiCase(url, apiType, apiManager):
 
 @save_log
 # 后端整体测试
-def apiTest(url, apiTypes, apiManager, testName):
+def apiTest(url, apiTypes, apiManager, testName, type):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
 

@@ -230,7 +230,7 @@ class WebTypeTest(APIView):
         webTypes = TestType.objects.filter(
             object_id=object_id, content_type_id=content_type_id)
         webManager = WebManager.objects.filter(id=object_id).first()
-        data = webTest(url, host, webTypes, webManager, testName=webManager.webname)
+        data = webTest(url, host, webTypes, webManager, testName=webManager.webname, type='前端测试')
         return Response(data)
 
 
@@ -260,5 +260,5 @@ class ApiTypeTest(APIView):
         apiTypes = TestType.objects.filter(
             object_id=object_id, content_type_id=content_type_id)
         apiManager = ApiManager.objects.filter(id=object_id).first()
-        data = apiTest(url, apiTypes, apiManager, testName=apiManager.apiname)
+        data = apiTest(url, apiTypes, apiManager, testName=apiManager.apiname, type='后端测试')
         return Response(data)
