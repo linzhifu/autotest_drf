@@ -54,12 +54,18 @@ def save_log(fuc):
 
         logger.addHandler(file_handler)
 
-        fuc(*args, **kwargs)
+        resu = fuc(*args, **kwargs)
 
         # 保存测试LOG
         logger.removeHandler(file_handler)
         file_handler.close()
-        return
+        if not resu.get('errcode'):
+            os.rename(savePath,
+                      LOGDIR + '\\' + '%s-%s.log' % (logName, 'pass'))
+        else:
+            os.rename(savePath,
+                      LOGDIR + '\\' + '%s-%s.log' % (logName, 'fail'))
+        return resu
 
     return wrapper
 
