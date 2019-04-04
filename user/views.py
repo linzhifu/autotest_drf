@@ -14,7 +14,7 @@ from user.serializer import ProjectSerializer, UserSerializer, WebManagerSeriali
 from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer
 import string
 import random
-from user.tests import webCase, webTest
+from user.tests import webCase, webTest, apiCase, apiTest
 
 
 # Create your views here.
@@ -231,4 +231,34 @@ class WebTypeTest(APIView):
             object_id=object_id, content_type_id=content_type_id)
         webManager = WebManager.objects.filter(id=object_id).first()
         data = webTest(url, host, webTypes, webManager, testName=webManager.webname)
+        return Response(data)
+
+
+# 后端API单元测试
+class ApiCaseTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        url = request.GET.get('url')
+        testType_id = request.GET.get('testType')
+        apiType = TestType.objects.filter(id=testType_id).first()
+        apiManager = ApiManager.objects.filter(id=apiType.object_id).first()
+        data = apiCase(url, apiType, apiManager)
+        return Response(data)
+
+
+# 后端整体测试
+class ApiTypeTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        url = request.GET.get('url')
+        content_type_id = request.GET.get('content_type')
+        object_id = request.GET.get('object_id')
+        apiTypes = TestType.objects.filter(
+            object_id=object_id, content_type_id=content_type_id)
+        apiManager = ApiManager.objects.filter(id=object_id).first()
+        data = apiTest(url, apiTypes, apiManager, testName=apiManager.apiname)
         return Response(data)

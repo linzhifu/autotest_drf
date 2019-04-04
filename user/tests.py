@@ -4,18 +4,44 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
-from user.models import WebCase, CheckWebCase, TestRecord
+from user.models import WebCase, CheckWebCase, TestRecord, ApiCase
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 import logging
 from datetime import datetime
 import os
+import requests
+import time
+import json
 
 # Create your tests here.
 
+# 日子打印配置
 logging.basicConfig(
     level=logging.DEBUG, format='%(asctime)s-%(levelname)s-%(message)s')
 logging.disable(logging.DEBUG)
+
+# token配置
+config = {
+    'userid': '',
+    'token': '',
+}
+
+# 用户登陆配置
+loginCase = {
+    'method': 'post',
+    'url': '/api/v1/user/login',
+    'params': {},
+    'json': {
+        'email': '18129832245@163.com',
+        'pswmd5': '202cb962ac59075b964b07152d234b70',
+        'timestamp': int(time.time())
+    },
+    'response': {
+        'errcode': '0',
+        'errmsg': 'ok'
+    }
+}
 
 
 # 记录测试log装饰器
@@ -318,6 +344,189 @@ def webTest(url, host, webTypes, webManager, testName):
     webManager.save()
     add_one_test_record(webManager, True)
     driver.quit()
+    return data
+
+
+# API请求
+def doTest(case, RESTAPI_DOMAIN):
+    start = time.time()
+    response = ''
+    error = None
+    try:
+        response = requests.request(
+            method=case['method'],
+            url=RESTAPI_DOMAIN + case['url'],
+            params=case['params'],
+            json=case['json'],
+            verify=False)
+    except requests.exceptions.ConnectionError:
+        error = "ConnectionError"
+    except requests.exceptions.HTTPError:
+        error = "HTTPError"
+    except requests.exceptions.URLRequired:
+        error = "URLRequired"
+    except requests.exceptions.TooManyRedirects:
+        error = "TooManyRedirects"
+    except requests.exceptions.ReadTimeout:
+        error = "ReadTimeout"
+    except requests.exceptions.InvalidURL:
+        error = "InvalidURL"
+    timeval = time.time() - start
+
+    rev = ''
+    if error is None:
+        # rev = json.loads(r.text)
+        try:
+            rev = response.json()
+        except Exception as e:
+            error = '返回数据不是JSON对象'
+
+    if error is None:
+        if str(rev.get('errcode')) != case['response']['errcode']:
+            error = 'errcode不一致'
+
+    # 记录userId和token
+    if error is None:
+        if rev.get('data'):
+            if rev['data'].get('userid') and rev['data'].get('token'):
+                config['userid'] = rev['data'].get('userid')
+                config['token'] = rev['data'].get('token')
+    result = {'time': str(round(timeval, 2)), 'error': error}
+    return result
+
+
+# 后端API单元测试
+def apiCase(url, apiType, apiManager):
+    data = {'errcode': 0, 'errmsg': 'ok'}
+    RESTAPI_DOMAIN = url
+
+    # 先登陆获取token
+    doTest(loginCase, RESTAPI_DOMAIN)
+    apiCases = ApiCase.objects.filter(testType=apiType.id)
+    for apiCase in apiCases:
+        # 格式化参数
+        case = {}
+        try:
+            params = json.loads(apiCase.apiparam)
+            if params.get('userid') and params.get('token'):
+                params['userid'] = config['userid']
+                params['token'] = config['token']
+        except Exception:
+            params = ''
+        try:
+            body_json = json.loads(apiCase.apijson)
+            if body_json.get('timestamp'):
+                body_json['timestamp'] = int(time.time())
+        except Exception:
+            body_json = ''
+        try:
+            response = json.loads(apiCase.apiresponse)
+        except Exception:
+            response = ''
+
+        case['method'] = apiCase.apimethod
+        case['url'] = apiCase.apiurl
+        case['params'] = params
+        case['json'] = body_json
+        case['response'] = response
+
+        # print(case)
+        # 发送请求
+        result = doTest(case, RESTAPI_DOMAIN)
+        if result['error']:
+            data['errcode'] = 101
+            data['errmsg'] = apiCase.apiname + '：' + result['error']
+            apiCase.result = False
+            apiCase.save()
+            apiType.result = False
+            apiType.save()
+            add_one_test_record(apiType, False)
+            apiManager.result = False
+            apiManager.save()
+            logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                         result['time'] + '-' + 'FAIL')
+            return data
+
+        apiCase.result = True
+        apiCase.save()
+        logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                     result['time'] + '-' + 'PASS')
+
+    apiType.result = True
+    apiType.save()
+    add_one_test_record(apiType, True)
+    return data
+
+
+@save_log
+# 后端整体测试
+def apiTest(url, apiTypes, apiManager, testName):
+    data = {'errcode': 0, 'errmsg': 'ok'}
+    RESTAPI_DOMAIN = url
+
+    # 先登陆获取token
+    doTest(loginCase, RESTAPI_DOMAIN)
+
+    for apiType in apiTypes:
+        if apiType.is_test:
+            apiCases = ApiCase.objects.filter(testType=apiType.id)
+            for apiCase in apiCases:
+                # 格式化参数
+                case = {}
+                try:
+                    params = json.loads(apiCase.apiparam)
+                    if params.get('userid') and params.get('token'):
+                        params['userid'] = config['userid']
+                        params['token'] = config['token']
+                except Exception:
+                    params = ''
+                try:
+                    body_json = json.loads(apiCase.apijson)
+                    if body_json.get('timestamp'):
+                        body_json['timestamp'] = int(time.time())
+                except Exception:
+                    body_json = ''
+                try:
+                    response = json.loads(apiCase.apiresponse)
+                except Exception:
+                    response = ''
+
+                case['method'] = apiCase.apimethod
+                case['url'] = apiCase.apiurl
+                case['params'] = params
+                case['json'] = body_json
+                case['response'] = response
+
+                # print(case)
+                # 发送请求
+                result = doTest(case, RESTAPI_DOMAIN)
+                if result['error']:
+                    data['errcode'] = 101
+                    data['errmsg'] = apiCase.apiname + '：' + result['error']
+                    apiCase.result = False
+                    apiCase.save()
+                    apiType.result = False
+                    apiType.save()
+                    apiManager.result = False
+                    apiManager.save()
+                    add_one_test_record(apiType, False)
+                    add_one_test_record(apiManager, False)
+                    logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                                 result['time'] + '-' + 'FAIL')
+                    return data
+
+                apiCase.result = True
+                apiCase.save()
+                logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                             result['time'] + '-' + 'PASS')
+
+            apiType.result = True
+            apiType.save()
+            add_one_test_record(apiType, True)
+
+    apiManager.result = True
+    apiManager.save()
+    add_one_test_record(apiManager, True)
     return data
 
 

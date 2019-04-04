@@ -30,7 +30,7 @@ class ProjectAdmin(admin.ModelAdmin):
 class ApiManagerAdmin(admin.ModelAdmin):
     model = Project
 
-    list_display = ['id', 'apiname', 'apides', 'apiurl', 'user', 'project']
+    list_display = ['id', 'apiname', 'apides', 'apiurl', 'user', 'project', 'result', 'update_time']
 
 
 @admin.register(ApiCase)

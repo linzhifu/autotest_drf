@@ -38,5 +38,7 @@ urlpatterns = [
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webCaseTest/', views.WebCaseTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webTypeTest/', views.WebTypeTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/apiCaseTest/', views.ApiCaseTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/apiTypeTest/', views.ApiTypeTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

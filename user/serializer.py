@@ -108,7 +108,7 @@ class ApiManagerSerializer(serializers.ModelSerializer):
         model = ApiManager
         fields = [
             'id', 'apiname', 'apides', 'apiurl', 'user', 'username', 'project',
-            'proname', 'contenttype'
+            'proname', 'contenttype', 'result', 'update_time'
         ]
 
 

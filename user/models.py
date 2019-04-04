@@ -63,6 +63,8 @@ class ApiManager(models.Model):
         User, on_delete=models.CASCADE, verbose_name='创建人')
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now_add=True)
 
     # 数据库不生成，只用于链表查询
     test_type = GenericRelation('TestType')
