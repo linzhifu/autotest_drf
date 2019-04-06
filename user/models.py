@@ -20,10 +20,14 @@ class Project(models.Model):
     prodes = models.CharField(verbose_name='项目描述', max_length=50)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='创建人')
+    webresult = models.BooleanField(verbose_name='前端测试结果', default=False)
+    apiresult = models.BooleanField(verbose_name='后端测试结果', default=False)
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
 
     class Meta:
         verbose_name_plural = '项目信息'
-        ordering = ['proname']
+        ordering = ['-update_time']
 
     def __str__(self):
         return self.proname
@@ -40,7 +44,7 @@ class WebManager(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
     result = models.BooleanField(verbose_name='测试结果', default=False)
-    update_time = models.DateTimeField(verbose_name='最后修改', auto_now_add=True)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
 
     # 数据库不生成，只用于链表查询
     test_type = GenericRelation('TestType')

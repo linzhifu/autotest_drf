@@ -252,6 +252,7 @@ class WebManagerTest(APIView):
             ip = request.META['REMOTE_ADDR']
         host = ip + ':4444/wd/hub'
         projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
         webManagers = WebManager.objects.filter(project_id=projectId)
         for webManager in webManagers:
             content_type_id = ContentType.objects.get_for_model(WebManager)
@@ -266,6 +267,9 @@ class WebManagerTest(APIView):
                 type='前端测试')
             if data['errcode']:
                 return Response(data)
+
+        project.webresult = True
+        project.save()
         return Response(data)
 
 
@@ -311,6 +315,7 @@ class ApiManagerTest(APIView):
 
     def get(self, request, *args, **kwargs):
         projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
             content_type_id = ContentType.objects.get_for_model(ApiManager)
@@ -324,6 +329,9 @@ class ApiManagerTest(APIView):
                 type='后端测试')
             if data['errcode']:
                 return Response(data)
+
+        project.apiresult = True
+        project.save()
         return Response(data)
 
 
@@ -334,6 +342,7 @@ class projectTest(APIView):
 
     def get(self, request, *args, **kwargs):
         projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
         # 后端测试
         print('后端测试开始')
         apiManagers = ApiManager.objects.filter(project_id=projectId)
@@ -349,6 +358,9 @@ class projectTest(APIView):
                 type='后端测试')
             if data['errcode']:
                 return Response(data)
+
+        project.apiresult = True
+        project.save()
 
         # 前端测试
         print('前端测试开始')
@@ -371,5 +383,9 @@ class projectTest(APIView):
                 type='前端测试')
             if data['errcode']:
                 return Response(data)
+
+        project.webresult = True
+        project.result = True
+        project.save()
 
         return Response(data)

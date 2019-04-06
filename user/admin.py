@@ -23,6 +23,10 @@ class ProjectAdmin(admin.ModelAdmin):
         'proname',
         'prodes',
         'user',
+        'webresult',
+        'apiresult',
+        'apiresult',
+        'update_time'
     ]
 
 

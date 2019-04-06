@@ -23,15 +23,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 # 项目
 class ProjectSerializer(serializers.ModelSerializer):
-    username = serializers.SerializerMethodField(read_only=True)
+    # username = serializers.SerializerMethodField(read_only=True)
 
-    def get_username(self, row):
-        user = User.objects.filter(id=row.user.id).first()
-        return user.username
+    # def get_username(self, row):
+    #     user = User.objects.filter(id=row.user.id).first()
+    #     return user.username
 
     class Meta:
         model = Project
-        fields = ['id', 'proname', 'prodes', 'user', 'username']
+        fields = '__all__'
+        # fields = ['id', 'proname', 'prodes', 'user', 'username']
 
 
 # 前端测试管理

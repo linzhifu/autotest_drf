@@ -198,6 +198,8 @@ def webCase(url, host, webType, webManager):
             add_one_test_record(webType, False)
             webManager.result = False
             webManager.save()
+            webManager.project.webresult = False
+            webManager.project.save()
             data['errcode'] = 101
             data['errmsg'] = webCase.webname + ' ：' + str(e)
             driver.quit()
@@ -238,6 +240,8 @@ def webCase(url, host, webType, webManager):
             add_one_test_record(webType, False)
             webManager.result = False
             webManager.save()
+            webManager.project.webresult = False
+            webManager.project.save()
             data['errcode'] = 103
             data['errmsg'] = checkWebCase.webname + ' ：' + str(e)
             driver.quit()
@@ -299,6 +303,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     webType.save()
                     webManager.result = False
                     webManager.save()
+                    webManager.project.webresult = False
+                    webManager.project.save()
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 101
@@ -326,6 +332,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                         webType.save()
                         webManager.result = False
                         webManager.save()
+                        webManager.project.webresult = False
+                        webManager.project.save()
                         add_one_test_record(webType, False)
                         add_one_test_record(webManager, False)
                         data['errcode'] = 102
@@ -341,6 +349,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     webType.save()
                     webManager.result = False
                     webManager.save()
+                    webManager.project.webresult = False
+                    webManager.project.save()
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 103
@@ -454,6 +464,8 @@ def apiCase(url, apiType, apiManager):
             apiCase.save()
             apiType.result = False
             apiType.save()
+            apiManager.project.webresult = False
+            apiManager.project.save()
             add_one_test_record(apiType, False)
             apiManager.result = False
             apiManager.save()
@@ -523,6 +535,8 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                     apiType.save()
                     apiManager.result = False
                     apiManager.save()
+                    apiManager.project.webresult = False
+                    apiManager.project.save()
                     add_one_test_record(apiType, False)
                     add_one_test_record(apiManager, False)
                     logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
