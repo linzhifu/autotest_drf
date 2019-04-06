@@ -33,6 +33,7 @@ router.register('testType', views.TestTypeView)
 router.register('checkWebCase', views.CheckWebCaseView)
 
 urlpatterns = [
+    path('', views.home),
     path('admin/', admin.site.urls),
     re_path(r'(?P<version>[v1|v2]+)/captcha/', views.CaptchaView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
@@ -43,5 +44,6 @@ urlpatterns = [
     re_path(r'(?P<version>[v1|v2]+)/apiTypeTest/', views.ApiTypeTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/apiManagerTest/', views.ApiManagerTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/projectTest/', views.projectTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/getRecord/', views.getRecord.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

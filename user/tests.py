@@ -8,7 +8,7 @@ from user.models import WebCase, CheckWebCase, TestRecord, ApiCase
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import requests
 import time
@@ -135,25 +135,24 @@ def add_one_test_record(object, resu):
     test_record.save()
 
 
-# # 获取测试记录
-# def get_record(object):
-#     today = timezone.now().date()
-#     test_times = []
-#     test_all = []
-#     test_pass = []
-#     test_fail = []
-#     for i in range(6, -1, -1):
-#         test_time = today - datetime.timedelta(days=i)
-#         test_times.append(test_time.strftime('%m/%d'))
-#         content_type = ContentType.objects.get_for_model(object)
-#         test_record, _ = TestRecord.objects.get_or_create(
-#             content_type=content_type,
-#             object_id=object.pk,
-#             test_time=test_time)
-#         test_all.append(test_record.test_all)
-#         test_pass.append(test_record.test_pass)
-#         test_fail.append(test_record.test_fail)
-#     return test_times, test_all, test_pass, test_fail
+# 获取测试记录
+def get_record(object):
+    today = timezone.now().date()
+    test_records = []
+    for i in range(6, -1, -1):
+        records = {}
+        test_time = today - timedelta(days=i)
+        records['日期'] = test_time.strftime('%m/%d')
+        content_type = ContentType.objects.get_for_model(object)
+        test_record, _ = TestRecord.objects.get_or_create(
+            content_type=content_type,
+            object_id=object.pk,
+            test_time=test_time)
+        records['测试总数'] = test_record.test_all
+        records['PASS'] = test_record.test_pass
+        records['FAIL'] = test_record.test_fail
+        test_records.append(records)
+    return test_records
 
 
 # 前端单元测试操作

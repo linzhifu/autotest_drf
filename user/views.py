@@ -1,6 +1,7 @@
 from django.core.mail import EmailMessage
 from django.contrib import auth
 from django.contrib.auth.models import User, ContentType
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -14,10 +15,15 @@ from user.serializer import ProjectSerializer, UserSerializer, WebManagerSeriali
 from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer
 import string
 import random
-from user.tests import webCase, webTest, apiCase, apiTest
+from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
 
 
 # Create your views here.
+# 首页
+def home(request):
+    return render(request, 'index.html')
+
+
 # 用户登陆
 class LoginView(APIView):
     authentication_classes = []
@@ -357,6 +363,7 @@ class projectTest(APIView):
                 testName=apiManager.apiname,
                 type='后端测试')
             if data['errcode']:
+                add_one_test_record(project, False)
                 return Response(data)
 
         project.apiresult = True
@@ -382,10 +389,28 @@ class projectTest(APIView):
                 testName=webManager.webname,
                 type='前端测试')
             if data['errcode']:
+                add_one_test_record(project, False)
                 return Response(data)
 
         project.webresult = True
         project.result = True
         project.save()
+        add_one_test_record(project, True)
 
+        return Response(data)
+
+
+# 测试记录
+class getRecord(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        data = {}
+        projectId = request.GET.get('projectId')
+        print(projectId)
+        project = Project.objects.get(id=projectId)
+        # 后端测试
+        records = get_record(project)
+        data['records'] = records
         return Response(data)
