@@ -21,6 +21,8 @@ from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_t
 # Create your views here.
 # 首页
 def home(request):
+    # 对vue单页应用进行csrf_token设置，方便进行csrf防御
+    # request.META["CSRF_COOKIE_USED"] = True
     return render(request, 'index.html')
 
 

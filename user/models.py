@@ -52,6 +52,7 @@ class WebManager(models.Model):
 
     class Meta:
         verbose_name_plural = '前端测试管理'
+        ordering = ['-update_time']
 
     def __str__(self):
         return self.webname
@@ -68,7 +69,7 @@ class ApiManager(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
     result = models.BooleanField(verbose_name='测试结果', default=False)
-    update_time = models.DateTimeField(verbose_name='最后修改', auto_now_add=True)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
 
     # 数据库不生成，只用于链表查询
     test_type = GenericRelation('TestType')
@@ -76,7 +77,7 @@ class ApiManager(models.Model):
 
     class Meta:
         verbose_name_plural = '后端测试管理'
-        ordering = ['apiname']
+        ordering = ['-update_time']
 
     def __str__(self):
         return self.apiname

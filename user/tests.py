@@ -51,8 +51,8 @@ def save_log(fuc):
         testType = kwargs.get('type')
         # 测试目录
         logData = datetime.now().strftime('%Y-%m-%d')
-        logType = logData + '\\' + testType
-        LOGDIR = logType + '\\' + testName
+        logType = logData + '/' + testType
+        LOGDIR = logType + '/' + testName
 
         # 检查目录
         if os.path.exists(logData):
@@ -74,7 +74,7 @@ def save_log(fuc):
         logName = datetime.now().strftime('%Y%m%d%H%M%S')
 
         # 保存路径
-        savePath = LOGDIR + '\\' + '%s.log' % (logName)
+        savePath = LOGDIR + '/' + '%s.log' % (logName)
 
         # 指定logger输出格式
         logger = logging.getLogger()
@@ -93,11 +93,9 @@ def save_log(fuc):
         logger.removeHandler(file_handler)
         file_handler.close()
         if not resu.get('errcode'):
-            os.rename(savePath,
-                      LOGDIR + '\\' + '%s-%s.log' % (logName, 'pass'))
+            os.rename(savePath, LOGDIR + '/' + '%s-%s.log' % (logName, 'pass'))
         else:
-            os.rename(savePath,
-                      LOGDIR + '\\' + '%s-%s.log' % (logName, 'fail'))
+            os.rename(savePath, LOGDIR + '/' + '%s-%s.log' % (logName, 'fail'))
         return resu
 
     return wrapper
@@ -182,16 +180,18 @@ def webCase(url, host, webType, webManager):
     for webCase in webCases:
         try:
             element = wait.until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, webCase.webcss)),
+                EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                webCase.webcss)),
                 message='找不到元素-%s' % (webCase.webcss))
-            method = getattr(element, webCase.weboprate)
-            if webCase.webparam:
-                method(webCase.webparam)
-            else:
-                method()
-                sleep(1)
+            if webCase.weboprate:
+                method = getattr(element, webCase.weboprate)
+                if webCase.webparam:
+                    method(webCase.webparam)
+                else:
+                    method()
+            sleep(1)
         except Exception as e:
-            print(webCase.webname + ' ：' + str(e))
+            print(webCase.webname + ' ：', e)
             webType.result = False
             webType.save()
             add_one_test_record(webType, False)
@@ -200,7 +200,8 @@ def webCase(url, host, webType, webManager):
             webManager.project.webresult = False
             webManager.project.save()
             data['errcode'] = 101
-            data['errmsg'] = webCase.webname + ' ：' + str(e)
+            data['errmsg'] = webCase.webname + ' ：操作异常'
+            data['detail'] = str(e)
             driver.quit()
             logging.info(webType.typename + '-FAIL')
             return data
@@ -210,30 +211,31 @@ def webCase(url, host, webType, webManager):
     for checkWebCase in checkWebCases:
         try:
             element = wait.until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR,
-                                            checkWebCase.webcss)),
+                EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                checkWebCase.webcss)),
                 message='找不到元素-%s' % (checkWebCase.webcss))
-            method = getattr(element, checkWebCase.weboprate)
-            if checkWebCase.webparam:
-                text = method(checkWebCase.webparam)
-            else:
-                text = method()
-            sleep(1)
-            if text != checkWebCase.checktext:
-                webType.result = False
-                webType.save()
-                add_one_test_record(webType, False)
-                webManager.result = False
-                webManager.save()
-                data['errcode'] = 102
-                data['errmsg'] = checkWebCase.webname \
-                    + '：' + checkWebCase.checktext + ' != ' + text
-                driver.quit()
-                logging.info(webType.typename + '-FAIL')
-                return data
+            if checkWebCase.weboprate:
+                method = getattr(element, checkWebCase.weboprate)
+                if checkWebCase.webparam:
+                    text = method(checkWebCase.webparam)
+                else:
+                    text = method()
+                sleep(1)
+                if text != checkWebCase.checktext:
+                    webType.result = False
+                    webType.save()
+                    add_one_test_record(webType, False)
+                    webManager.result = False
+                    webManager.save()
+                    data['errcode'] = 102
+                    data['errmsg'] = checkWebCase.webname \
+                        + '：' + checkWebCase.checktext + ' != ' + text
+                    driver.quit()
+                    logging.info(webType.typename + '-FAIL')
+                    return data
 
         except Exception as e:
-            print(checkWebCase.webname + ' ：' + str(e))
+            print(checkWebCase.webname + ' ：', e)
             webType.result = False
             webType.save()
             add_one_test_record(webType, False)
@@ -242,7 +244,8 @@ def webCase(url, host, webType, webManager):
             webManager.project.webresult = False
             webManager.project.save()
             data['errcode'] = 103
-            data['errmsg'] = checkWebCase.webname + ' ：' + str(e)
+            data['errmsg'] = checkWebCase.webname + ' ：操作异常'
+            data['detail'] = str(e)
             driver.quit()
             logging.info(webType.typename + '-FAIL')
             return data
@@ -287,17 +290,18 @@ def webTest(url, host, webTypes, webManager, testName, type):
             for webCase in webCases:
                 try:
                     element = wait.until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR,
-                                                    webCase.webcss)),
+                        EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                        webCase.webcss)),
                         message='找不到元素-%s' % (webCase.webcss))
-                    method = getattr(element, webCase.weboprate)
-                    if webCase.webparam:
-                        method(webCase.webparam)
-                    else:
-                        method()
-                        sleep(1)
+                    if webCase.weboprate:
+                        method = getattr(element, webCase.weboprate)
+                        if webCase.webparam:
+                            method(webCase.webparam)
+                        else:
+                            method()
+                    sleep(1)
                 except Exception as e:
-                    print(webCase.webname + ' ：' + str(e))
+                    print(webCase.webname + ' ：', e)
                     webType.result = False
                     webType.save()
                     webManager.result = False
@@ -307,7 +311,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 101
-                    data['errmsg'] = webCase.webname + ' ：' + str(e)
+                    data['errmsg'] = webType.typename + '-' + webCase.webname + ' ：操作异常'
+                    data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
                     return data
@@ -317,33 +322,34 @@ def webTest(url, host, webTypes, webManager, testName, type):
             for checkWebCase in checkWebCases:
                 try:
                     element = wait.until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR,
-                                                    checkWebCase.webcss)),
+                        EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                        checkWebCase.webcss)),
                         message='找不到元素-%s' % (checkWebCase.webcss))
-                    method = getattr(element, checkWebCase.weboprate)
-                    if checkWebCase.webparam:
-                        text = method(checkWebCase.webparam)
-                    else:
-                        text = method()
-                    sleep(1)
-                    if text != checkWebCase.checktext:
-                        webType.result = False
-                        webType.save()
-                        webManager.result = False
-                        webManager.save()
-                        webManager.project.webresult = False
-                        webManager.project.save()
-                        add_one_test_record(webType, False)
-                        add_one_test_record(webManager, False)
-                        data['errcode'] = 102
-                        data['errmsg'] = checkWebCase.webname \
-                            + '：' + checkWebCase.checktext + ' != ' + text
-                        driver.quit()
-                        logging.info(webType.typename + '-FAIL')
-                        return data
+                    if checkWebCase.weboprate:
+                        method = getattr(element, checkWebCase.weboprate)
+                        if checkWebCase.webparam:
+                            text = method(checkWebCase.webparam)
+                        else:
+                            text = method()
+                        sleep(1)
+                        if text != checkWebCase.checktext:
+                            webType.result = False
+                            webType.save()
+                            webManager.result = False
+                            webManager.save()
+                            webManager.project.webresult = False
+                            webManager.project.save()
+                            add_one_test_record(webType, False)
+                            add_one_test_record(webManager, False)
+                            data['errcode'] = 102
+                            data['errmsg'] = webType.typename + '-' + checkWebCase.webname \
+                                + '：' + checkWebCase.checktext + ' != ' + text
+                            driver.quit()
+                            logging.info(webType.typename + '-FAIL')
+                            return data
 
                 except Exception as e:
-                    print(checkWebCase.webname + ' ：' + str(e))
+                    print(checkWebCase.webname + '：', e)
                     webType.result = False
                     webType.save()
                     webManager.result = False
@@ -353,7 +359,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 103
-                    data['errmsg'] = checkWebCase.webname + ' ：' + str(e)
+                    data['errmsg'] = webType.typename + '-' + checkWebCase.webname + ' ：操作异常'
+                    data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
                     return data
@@ -405,7 +412,11 @@ def doTest(case, RESTAPI_DOMAIN):
             error = '返回数据不是JSON对象'
 
     if error is None:
-        if str(rev.get('errcode')) != case['response']['errcode']:
+        if not case['response']:
+            error = 'response为空'
+
+    if error is None:
+        if str(rev.get('errcode')) != case['response'].get('errcode'):
             error = 'errcode不一致'
 
     # 记录userId和token
