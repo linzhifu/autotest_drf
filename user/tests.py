@@ -50,7 +50,7 @@ def save_log(fuc):
         testName = kwargs.get('testName')
         testType = kwargs.get('type')
         # 测试目录
-        logData = datetime.now().strftime('%Y-%m-%d')
+        logData = '../' + datetime.now().strftime('%Y-%m-%d')
         logType = logData + '/' + testType
         LOGDIR = logType + '/' + testName
 
@@ -160,13 +160,14 @@ def webCase(url, host, webType, webManager):
         driver = webdriver.Remote(
             host, desired_capabilities=desired_capabilities)
     except Exception:
-        opt = webdriver.ChromeOptions()
-        opt.set_headless()
-        # 谷歌文档提到需要加上这个属性来规避bug
-        opt.add_argument('--disable-gpu')
-        # 指定浏览器分辨率
-        opt.add_argument('window-size=1920x3000')
-        driver = webdriver.Chrome(options=opt)
+        # opt = webdriver.ChromeOptions()
+        # opt.set_headless()
+        # # 谷歌文档提到需要加上这个属性来规避bug
+        # opt.add_argument('--disable-gpu')
+        # # 指定浏览器分辨率
+        # opt.add_argument('window-size=1920x3000')
+        # driver = webdriver.Chrome(options=opt)
+        driver = webdriver.Chrome()
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
@@ -267,14 +268,14 @@ def webTest(url, host, webTypes, webManager, testName, type):
         driver = webdriver.Remote(
             host, desired_capabilities=desired_capabilities)
     except Exception:
-        opt = webdriver.ChromeOptions()
-        opt.set_headless()
-        # 谷歌文档提到需要加上这个属性来规避bug
-        opt.add_argument('--disable-gpu')
-        # 指定浏览器分辨率
-        opt.add_argument('window-size=1920x3000')
-        driver = webdriver.Chrome(options=opt)
-    # driver = webdriver.Chrome()
+        # opt = webdriver.ChromeOptions()
+        # opt.set_headless()
+        # # 谷歌文档提到需要加上这个属性来规避bug
+        # opt.add_argument('--disable-gpu')
+        # # 指定浏览器分辨率
+        # opt.add_argument('window-size=1920x3000')
+        # driver = webdriver.Chrome(options=opt)
+        driver = webdriver.Chrome()
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
