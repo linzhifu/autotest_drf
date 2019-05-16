@@ -24,3 +24,829 @@
 2019-04-22 15:12:23,324 INFO "GET /static/js/app.7942b8c5903c4171393c.js.map HTTP/1.1" 200 352283
 2019-04-22 15:12:23,346 INFO "GET /static/css/app.af8f47c4f04506392850dadde0fa19f1.css.map HTTP/1.1" 200 320667
 2019-04-22 15:12:23,849 INFO "GET /static/js/vendor.07ad04386f072d200144.js.map HTTP/1.1" 200 7640480
+2019-05-15 09:43:54,415 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 09:43:54,809 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 09:43:54,907 INFO "GET /v1/user/1/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 92
+2019-05-15 09:44:17,385 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 214
+2019-05-15 09:44:43,978 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 214
+2019-05-15 09:45:04,334 INFO "OPTIONS /api/v1/project/52/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 0
+2019-05-15 09:45:04,405 INFO "PATCH /api/v1/project/52/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 204
+2019-05-15 09:45:04,495 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 221
+2019-05-15 09:48:34,162 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 09:52:06,680 INFO "GET /api/v1/testType/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f&object_id=6&content_type=12 HTTP/1.1" 200 646
+2019-05-15 09:52:30,667 INFO "GET /api/v1/webManagerTest/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f&projectId=52 HTTP/1.1" 200 27
+2019-05-15 09:52:30,742 INFO "GET /api/v1/webManager/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 09:52:36,736 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 09:55:20,319 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 09:55:20,343 INFO "GET /api/v1/webManager/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 09:55:21,794 INFO "GET /api/v1/testType/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f&object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 09:58:04,724 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 09:58:04,756 INFO "GET /api/v1/webManager/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 09:58:09,391 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:04:39,721 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:04:44,701 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:06:13,783 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:07:24,061 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:12:17,074 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:12:59,890 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:13:06,159 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:13:06,185 INFO "GET /api/v1/webManager/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:13:08,924 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:13:10,974 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:13:22,269 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:13:22,305 INFO "GET /api/v1/webManager/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:13:29,345 INFO "GET /api/v1/project/?userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 220
+2019-05-15 10:13:33,379 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:21:03,240 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:21:28,646 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:24:54,340 INFO "GET /api/v1/webManager/?project=52&userId=1&token=7d8f0925510bf8ed0a0e208dbb4cca0202ca221f HTTP/1.1" 200 574
+2019-05-15 10:25:14,073 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:28:39,620 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:31:11,747 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:31:44,521 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:32:01,419 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:34:07,821 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:34:16,662 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:34:30,690 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:35:16,430 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:35:26,251 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:38:55,296 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:38:58,020 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:39:45,761 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:40:11,034 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:41:02,932 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:41:23,966 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:41:37,466 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:41:56,646 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:41:57,941 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:42:11,135 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:42:11,336 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:42:11,995 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:50:40,306 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:50:40,315 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:50:46,420 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:50:50,468 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:50:50,468 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:50:54,055 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 238
+2019-05-15 10:51:18,957 INFO "OPTIONS /api/v1/testType/2/ HTTP/1.1" 200 0
+2019-05-15 10:51:18,996 INFO "PATCH /api/v1/testType/2/ HTTP/1.1" 200 217
+2019-05-15 10:51:19,053 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:51:26,301 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:51:26,302 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:51:34,969 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:51:42,574 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:52:13,102 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:52:22,012 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:52:24,471 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:52:56,505 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:52:56,505 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:53:05,856 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:53:17,863 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:55:37,935 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:55:38,917 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:55:38,936 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:55:40,538 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:55:42,240 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 10:55:42,241 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 10:56:53,686 INFO "GET /api/v1/webCaseTest/?testType=2&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 27
+2019-05-15 10:57:17,554 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:57:38,028 INFO "GET /api/v1/webTypeTest/?object_id=7&content_type=12&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 27
+2019-05-15 10:57:38,104 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:57:38,173 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 10:59:14,507 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 574
+2019-05-15 10:59:18,200 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 11:00:57,400 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1009
+2019-05-15 11:00:57,423 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 11:01:24,225 INFO "OPTIONS /api/v1/webCase/24/ HTTP/1.1" 200 0
+2019-05-15 11:01:24,307 INFO "PATCH /api/v1/webCase/24/ HTTP/1.1" 200 283
+2019-05-15 11:01:24,389 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 11:01:24,391 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1010
+2019-05-15 11:01:25,680 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-15 11:01:38,348 INFO "GET /api/v1/webTypeTest/?object_id=7&content_type=12&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 155
+2019-05-15 11:01:38,431 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:01:38,486 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:01:46,262 INFO "GET /api/v1/checkWebCase/?testType=2 HTTP/1.1" 200 52
+2019-05-15 11:01:46,280 INFO "GET /api/v1/webCase/?testType=2 HTTP/1.1" 200 1010
+2019-05-15 11:02:57,857 INFO "GET /api/v1/webCaseTest/?testType=2&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 116
+2019-05-15 11:03:14,316 INFO "GET /api/v1/webCaseTest/?testType=2&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 116
+2019-05-15 11:05:48,091 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:05:54,420 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 575
+2019-05-15 11:05:57,994 INFO "GET /api/v1/testType/?object_id=6&content_type=12 HTTP/1.1" 200 646
+2019-05-15 11:06:01,080 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 575
+2019-05-15 11:06:18,775 INFO "GET /api/v1/webManagerTest/?projectId=52 HTTP/1.1" 200 129
+2019-05-15 11:06:18,858 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 575
+2019-05-15 11:09:46,987 INFO "GET /api/v1/testType/?object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:09:52,575 INFO "GET /api/v1/webManager/?project=52 HTTP/1.1" 200 575
+2019-05-15 11:10:02,884 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 11:10:03,160 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 11:10:03,238 INFO "GET /v1/user/1/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 92
+2019-05-15 11:10:04,379 INFO "GET /api/v1/project/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 221
+2019-05-15 11:10:08,661 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:10:14,646 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:10:36,504 INFO "GET /api/v1/webTypeTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12&url=https:%2F%2Fmpstest.longsys.com%2F HTTP/1.1" 200 129
+2019-05-15 11:10:36,566 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:10:36,656 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:10:40,378 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:11:18,943 INFO "GET /api/v1/webManagerTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&projectId=52 HTTP/1.1" 200 129
+2019-05-15 11:11:19,064 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:12:30,696 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:12:36,529 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:12:45,097 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:12:54,648 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:13:11,438 INFO "GET /api/v1/webManagerTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&projectId=52 HTTP/1.1" 200 129
+2019-05-15 11:13:11,532 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:13:53,562 INFO "GET /api/v1/project/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 221
+2019-05-15 11:13:58,113 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:14:40,070 INFO "GET /api/v1/webManagerTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&projectId=52 HTTP/1.1" 200 140
+2019-05-15 11:14:40,174 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:15:06,071 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:15:12,686 INFO "GET /api/v1/checkWebCase/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&testType=2 HTTP/1.1" 200 52
+2019-05-15 11:15:12,699 INFO "GET /api/v1/webCase/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&testType=2 HTTP/1.1" 200 1010
+2019-05-15 11:15:19,345 INFO "OPTIONS /api/v1/webCase/24/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 0
+2019-05-15 11:15:19,415 INFO "PATCH /api/v1/webCase/24/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 282
+2019-05-15 11:15:19,474 INFO "GET /api/v1/webCase/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&testType=2 HTTP/1.1" 200 1009
+2019-05-15 11:15:19,494 INFO "GET /api/v1/checkWebCase/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&testType=2 HTTP/1.1" 200 52
+2019-05-15 11:15:20,656 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=7&content_type=12 HTTP/1.1" 200 235
+2019-05-15 11:15:24,619 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:15:26,462 INFO "GET /api/v1/testType/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&object_id=6&content_type=12 HTTP/1.1" 200 646
+2019-05-15 11:15:34,520 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 575
+2019-05-15 11:16:45,505 INFO "GET /api/v1/webManagerTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba&projectId=52 HTTP/1.1" 200 27
+2019-05-15 11:16:45,638 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 11:16:53,567 INFO "GET /api/v1/project/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 220
+2019-05-15 11:17:36,765 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:14:31,996 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:14:32,057 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:14:38,393 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:15:11,529 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:17:34,038 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:17:40,516 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:18:48,169 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:19:01,192 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:19:09,343 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:19:22,836 INFO "GET /api/v1/webManager/?project=52&userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:20:21,126 INFO "GET /api/v1/project/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 220
+2019-05-15 14:20:21,155 INFO "GET /api/v1/webManager/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:20:57,745 INFO "GET /api/v1/project/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 220
+2019-05-15 14:20:57,784 INFO "GET /api/v1/webManager/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 200 574
+2019-05-15 14:20:58,630 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 497, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 412, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'NoneType'>`
+2019-05-15 14:20:58,635 ERROR "GET /api/v1/webAutoTest/?userId=1&token=af9b6b4d7076c845768a9f4e767c734956acc8ba HTTP/1.1" 500 85214
+2019-05-15 14:22:41,378 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 14:22:42,053 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 14:22:42,175 INFO "GET /v1/user/1/?userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 92
+2019-05-15 14:22:43,883 INFO "GET /api/v1/project/?userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 220
+2019-05-15 14:22:46,191 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 421
+2019-05-15 14:22:46,240 INFO "GET /api/v1/webManager/?project=52&userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 574
+2019-05-15 14:22:56,643 INFO "GET /api/v1/project/?userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 220
+2019-05-15 14:22:59,116 INFO "GET /api/v1/webManager/?project=52&userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 574
+2019-05-15 14:22:59,133 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=9495c09e67731d512efa052af718a0ffeca27c94 HTTP/1.1" 200 421
+2019-05-15 14:24:12,601 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 14:24:12,703 INFO "GET /v1/user/1/?userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 92
+2019-05-15 14:24:14,949 INFO "GET /api/v1/project/?userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 220
+2019-05-15 14:24:14,953 INFO "GET /api/v1/webAutoTest/?userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 2
+2019-05-15 14:24:14,985 INFO "GET /api/v1/webManager/?userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 574
+2019-05-15 14:24:56,971 INFO "GET /api/v1/project/?userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 220
+2019-05-15 14:24:58,270 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 421
+2019-05-15 14:24:58,307 INFO "GET /api/v1/webManager/?project=52&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 574
+2019-05-15 14:25:15,277 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 421
+2019-05-15 14:25:15,334 INFO "GET /api/v1/webManager/?project=52&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 574
+2019-05-15 14:31:23,225 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 421
+2019-05-15 14:31:23,273 INFO "GET /api/v1/webManager/?project=52&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 574
+2019-05-15 14:31:50,319 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 421
+2019-05-15 14:31:50,336 INFO "GET /api/v1/webManager/?project=52&userId=1&token=cd8272e41de684412c37cf61cca84da5122ceec7 HTTP/1.1" 200 574
+2019-05-15 14:35:13,753 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 14:35:14,097 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 14:35:14,184 INFO "GET /v1/user/1/?userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 92
+2019-05-15 14:35:17,317 INFO "GET /api/v1/webAutoTest/?userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 2
+2019-05-15 14:35:17,356 INFO "GET /api/v1/project/?userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 220
+2019-05-15 14:35:17,372 INFO "GET /api/v1/webManager/?userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 574
+2019-05-15 14:35:47,607 INFO "GET /api/v1/project/?userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 220
+2019-05-15 14:35:50,156 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 497
+2019-05-15 14:35:50,197 INFO "GET /api/v1/webManager/?project=52&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 574
+2019-05-15 14:36:30,464 INFO "GET /api/v1/webManager/?project=52&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 574
+2019-05-15 14:36:30,492 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 497
+2019-05-15 14:36:55,130 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 497
+2019-05-15 14:36:55,197 INFO "GET /api/v1/webManager/?project=52&userId=1&token=1959c3ee0ec8871e3810044bce4e566b7b5ded1f HTTP/1.1" 200 574
+2019-05-15 14:38:40,980 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 14:38:41,258 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 14:38:41,325 INFO "GET /v1/user/1/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 92
+2019-05-15 14:38:42,857 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:38:42,870 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:38:42,879 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:39:17,521 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:39:17,578 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:39:17,581 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:39:48,190 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:39:48,203 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:39:48,284 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:40:26,885 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:40:26,889 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:40:26,964 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:41:01,350 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:41:01,426 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:41:01,441 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:41:18,419 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:41:18,438 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:41:18,477 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:41:49,652 INFO "GET /api/v1/webAutoTest/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 2
+2019-05-15 14:41:49,687 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:41:49,707 INFO "GET /api/v1/webManager/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:42:30,306 INFO "GET /api/v1/project/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 220
+2019-05-15 14:42:31,747 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:42:31,780 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:43:45,932 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:43:45,984 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:45:02,858 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:45:02,911 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:45:07,592 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:45:07,664 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:45:41,334 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:45:41,383 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 14:59:46,544 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 497
+2019-05-15 14:59:46,619 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:18:03,037 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:18:03,069 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:19:03,929 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:19:03,996 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:24:06,262 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:24:06,279 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:24:25,353 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:24:25,399 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:28:18,644 INFO "GET /api/v1/testType/?userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d&object_id=6&content_type=12 HTTP/1.1" 200 646
+2019-05-15 15:30:03,945 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:30:03,993 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:30:15,855 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:30:15,915 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:31:03,489 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:31:03,518 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:41:02,677 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:41:02,776 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:44:51,703 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:44:51,759 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:54:24,053 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 15:54:24,062 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:57:54,606 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 15:57:54,629 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:03:32,711 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:03:32,783 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:20:36,028 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:20:36,087 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:21:34,415 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:21:34,416 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:24:49,908 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:24:49,937 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:25:46,861 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:25:46,928 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:27:06,887 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:27:06,904 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:31:13,180 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:31:13,246 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:34:35,691 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:34:35,793 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:35:52,146 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:35:52,163 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:36:12,999 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:36:13,028 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:36:50,217 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:36:50,282 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:40:44,237 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 637
+2019-05-15 16:40:44,267 INFO "GET /api/v1/webManager/?project=52&userId=1&token=a399ee3edfef8ebf51669c82532f43e0433ac19d HTTP/1.1" 200 574
+2019-05-15 16:42:57,958 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 16:42:58,437 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 16:42:58,586 INFO "GET /v1/user/1/?userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 92
+2019-05-15 16:43:01,010 INFO "GET /api/v1/project/?userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 220
+2019-05-15 16:43:02,447 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 634
+2019-05-15 16:43:02,466 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:43:36,107 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:43:36,191 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:47:06,408 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:47:06,454 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:48:55,918 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:48:55,998 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:49:44,907 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:49:44,936 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:51:01,655 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:51:01,688 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 16:59:03,578 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 625
+2019-05-15 16:59:03,617 INFO "GET /api/v1/webManager/?project=52&userId=1&token=8fa895e3bd5598d7fd155cc43cb730fc6e426b86 HTTP/1.1" 200 574
+2019-05-15 17:22:30,374 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 17:22:30,642 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 17:22:30,744 INFO "GET /v1/user/1/?userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 92
+2019-05-15 17:22:32,595 INFO "GET /api/v1/project/?userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 220
+2019-05-15 17:22:36,425 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 625
+2019-05-15 17:22:36,480 INFO "GET /api/v1/webManager/?project=52&userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 574
+2019-05-15 17:23:36,262 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 625
+2019-05-15 17:23:36,341 INFO "GET /api/v1/webManager/?project=52&userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 574
+2019-05-15 17:23:38,732 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-15 17:23:39,583 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 506, in patch
+    user['updateUserInfoEnable'] = option['个人资料']
+UnboundLocalError: local variable 'user' referenced before assignment
+2019-05-15 17:23:39,592 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19269
+2019-05-15 17:23:39,726 INFO "GET /api/v1/webManager/?project=52&userId=1&token=b23dee2f97c32cd73f0605c76fd717282eb94a9b HTTP/1.1" 200 574
+2019-05-15 17:24:22,074 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 17:24:22,168 INFO "GET /v1/user/1/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 92
+2019-05-15 17:24:26,084 INFO "GET /v1/user/1/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 92
+2019-05-15 17:24:27,416 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:24:28,966 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:24:29,008 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:24:34,305 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 2
+2019-05-15 17:24:34,404 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:25:54,269 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 2
+2019-05-15 17:25:56,468 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:26:39,106 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 519, in patch
+    result = product_pm(dirver, user)
+TypeError: 'module' object is not callable
+2019-05-15 17:26:39,111 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19192
+2019-05-15 17:26:39,244 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:27:39,609 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:27:39,658 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:27:46,399 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 519, in patch
+    result = product_pm(driver, user)
+TypeError: 'module' object is not callable
+2019-05-15 17:27:46,405 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19192
+2019-05-15 17:27:46,532 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:30:41,364 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:30:41,396 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:30:43,739 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 504, in patch
+    user = testMpcloud.config.USER_PRO_PM
+AttributeError: module 'testMpcloud' has no attribute 'config'
+2019-05-15 17:30:43,745 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19235
+2019-05-15 17:30:43,894 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:32:04,870 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:32:04,891 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:32:52,463 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-15 17:32:52,553 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:33:50,573 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:33:50,611 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:37:33,685 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:37:33,741 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:37:59,415 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-15 17:38:44,220 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-15 17:41:41,964 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:41:42,002 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:42:22,713 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:42:22,751 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:43:58,897 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:43:58,959 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:44:03,161 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:44:03,181 INFO "GET /api/v1/webManager/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:44:36,835 INFO "GET /api/v1/webAutoTest/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 2
+2019-05-15 17:44:36,858 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:44:36,889 INFO "GET /api/v1/webManager/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:44:55,729 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:44:59,123 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:44:59,168 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:45:12,847 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:45:12,861 INFO "GET /api/v1/webManager/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:45:18,055 INFO "GET /api/v1/webAutoTest/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 2
+2019-05-15 17:45:18,107 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:45:18,119 INFO "GET /api/v1/webManager/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:45:37,816 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:45:41,674 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:45:41,722 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:49:01,156 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:49:03,164 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:49:03,201 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:49:15,109 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:49:20,609 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:49:20,638 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:49:42,129 INFO "GET /api/v1/project/?userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 220
+2019-05-15 17:49:58,168 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 625
+2019-05-15 17:49:58,189 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 17:59:15,037 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 1761
+2019-05-15 17:59:15,069 INFO "GET /api/v1/webManager/?project=52&userId=1&token=5cd00e3c4385a879285814f6073de2a89279ec6b HTTP/1.1" 200 574
+2019-05-15 18:06:49,679 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-15 18:07:34,222 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-15 18:18:06,812 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-15 18:18:07,079 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-15 18:18:07,165 INFO "GET /v1/user/1/?userId=1&token=021fc6774585afcf1bab257edbf338cdb9e4cdf3 HTTP/1.1" 200 92
+2019-05-15 18:18:08,190 INFO "GET /api/v1/project/?userId=1&token=021fc6774585afcf1bab257edbf338cdb9e4cdf3 HTTP/1.1" 200 220
+2019-05-15 18:18:09,334 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=021fc6774585afcf1bab257edbf338cdb9e4cdf3 HTTP/1.1" 200 1761
+2019-05-15 18:18:09,373 INFO "GET /api/v1/webManager/?project=52&userId=1&token=021fc6774585afcf1bab257edbf338cdb9e4cdf3 HTTP/1.1" 200 574
+2019-05-16 09:13:47,378 INFO "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+2019-05-16 09:13:47,599 INFO "POST /api/v1/login/ HTTP/1.1" 200 143
+2019-05-16 09:13:47,687 INFO "GET /v1/user/1/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 92
+2019-05-16 09:13:48,842 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 09:13:50,243 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1761
+2019-05-16 09:13:50,296 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 09:37:22,557 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 09:37:23,307 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 617, in patch
+    result = testMpcloudCase(case, host)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\tests.py", line 580, in testMpcloudCase
+    if case.get('role') == '产品-产品工程师':
+AttributeError: 'str' object has no attribute 'get'
+2019-05-16 09:37:23,339 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19351
+2019-05-16 09:37:53,740 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 09:37:53,941 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1761
+2019-05-16 09:45:00,980 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 09:45:11,632 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1761
+2019-05-16 09:45:11,690 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 09:45:45,559 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 09:45:45,610 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 09:47:31,852 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 09:50:02,556 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 09:50:02,600 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 09:52:54,833 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 09:53:44,594 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 09:56:51,636 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:01:39,015 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:04:09,569 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 10:04:09,614 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:04:24,273 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 10:04:25,400 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 443, in patch
+    result = testMpcloudCase(host, case)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\tests.py", line 791, in testMpcloudCase
+    user['orderListEnable'] = option['createSampleEnable']
+KeyError: 'createSampleEnable'
+2019-05-16 10:04:25,405 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19323
+2019-05-16 10:04:46,903 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 10:04:46,971 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:04:59,714 ERROR Internal Server Error: /api/v1/webAutoTest/
+Traceback (most recent call last):
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "d:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "d:\Anaconda3\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\views.py", line 443, in patch
+    result = testMpcloudCase(host, case)
+  File "e:\MyWorkSpace\Autotestplat\autotest_drf\user\tests.py", line 791, in testMpcloudCase
+    user['orderListEnable'] = option['createSampleEnable']
+KeyError: 'createSampleEnable'
+2019-05-16 10:04:59,727 ERROR "PATCH /api/v1/webAutoTest/ HTTP/1.1" 500 19322
+2019-05-16 10:06:09,567 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 10:06:09,637 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:07:58,507 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:11:02,905 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:13:37,536 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:14:59,742 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 10:15:22,932 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:17:22,715 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:19:42,948 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:19:59,477 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1739
+2019-05-16 10:19:59,546 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:20:56,475 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:25:44,059 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:26:05,213 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 10:27:44,511 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:28:28,286 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:29:18,913 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:30:31,223 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:31:34,313 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:32:09,877 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:32:32,810 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:32:32,866 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:36:25,903 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:36:25,933 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:36:48,107 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:36:48,127 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:36:51,751 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:36:51,783 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:36:59,137 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:36:59,156 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:37:08,968 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:37:09,028 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:37:43,917 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:37:43,952 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:37:55,781 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:37:55,833 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:38:14,025 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:38:14,070 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:40:08,882 INFO "GET /api/v1/webManagerTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&projectId=52 HTTP/1.1" 200 27
+2019-05-16 10:40:08,997 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:41:57,908 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:41:57,996 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:42:23,843 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:42:23,882 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:42:43,780 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:42:43,920 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:42:58,367 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:42:58,375 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:43:40,825 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:43:40,829 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:43:43,676 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 10:43:43,788 INFO "POST /api/v1/webAutoTest/ HTTP/1.1" 200 2
+2019-05-16 10:48:49,270 INFO "POST /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 10:50:05,459 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:50:05,500 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:50:14,916 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:50:14,933 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:50:59,109 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 10:50:59,151 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 10:58:27,756 INFO "POST /api/v1/webAutoTest/ HTTP/1.1" 200 77
+2019-05-16 11:03:24,765 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 11:13:30,828 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 11:13:37,122 INFO "GET /api/v1/projectTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&projectId=52 HTTP/1.1" 200 56
+2019-05-16 11:13:37,181 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 11:13:52,601 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 533
+2019-05-16 11:13:58,084 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=21&content_type=13 HTTP/1.1" 200 378
+2019-05-16 11:13:59,922 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 533
+2019-05-16 11:14:02,633 INFO "OPTIONS /api/v1/apiManager/21/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 0
+2019-05-16 11:14:02,803 INFO "DELETE /api/v1/apiManager/21/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 204 27
+2019-05-16 11:14:02,884 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 288
+2019-05-16 11:14:04,165 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=13&content_type=13 HTTP/1.1" 200 451
+2019-05-16 11:14:07,509 INFO "GET /api/v1/apiCase/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&testType=16 HTTP/1.1" 200 787
+2019-05-16 11:14:11,444 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=13&content_type=13 HTTP/1.1" 200 451
+2019-05-16 11:14:12,597 INFO "GET /api/v1/apiCase/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&testType=17 HTTP/1.1" 200 726
+2019-05-16 11:14:18,012 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=13&content_type=13 HTTP/1.1" 200 451
+2019-05-16 11:14:19,177 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 288
+2019-05-16 11:14:22,909 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 288
+2019-05-16 11:14:28,493 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 11:28:16,715 INFO "GET /api/v1/projectTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&projectId=52 HTTP/1.1" 200 110
+2019-05-16 11:28:16,780 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 11:31:07,810 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 11:31:16,410 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 11:32:46,486 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 11:32:46,530 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 11:32:52,239 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 11:33:37,586 INFO "PATCH /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 11:33:42,525 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 12:20:12,192 INFO "GET /api/v1/projectTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&projectId=52 HTTP/1.1" 200 27
+2019-05-16 12:20:12,291 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 12:22:15,530 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 288
+2019-05-16 12:22:16,683 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 12:22:17,545 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 12:22:17,606 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 12:22:27,639 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-16 12:22:29,366 INFO "GET /api/v1/webCase/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&testType=2 HTTP/1.1" 200 1009
+2019-05-16 12:22:29,386 INFO "GET /api/v1/checkWebCase/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&testType=2 HTTP/1.1" 200 52
+2019-05-16 12:22:30,992 INFO "GET /api/v1/testType/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&object_id=7&content_type=12 HTTP/1.1" 200 234
+2019-05-16 12:22:31,524 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 12:22:31,566 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 12:22:32,102 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 12:22:34,283 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 12:22:34,283 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 13:43:42,018 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:43:42,854 INFO "GET /api/v1/webAutoTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 13:43:42,876 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:43:42,896 INFO "GET /api/v1/webManager/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 13:44:00,438 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:50:50,722 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:52:52,451 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:54:46,785 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:57:01,114 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:59:02,495 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:59:46,727 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 13:59:53,623 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 13:59:53,650 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 13:59:59,589 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 14:00:03,540 INFO "OPTIONS /api/v1/project/52/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 0
+2019-05-16 14:00:03,599 INFO "PATCH /api/v1/project/52/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 204
+2019-05-16 14:00:03,650 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:01:21,332 INFO "GET /api/v1/projectTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af&projectId=52 HTTP/1.1" 200 27
+2019-05-16 14:01:21,384 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:01:47,307 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:02:27,026 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B01&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:02:27,051 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:02:30,847 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:02:34,380 INFO "GET /api/v1/apiManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 289
+2019-05-16 14:02:36,390 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:05:05,562 INFO "GET /api/v1/webAutoTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:05:05,603 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:05:05,610 INFO "GET /api/v1/webManager/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:05:06,815 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:05:08,918 INFO "GET /api/v1/webAutoTest/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:05:08,961 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:05:08,968 INFO "GET /api/v1/webManager/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:05:24,266 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:05:26,532 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B01&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:05:26,578 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:05:51,698 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B01&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:05:51,717 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:07:27,794 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B01&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:07:27,836 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:07:54,839 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B01&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 2
+2019-05-16 14:07:54,854 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:08:17,217 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:08:17,241 INFO "GET /api/v1/webManager/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 576
+2019-05-16 14:08:20,084 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 221
+2019-05-16 14:08:25,443 INFO "PATCH /api/v1/project/52/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 203
+2019-05-16 14:08:25,490 INFO "GET /api/v1/project/?userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 220
+2019-05-16 14:08:27,414 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:08:27,435 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:24:44,309 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:24:44,352 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:28:30,094 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:28:30,165 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:30:36,097 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:30:36,152 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:32:19,444 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:32:19,475 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:35:46,648 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:35:46,704 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:35:57,067 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:35:57,115 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:36:14,936 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:36:15,018 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:37:38,651 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:37:38,699 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:38:46,651 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:38:46,711 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:40:38,848 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:40:38,883 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:40:50,386 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:40:50,396 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:41:05,562 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:41:05,599 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:42:05,411 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:42:05,486 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:42:31,377 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:42:31,480 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:43:12,975 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:43:13,037 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:48:29,626 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:48:29,694 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:50:12,116 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:50:12,171 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:50:32,653 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:50:32,688 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:52:36,105 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:52:36,110 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:54:34,862 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:54:34,909 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:56:33,529 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:56:33,565 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:56:40,059 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:56:40,088 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 14:58:15,429 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 14:58:15,472 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:05:34,066 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:05:34,090 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:05:56,385 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:05:56,440 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:08:44,383 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:08:44,435 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:09:38,349 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:09:38,385 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:10:03,809 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:10:03,847 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:10:12,547 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:10:12,590 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:10:26,524 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:10:26,598 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:10:43,501 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:10:43,574 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:11:01,282 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:11:01,318 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:11:22,075 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:11:22,107 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:11:42,536 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:11:42,616 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:12:00,889 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:12:00,918 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:12:11,384 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:12:11,437 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:15:17,878 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:15:17,913 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:15:41,353 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:15:41,386 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:27:44,363 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:27:44,409 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:28:16,338 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:28:16,385 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:29:32,503 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:29:32,554 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:30:33,522 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:30:33,522 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:31:02,337 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:31:02,388 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:31:23,547 INFO "OPTIONS /api/v1/webAutoTest/ HTTP/1.1" 200 0
+2019-05-16 15:35:17,902 INFO "POST /api/v1/webAutoTest/ HTTP/1.1" 200 27
+2019-05-16 15:35:44,154 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:35:44,199 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574
+2019-05-16 15:35:44,554 INFO "GET /api/v1/webAutoTest/?project=%E9%87%8F%E4%BA%A7%E4%BA%91%E5%B9%B3%E5%8F%B0&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 1695
+2019-05-16 15:35:44,589 INFO "GET /api/v1/webManager/?project=52&userId=1&token=212916fcd9dc616b841629141faf56f8f82506af HTTP/1.1" 200 574

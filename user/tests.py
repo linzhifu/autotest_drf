@@ -13,6 +13,8 @@ import os
 import requests
 import time
 import json
+from testMpcloud import config, product_pm, model_pm, product_rd, model_rd
+from testMpcloud import product_te, model_te, product_pmc, model_pmc, product_pe, model_pe, product_pj, model_pj
 
 # Create your tests here.
 
@@ -20,9 +22,176 @@ import json
 logging.basicConfig(
     level=logging.DEBUG, format='%(asctime)s-%(levelname)s-%(message)s')
 logging.disable(logging.DEBUG)
+# 前端自动化测试内容
+pro_pm = {
+    'role':
+    '产品-产品工程师',
+    'options': [{
+        '个人资料': True,
+    }, {
+        '我的群组': True
+    }, {
+        '添加项目': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }]
+}
+mod_pm = {
+    'role':
+    '项目-产品工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }]
+}
+pro_rd = {
+    'role':
+    '产品-研发工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
+mod_rd = {
+    'role':
+    '项目-研发工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
+pro_te = {
+    'role':
+    '产品-测试工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
+mod_te = {
+    'role':
+    '项目-测试工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
+pro_pmc = {
+    'role':
+    '产品-pmc',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '创建订单': True
+    }, {
+        '订单列表': True
+    }]
+}
+mod_pmc = {
+    'role':
+    '项目-pmc',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '创建订单': True
+    }, {
+        '订单列表': True
+    }]
+}
+pro_pe = {
+    'role': '产品-产线工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '订单列表': True
+    }]
+}
+mod_pe = {
+    'role': '项目-产线工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '订单列表': True
+    }]
+}
+pro_pj = {
+    'role': '产品-项目工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }]
+}
+mod_pj = {
+    'role': '项目-项目工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }]
+}
+mpcloudCases = [
+    pro_pm, mod_pm, pro_rd, mod_rd, pro_te, mod_te, pro_pmc, mod_pmc, pro_pe,
+    mod_pe, pro_pj, mod_pj
+]
 
 # token配置
-config = {
+user_token = {
     'userid': '',
     'token': '',
 }
@@ -424,8 +593,8 @@ def doTest(case, RESTAPI_DOMAIN):
     if error is None:
         if rev.get('data'):
             if rev['data'].get('userid') and rev['data'].get('token'):
-                config['userid'] = rev['data'].get('userid')
-                config['token'] = rev['data'].get('token')
+                user_token['userid'] = rev['data'].get('userid')
+                user_token['token'] = rev['data'].get('token')
     result = {'time': str(round(timeval, 2)), 'error': error}
     return result
 
@@ -444,8 +613,8 @@ def apiCase(url, apiType, apiManager):
         try:
             params = json.loads(apiCase.apiparam)
             if params.get('userid') and params.get('token'):
-                params['userid'] = config['userid']
-                params['token'] = config['token']
+                params['userid'] = user_token['userid']
+                params['token'] = user_token['token']
         except Exception:
             params = ''
         try:
@@ -513,8 +682,8 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                 try:
                     params = json.loads(apiCase.apiparam)
                     if params.get('userid') and params.get('token'):
-                        params['userid'] = config['userid']
-                        params['token'] = config['token']
+                        params['userid'] = user_token['userid']
+                        params['token'] = user_token['token']
                 except Exception:
                     params = ''
                 try:
@@ -567,6 +736,97 @@ def apiTest(url, apiTypes, apiManager, testName, type):
     apiManager.save()
     add_one_test_record(apiManager, True)
     return data
+
+
+# 量产云平台前端自动化单元测试
+def testMpcloudCase(host, case):
+    result = {}
+    user = {}
+
+    # 判断是哪个角色测试，进行角色配置
+    if case.get('role') == '产品-产品工程师':
+        user = config.USER_PRO_PM
+    elif case.get('role') == '项目-产品工程师':
+        user = config.USER_MOD_PM
+    elif case.get('role') == '产品-研发工程师':
+        user = config.USER_PRO_RD
+    elif case.get('role') == '项目-研发工程师':
+        user = config.USER_MOD_RD
+    elif case.get('role') == '产品-测试工程师':
+        user = config.USER_PRO_TE
+    elif case.get('role') == '项目-测试工程师':
+        user = config.USER_MOD_TE
+    elif case.get('role') == '产品-pmc':
+        user = config.USER_PRO_PMC
+    elif case.get('role') == '项目-pmc':
+        user = config.USER_MOD_PMC
+    elif case.get('role') == '产品-产线工程师':
+        user = config.USER_PRO_PE
+    elif case.get('role') == '项目-产线工程师':
+        user = config.USER_MOD_PE
+    elif case.get('role') == '产品-项目工程师':
+        user = config.USER_PRO_PJ
+    elif case.get('role') == '项目-项目工程师':
+        user = config.USER_MOD_PJ
+
+    # 根据用户选项判断测试项是否需要测试
+    for option in case.get('options'):
+        if '个人资料' in option:
+            user['updateUserInfoEnable'] = option['个人资料']
+        if '我的群组' in option:
+            user['teamEnable'] = option['我的群组']
+        if '添加项目' in option:
+            user['addModEnable'] = option['添加项目']
+        if '产品列表' in option:
+            user['proLisEnable'] = option['产品列表']
+        if '创建订单' in option:
+            user['createOrderEnable'] = option['创建订单']
+        if '订单列表' in option:
+            user['orderListEnable'] = option['订单列表']
+        if '添加样品' in option:
+            user['createSampleEnable'] = option['添加样品']
+
+    # 尝试远程启动客户端浏览器，启动失败再在服务器端启动浏览器
+    try:
+        desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
+        driver = webdriver.Remote(
+            host, desired_capabilities=desired_capabilities)
+    except Exception:
+        # opt = webdriver.ChromeOptions()
+        # opt.set_headless()
+        # # 谷歌文档提到需要加上这个属性来规避bug
+        # opt.add_argument('--disable-gpu')
+        # # 指定浏览器分辨率
+        # opt.add_argument('window-size=1920x3000')
+        # driver = webdriver.Chrome(options=opt)
+        driver = webdriver.Chrome()
+
+    # 判断是哪个角色测试，开始测试
+    if case.get('role') == '产品-产品工程师':
+        result = product_pm.main(driver, user)
+    elif case.get('role') == '项目-产品工程师':
+        result = model_pm.main(driver, user)
+    elif case.get('role') == '产品-研发工程师':
+        result = product_rd.main(driver, user)
+    elif case.get('role') == '项目-研发工程师':
+        result = model_rd.main(driver, user)
+    elif case.get('role') == '产品-测试工程师':
+        result = product_te.main(driver, user)
+    elif case.get('role') == '项目-测试工程师':
+        result = model_te.main(driver, user)
+    elif case.get('role') == '产品-pmc':
+        result = product_pmc.main(driver, user)
+    elif case.get('role') == '项目-pmc':
+        result = model_pmc.main(driver, user)
+    elif case.get('role') == '产品-产线工程师':
+        result = product_pe.main(driver, user)
+    elif case.get('role') == '项目-产线工程师':
+        result = model_pe.main(driver, user)
+    elif case.get('role') == '产品-项目工程师':
+        result = product_pj.main(driver, user)
+    elif case.get('role') == '项目-项目工程师':
+        result = model_pj.main(driver, user)
+    return result
 
 
 if __name__ == '__main__':

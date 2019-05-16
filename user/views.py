@@ -16,6 +16,7 @@ from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSeri
 import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
+from user.tests import testMpcloudCase, mpcloudCases
 
 
 # Create your views here.
@@ -154,7 +155,7 @@ class ProjectView(ModelViewSet):
     serializer_class = ProjectSerializer
 
 
-# 前端测试管理
+# 前端测试管理-自定义
 class WebManagerView(ModelViewSet):
     queryset = WebManager.objects.all()
     serializer_class = WebManagerSerializer
@@ -162,7 +163,7 @@ class WebManagerView(ModelViewSet):
     filter_fields = ('project', )
 
 
-# 前端测试案例
+# 前端测试案例-自定义
 class WebCaseView(ModelViewSet):
     queryset = WebCase.objects.all()
     serializer_class = WebCaseSerializer
@@ -170,7 +171,7 @@ class WebCaseView(ModelViewSet):
     filter_fields = ('testType', )
 
 
-# 前端测试数据验证
+# 前端测试数据验证-自定义
 class CheckWebCaseView(ModelViewSet):
     queryset = CheckWebCase.objects.all()
     serializer_class = CheckWebCaseSerializer
@@ -202,7 +203,7 @@ class TestTypeView(ModelViewSet):
     filter_fields = ('content_type', 'object_id')
 
 
-# 前端测试案例单元测试
+# 前端测试案例单元测试-自定义
 class WebCaseTest(APIView):
     authentication_classes = []
     permission_classes = []
@@ -221,7 +222,7 @@ class WebCaseTest(APIView):
         return Response(data)
 
 
-# 前端模块测试
+# 前端模块测试-自定义
 class WebTypeTest(APIView):
     authentication_classes = []
     permission_classes = []
@@ -248,7 +249,7 @@ class WebTypeTest(APIView):
         return Response(data)
 
 
-# 前端整体测试
+# 前端整体测试-自定义
 class WebManagerTest(APIView):
     authentication_classes = []
     permission_classes = []
@@ -274,6 +275,7 @@ class WebManagerTest(APIView):
                 testName=webManager.webname,
                 type='前端测试')
             if data['errcode']:
+                data['errmsg'] = webManager.webname + '-' + data['errmsg']
                 return Response(data)
 
         project.webresult = True
@@ -378,21 +380,31 @@ class projectTest(APIView):
         else:
             ip = request.META['REMOTE_ADDR']
         host = ip + ':4444/wd/hub'
-        webManagers = WebManager.objects.filter(project_id=projectId)
-        for webManager in webManagers:
-            content_type_id = ContentType.objects.get_for_model(WebManager)
-            webTypes = TestType.objects.filter(
-                object_id=webManager.id, content_type_id=content_type_id)
-            data = webTest(
-                webManager.weburl,
-                host,
-                webTypes,
-                webManager,
-                testName=webManager.webname,
-                type='前端测试')
-            if data['errcode']:
-                add_one_test_record(project, False)
-                return Response(data)
+        if project.proname == '量产云平台':
+            for case in mpcloudCases:
+                data = testMpcloudCase(host, case)
+                if data['errcode']:
+                    add_one_test_record(project, False)
+                    project.webresult = False
+                    project.result = False
+                    project.save()
+                    return Response(data)
+        else:
+            webManagers = WebManager.objects.filter(project_id=projectId)
+            for webManager in webManagers:
+                content_type_id = ContentType.objects.get_for_model(WebManager)
+                webTypes = TestType.objects.filter(
+                    object_id=webManager.id, content_type_id=content_type_id)
+                data = webTest(
+                    webManager.weburl,
+                    host,
+                    webTypes,
+                    webManager,
+                    testName=webManager.webname,
+                    type='前端测试')
+                if data['errcode']:
+                    add_one_test_record(project, False)
+                    return Response(data)
 
         project.webresult = True
         project.result = True
@@ -416,3 +428,41 @@ class getRecord(APIView):
         records = get_record(project)
         data['records'] = records
         return Response(data)
+
+
+# 前端自动化测试项目
+class webAutoTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        # 量产云平台
+        if request.GET.get('project') == '量产云平台':
+            return Response(mpcloudCases)
+
+        else:
+            return Response([])
+
+    def patch(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4444/wd/hub'
+        case = request.data
+        result = testMpcloudCase(host, case)
+        return Response(result)
+
+    def post(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4444/wd/hub'
+        result = {}
+        cases = request.data
+        for case in cases:
+            result = testMpcloudCase(host, case)
+            if result['errcode']:
+                return Response(result)
+        return Response(result)
