@@ -219,7 +219,7 @@ def save_log(fuc):
         testName = kwargs.get('testName')
         testType = kwargs.get('type')
         # 测试目录
-        logData = '../' + datetime.now().strftime('%Y-%m-%d')
+        logData = './log/' + datetime.now().strftime('%Y-%m-%d')
         logType = logData + '/' + testType
         LOGDIR = logType + '/' + testName
 

@@ -17,7 +17,7 @@ def main(driver, user=config.USER_MOD_PJ):
     startTime = datetime.now()
 
     # 测试目录
-    logData = '../' + datetime.now().strftime('%Y-%m-%d')
+    logData = './log/' + datetime.now().strftime('%Y-%m-%d')
     logType = logData + '/' + '量产云平台'
     LOGDIR = logType + '/' + user['NAME']
 
