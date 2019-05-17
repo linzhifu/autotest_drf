@@ -92,13 +92,25 @@ WSGI_APPLICATION = 'autotest_drf.wsgi.application'
 #     }
 # }
 
-# 本地MYSQL
+# # windos本地MYSQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'autotest_drf',
+#         'USER': 'root',
+#         'PASSWORD': 'test123456',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
+
+# ubuntu本地MYSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'autotest_drf',
-        'USER': 'root',
-        'PASSWORD': 'test123456',
+        'USER': 'leo',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -267,7 +279,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': './log/debug.log',
+            'filename': '../log/debug.log',
             'formatter': 'simple'
         },
     },
