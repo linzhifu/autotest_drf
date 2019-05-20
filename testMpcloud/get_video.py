@@ -1,5 +1,6 @@
 """python + opencv 实现屏幕录制_by-_Zjh_"""
-from PIL import ImageGrab
+# from PIL import ImageGrab
+import pyscreenshot as ImageGrab
 import numpy as np
 import cv2
 import threading

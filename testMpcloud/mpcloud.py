@@ -2,6 +2,7 @@ import logging
 import os
 import time
 import requests
+import datetime
 # import shutil
 # import get_video
 from time import sleep
@@ -2087,8 +2088,8 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_2['FACTORY']:
             raise Exception(config.ORDER_2['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != config.authTime:
-            raise Exception(config.authTime + ' 有效时间不对：' +
+        if getTeamInfo(wait, 1, 6) != str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days):
+            raise Exception(str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days) + ' 有效时间不对：' +
                             getTeamInfo(wait, 1, 6))
     else:
         # 检查查询结果
@@ -2098,8 +2099,8 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_1['FACTORY']:
             raise Exception(config.ORDER_1['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != config.authTime:
-            raise Exception(config.authTime + ' 有效时间不对：' +
+        if getTeamInfo(wait, 1, 6) != str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days):
+            raise Exception(str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days) + ' 有效时间不对：' +
                             getTeamInfo(wait, 1, 6))
 
 
@@ -2812,7 +2813,7 @@ def test_softFuc(driver, wait, user):
     sleep(sleepTime + 2)
 
     # 核对下载的软件是否正确
-    myfile = filePath + '\\' + software['name']
+    myfile = filePath + '/' + software['name']
     if os.path.exists(myfile):
         # 删除文件
         os.remove(myfile)

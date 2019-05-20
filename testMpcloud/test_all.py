@@ -105,8 +105,7 @@ class testCases(unittest.TestCase):
         self.assertEqual(resu['errmsg'], 'ok')
 
 
-if __name__ == '__main__':
-    # 创建用户
+def main():
     suite = unittest.TestSuite()
     suite.addTest(testCases('test_pro_pm'))
     suite.addTest(testCases('test_mod_pm'))
@@ -122,3 +121,7 @@ if __name__ == '__main__':
     suite.addTest(testCases('test_mod_pj'))
     runer = unittest.TextTestRunner(verbosity=2)
     runer.run(suite)
+
+
+if __name__ == '__main__':
+    main()
