@@ -126,7 +126,7 @@ class CaptchaView(APIView):
                 msg = EmailMessage(
                     '自动化测试平台-%s' % (code),
                     html_content,
-                    '18129832245@163.com',
+                    'leo.lin@longsys.com',
                     [email],
                 )
                 msg.content_subtype = 'html'

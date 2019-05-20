@@ -220,13 +220,21 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# 邮箱设置
+# # 网易邮箱设置
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 导入邮件模块
+# EMAIL_HOST = 'smtp.163.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = '18129832245@163.com'
+# EMAIL_HOST_PASSWORD = 'Lin5535960'
+# EMAIL_USE_SSL = True
+
+# 网易邮箱设置
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 导入邮件模块
-EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = '18129832245@163.com'
+EMAIL_HOST = 'mail.longsys.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'leo.lin@longsys.com'
 EMAIL_HOST_PASSWORD = 'Lin5535960'
-EMAIL_USE_SSL = True
+# EMAIL_USE_SSL = True
 
 
 # 运行Vue跨越调试

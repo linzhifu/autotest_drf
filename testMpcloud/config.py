@@ -747,10 +747,7 @@ USER_PRO_PJ = {
     'proLisEnable': 1,
 
     # 订单列表 orderListEnable:0 不测试，1测试
-    'orderListEnable': 1,
-
-    # 添加样品 createSampleEnable:0 不测试，1 测试
-    'createSampleEnable': 1,
+    'orderListEnable': 1
 }
 # 项目-项目工程师
 USER_MOD_PJ = {
@@ -805,10 +802,6 @@ USER_MOD_PJ = {
 
     # 订单列表 orderListEnable:0 不测试，1测试
     'orderListEnable':
-    1,
-
-    # 添加样品 createSampleEnable:0 不测试，1 测试
-    'createSampleEnable':
     1
 }
 

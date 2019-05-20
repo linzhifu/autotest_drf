@@ -13,9 +13,7 @@ import os
 import requests
 import time
 import json
-from testMpcloud import config, product_pm, model_pm, product_rd, model_rd
-from testMpcloud import product_te, model_te, product_pmc, model_pmc, product_pe, model_pe, product_pj, model_pj
-
+from testMpcloud import config, mpcloud
 # Create your tests here.
 
 # 日子打印配置
@@ -336,7 +334,9 @@ def webCase(url, host, webType, webManager):
         # # 指定浏览器分辨率
         # opt.add_argument('window-size=1920x3000')
         # driver = webdriver.Chrome(options=opt)
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
+        return data
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
@@ -444,7 +444,9 @@ def webTest(url, host, webTypes, webManager, testName, type):
         # # 指定浏览器分辨率
         # opt.add_argument('window-size=1920x3000')
         # driver = webdriver.Chrome(options=opt)
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
+        return data
     driver.implicitly_wait(15)
     driver.maximize_window()
     driver.get(url)
@@ -791,7 +793,7 @@ def testMpcloudCase(host, case):
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
         driver = webdriver.Remote(
             host, desired_capabilities=desired_capabilities)
-    except Exception:
+    except Exception as E:
         # opt = webdriver.ChromeOptions()
         # opt.set_headless()
         # # 谷歌文档提到需要加上这个属性来规避bug
@@ -799,33 +801,13 @@ def testMpcloudCase(host, case):
         # # 指定浏览器分辨率
         # opt.add_argument('window-size=1920x3000')
         # driver = webdriver.Chrome(options=opt)
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        result['errcode'] = 1
+        result['errmsg'] = '未识别到浏览器服务端，请检查是否打开'
+        result['detail'] = str(E)
+        return result
 
-    # 判断是哪个角色测试，开始测试
-    if case.get('role') == '产品-产品工程师':
-        result = product_pm.main(driver, user)
-    elif case.get('role') == '项目-产品工程师':
-        result = model_pm.main(driver, user)
-    elif case.get('role') == '产品-研发工程师':
-        result = product_rd.main(driver, user)
-    elif case.get('role') == '项目-研发工程师':
-        result = model_rd.main(driver, user)
-    elif case.get('role') == '产品-测试工程师':
-        result = product_te.main(driver, user)
-    elif case.get('role') == '项目-测试工程师':
-        result = model_te.main(driver, user)
-    elif case.get('role') == '产品-pmc':
-        result = product_pmc.main(driver, user)
-    elif case.get('role') == '项目-pmc':
-        result = model_pmc.main(driver, user)
-    elif case.get('role') == '产品-产线工程师':
-        result = product_pe.main(driver, user)
-    elif case.get('role') == '项目-产线工程师':
-        result = model_pe.main(driver, user)
-    elif case.get('role') == '产品-项目工程师':
-        result = product_pj.main(driver, user)
-    elif case.get('role') == '项目-项目工程师':
-        result = model_pj.main(driver, user)
+    result = mpcloud.main(driver, user)
     return result
 
 

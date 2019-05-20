@@ -1,18 +1,15 @@
 import logging
 import os
 import time
+import shutil
 import requests
-import datetime
-# import shutil
-# import get_video
+from datetime import datetime
 from time import sleep
-# from datetime import datetime
-# from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
 from testMpcloud import config
 
 # DEBUG LOG
@@ -2088,8 +2085,8 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_2['FACTORY']:
             raise Exception(config.ORDER_2['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days):
-            raise Exception(str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days) + ' 有效时间不对：' +
+        if getTeamInfo(wait, 1, 6) != str((datetime(2019, 11, 1) - datetime.now()).days):
+            raise Exception(str((datetime(2019, 11, 1) - datetime.now()).days) + ' 有效时间不对：' +
                             getTeamInfo(wait, 1, 6))
     else:
         # 检查查询结果
@@ -2099,8 +2096,8 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_1['FACTORY']:
             raise Exception(config.ORDER_1['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days):
-            raise Exception(str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days) + ' 有效时间不对：' +
+        if getTeamInfo(wait, 1, 6) != str((datetime(2019, 11, 1) - datetime.now()).days):
+            raise Exception(str((datetime(2019, 11, 1) - datetime.now()).days) + ' 有效时间不对：' +
                             getTeamInfo(wait, 1, 6))
 
 
@@ -3559,6 +3556,146 @@ def addNgSampe(driver, wait, user):
         newRecord(driver, wait, user)
 
 
+# 主程序
+def main(driver, user):
+    # user :USER_PRO_PM
+    startTime = datetime.now()
+
+    # 测试目录
+    logData = '../log/' + datetime.now().strftime('%Y-%m-%d')
+    logType = logData + '/' + '量产云平台'
+    LOGDIR = logType + '/' + user['NAME']
+
+    # 检查目录
+    if os.path.exists(logData):
+        pass
+    else:
+        os.mkdir(logData)
+
+    if os.path.exists(logType):
+        pass
+    else:
+        os.mkdir(logType)
+
+    if os.path.exists(LOGDIR):
+        pass
+    else:
+        os.mkdir(LOGDIR)
+
+    # 测试结果
+    resu = ''
+    result = {'errcode': 0, 'errmsg': user['NAME'] + ' PASS'}
+
+    # LOG文件名
+    logName = datetime.now().strftime('%Y%m%d%H%M%S')
+
+    # 保存路径
+    savePath = LOGDIR + '/' + logName
+
+    # 指定logger输出格式
+    logger = logging.getLogger()
+    formatter = logging.Formatter('%(asctime)s-%(levelname)s-%(message)s')
+
+    # DEBUG输出保存测试LOG
+    file_handler = logging.FileHandler('test.log')
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
+
+    logger.addHandler(file_handler)
+
+    try:
+        # 设置等待时间
+        wait = WebDriverWait(driver, 10)
+
+        # 最大化
+        driver.maximize_window()
+
+        # 前往测试前端网站
+        logging.info('Go to ' + config.URL)
+        driver.get(config.URL)
+
+        # 登录
+        logging.info('登录账户：' + user['NAME'])
+        login(wait, email=user['EMAIL'], password=user['LOGIN'])
+
+        # 个人资料
+        if user.get('updateUserInfoEnable') or user.get('teamEnable'):
+            logging.info('个人中心-我的资料')
+            userInfo(driver, wait, user)
+
+        if user.get('addModEnable') or user.get('proLisEnable'):
+            # 产品管理
+            logging.info('产品线和项目管理')
+            productManager(driver, wait, user)
+
+            if user.get('addModEnable'):
+                # 产品线和项目管理-添加产品
+                logging.info('产品线和项目管理-添加项目')
+                addProduct(driver, wait, user)
+
+            if user.get('proLisEnable'):
+                # 产品管理-产品线列表
+                logging.info('产品管理-产品线列表')
+                proList(driver, wait, user)
+
+        # 订单管理
+        if user.get('createOrderEnable') or user.get('orderListEnable'):
+            logging.info('订单管理')
+            orderManager(driver, wait, user)
+
+            if user.get('createOrderEnable'):
+                logging.info('订单管理-创建订单')
+                if '产品-pmc' in user['NAME']:
+                    newOrder(driver, wait, user, applicant=config.USER_PRO_PE['NAME'])
+                else:
+                    newOrder(driver, wait, user, applicant=config.USER_MOD_PE['NAME'])
+
+            if user.get('orderListEnable'):
+                # 订单管理-订单列表
+                logging.info('订单管理-订单列表')
+                orderList(driver, wait, user)
+
+        # 样品管理
+        if user.get('createSampleEnable'):
+            # 样品管理
+            logging.info('样品管理')
+            sampleManage(driver, wait, user)
+
+            # 样品管理-添加样品
+            logging.info('样品管理-添加样品')
+            addSampe(driver, wait, user)
+
+            # 样品管理-添加不良品样品
+            logging.info('样品管理-添加不良品样品')
+            addNgSampe(driver, wait, user)
+
+        # 测试结果PASS
+        resu = 'pass'
+
+    except Exception as E:
+        logging.info(E)
+
+        # 测试结果FAIL
+        resu = 'fail'
+        result['errcode'] = 1
+        result['errmsg'] = user['NAME'] + ' FAIL'
+        result['detail'] = str(E)
+
+    finally:
+        # 浏览器退出
+        driver.quit()
+
+        # 测试时间
+        allTime = datetime.now() - startTime
+        logging.info(resu.upper() + ' 测试时间：' + str(allTime))
+
+        # 保存测试LOG
+        logger.removeHandler(file_handler)
+        file_handler.close()
+        shutil.move('test.log', savePath + '-' + resu + '.log')
+
+        return result
+
+
 if __name__ == '__main__':
-    print(doTest())
-    print(admin)
+    pass
