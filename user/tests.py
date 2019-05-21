@@ -200,7 +200,7 @@ loginCase = {
     'url': '/api/v1/user/login',
     'params': {},
     'json': {
-        'email': '18129832245@163.com',
+        'email': '17388730192@163.com',
         'pswmd5': '202cb962ac59075b964b07152d234b70',
         'timestamp': int(time.time())
     },
@@ -710,7 +710,7 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                 result = doTest(case, RESTAPI_DOMAIN)
                 if result['error']:
                     data['errcode'] = 101
-                    data['errmsg'] = apiCase.apiname + '：' + result['error']
+                    data['errmsg'] = apiType.typename + '-' + apiCase.apiname + '：' + result['error']
                     apiCase.result = False
                     apiCase.save()
                     apiType.result = False

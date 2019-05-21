@@ -118,7 +118,7 @@ class CaptchaView(APIView):
 
                 # 邮件内容为HTML
                 # 登陆地址
-                url = 'http://mpstest.longsys.com/'
+                url = 'http://autotest.longsys.com/'
                 html_content = "<p><strong>验证码：%s</strong></p>\
                     <p>This is an <font size=3 color='green'>\
                     <strong>important</strong></font> message.</p><br>\
@@ -338,6 +338,7 @@ class ApiManagerTest(APIView):
                 testName=apiManager.apiname,
                 type='后端测试')
             if data['errcode']:
+                data['errmsg'] = apiManager.apiname + ': ' + data['errmsg']
                 return Response(data)
 
         project.apiresult = True
