@@ -339,6 +339,8 @@ class ApiManagerTest(APIView):
                 type='后端测试')
             if data['errcode']:
                 data['errmsg'] = apiManager.apiname + ': ' + data['errmsg']
+                project.apiresult = False
+                project.save()
                 return Response(data)
 
         project.apiresult = True

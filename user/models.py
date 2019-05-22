@@ -104,6 +104,8 @@ class ApiCase(models.Model):
     # 请求参数和值param
     apiparam = models.TextField(
         '请求参数param', max_length=800, null=True, blank=True)
+    contentType = models.TextField(
+        '请求body格式', max_length=800, default='application/json')
     # 请求数据Body
     apijson = models.TextField(
         '请求数据json', max_length=800, null=True, blank=True)

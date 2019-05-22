@@ -199,6 +199,7 @@ loginCase = {
     'method': 'post',
     'url': '/api/v1/user/login',
     'params': {},
+    'headers': {'content-type': 'application/json'},
     'json': {
         'email': '17388730192@163.com',
         'pswmd5': '202cb962ac59075b964b07152d234b70',
@@ -560,6 +561,7 @@ def doTest(case, RESTAPI_DOMAIN):
             url=RESTAPI_DOMAIN + case['url'],
             params=case['params'],
             json=case['json'],
+            headers=case['headers'],
             verify=False)
     except requests.exceptions.ConnectionError:
         error = "ConnectionError"
@@ -588,7 +590,7 @@ def doTest(case, RESTAPI_DOMAIN):
             error = 'response为空'
 
     if error is None:
-        if str(rev.get('errcode')) != case['response'].get('errcode'):
+        if rev.get('errcode') != case['response'].get('errcode'):
             error = 'errcode不一致'
 
     # 记录userId和token
@@ -605,7 +607,6 @@ def doTest(case, RESTAPI_DOMAIN):
 def apiCase(url, apiType, apiManager):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
-
     # 先登陆获取token
     doTest(loginCase, RESTAPI_DOMAIN)
     apiCases = ApiCase.objects.filter(testType=apiType.id)
@@ -635,8 +636,9 @@ def apiCase(url, apiType, apiManager):
         case['params'] = params
         case['json'] = body_json
         case['response'] = response
+        case['headers'] = {'content-type': apiCase.contentType}
 
-        # print(case)
+        print(case)
         # 发送请求
         result = doTest(case, RESTAPI_DOMAIN)
         if result['error']:
@@ -671,6 +673,7 @@ def apiCase(url, apiType, apiManager):
 def apiTest(url, apiTypes, apiManager, testName, type):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
+    print(1)
 
     # 先登陆获取token
     doTest(loginCase, RESTAPI_DOMAIN)
@@ -704,6 +707,7 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                 case['params'] = params
                 case['json'] = body_json
                 case['response'] = response
+                case['headers'] = {'content-type': apiCase.contentType}
 
                 # print(case)
                 # 发送请求
