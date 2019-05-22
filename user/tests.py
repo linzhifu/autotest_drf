@@ -592,6 +592,18 @@ def doTest(case, RESTAPI_DOMAIN):
     if error is None:
         if rev.get('errcode') != case['response'].get('errcode'):
             error = 'errcode不一致'
+    if error is None:
+        if rev.get('errmsg') != case['response'].get('errmsg'):
+            error = 'errmsg不一致'
+    if error is None:
+        if case['response'].get('data'):
+            if not rev.get('data'):
+                error = 'data不一致'
+            else:
+                for key in case['response']['data']:
+                    if case['response']['data'][key] != rev['data'].get(key):
+                        error = 'data不一致'
+                        break
 
     # 记录userId和token
     if error is None:
