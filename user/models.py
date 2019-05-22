@@ -127,6 +127,24 @@ class ApiCase(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='创建人')
 
+    # 测试是否需要管理员权限
+    isAdmin = models.BooleanField(verbose_name='测试是否需要管理员权限', default=False)
+    # 测试是否需要授权
+    isAuth = models.BooleanField(verbose_name='测试是否需要授权', default=False)
+    # 权限将要赋予的对象，需要填写type和id，type可以是role和user
+    operatorType = models.TextField(
+        '权限将要赋予的对象-Type', max_length=800, null=True, blank=True)
+    operatorId = models.TextField(
+        '权限将要赋予的对象-id', max_length=800, null=True, blank=True)
+    # 权限针对的对象，需要填写type和id，type可以是模块名称，比如product、module、order、role、user
+    objectType = models.TextField(
+        '权限针对的对象-type', max_length=800, null=True, blank=True)
+    objectId = models.TextField(
+        '权限针对的对象-id', max_length=800, null=True, blank=True)
+    # 权限定义的动作集合
+    actions = models.TextField(
+        '权限定义的动作集合', max_length=800, null=True, blank=True)
+
     class Meta:
         verbose_name_plural = '后端测试案例'
         ordering = ['index']
