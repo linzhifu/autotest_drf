@@ -25,6 +25,11 @@ class Project(models.Model):
     result = models.BooleanField(verbose_name='测试结果', default=False)
     update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
 
+    adminUser = models.CharField(verbose_name='管理员账户', max_length=20, null=True, blank=True)
+    adminPsw = models.CharField(verbose_name='管理员密码', max_length=20, null=True, blank=True)
+    testUser = models.CharField(verbose_name='测试账户', max_length=20, null=True, blank=True)
+    testPsw = models.CharField(verbose_name='测试密码', max_length=20, null=True, blank=True)
+
     class Meta:
         verbose_name_plural = '项目信息'
         ordering = ['-update_time']

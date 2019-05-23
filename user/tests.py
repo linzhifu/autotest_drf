@@ -37,8 +37,7 @@ pro_pm = {
     }]
 }
 mod_pm = {
-    'role':
-    '项目-产品工程师',
+    'role': '项目-产品工程师',
     'options': [{
         '个人资料': True
     }, {
@@ -199,7 +198,9 @@ loginCase = {
     'method': 'post',
     'url': '/api/v1/user/login',
     'params': {},
-    'headers': {'content-type': 'application/json'},
+    'headers': {
+        'content-type': 'application/json'
+    },
     'json': {
         'email': '17388730192@163.com',
         'pswmd5': '202cb962ac59075b964b07152d234b70',
@@ -484,7 +485,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 101
-                    data['errmsg'] = webType.typename + '-' + webCase.webname + ' ：操作异常'
+                    data[
+                        'errmsg'] = webType.typename + '-' + webCase.webname + ' ：操作异常'
                     data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
@@ -532,7 +534,8 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 103
-                    data['errmsg'] = webType.typename + '-' + checkWebCase.webname + ' ：操作异常'
+                    data[
+                        'errmsg'] = webType.typename + '-' + checkWebCase.webname + ' ：操作异常'
                     data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
@@ -584,7 +587,7 @@ def doTest(case, RESTAPI_DOMAIN):
             rev = response.json()
         except Exception as e:
             error = '返回数据不是JSON对象'
-
+    # print(rev)
     if error is None:
         if not case['response']:
             error = 'response为空'
@@ -605,31 +608,165 @@ def doTest(case, RESTAPI_DOMAIN):
                         error = 'data不一致'
                         break
 
-    # 记录userId和token
-    if error is None:
-        if rev.get('data'):
-            if rev['data'].get('userid') and rev['data'].get('token'):
-                user_token['userid'] = rev['data'].get('userid')
-                user_token['token'] = rev['data'].get('token')
+    # # 记录userId和token
+    # if error is None:
+    #     if rev.get('data'):
+    #         if rev['data'].get('userid') and rev['data'].get('token'):
+    #             user_token['userid'] = rev['data'].get('userid')
+    #             user_token['token'] = rev['data'].get('token')
     result = {'time': str(round(timeval, 2)), 'error': error}
     return result
 
 
+# 设置管理员
+def setAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo):
+    # print('设置管理员----------------------------------------')
+    adminCase = {}
+    adminCase['method'] = 'post'
+    adminCase['url'] = '/api/v1/role/user'
+    adminCase['params'] = {
+        'userid': testUserInfo.get('adminUserId'),
+        'token': testUserInfo.get('adminUserToken')
+    }
+    adminCase['json'] = {
+        'roleid': 1,
+        'userid': int(testUserInfo.get('testUserId'))
+    }
+    adminCase['response'] = {"errcode": 0, "errmsg": "ok"}
+    adminCase['headers'] = {'content-type': 'application/json'}
+    result = doTest(adminCase, RESTAPI_DOMAIN)
+    return result
+
+
+# 设置管理员
+def deleteAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo):
+    # print('取消管理员----------------------------------------')
+    adminCase = {}
+    adminCase['method'] = 'delete'
+    adminCase['url'] = '/api/v1/role/user'
+    adminCase['params'] = {
+        'userid': testUserInfo.get('adminUserId'),
+        'token': testUserInfo.get('adminUserToken')
+    }
+    adminCase['json'] = {
+        'roleid': 1,
+        'userid': int(testUserInfo.get('testUserId'))
+    }
+    adminCase['response'] = {"errcode": 0, "errmsg": "ok"}
+    adminCase['headers'] = {'content-type': 'application/json'}
+    result = doTest(adminCase, RESTAPI_DOMAIN)
+    return result
+
+
+# 授权
+def setAuth(apiCase, RESTAPI_DOMAIN, testUserInfo):
+    # print('设置权限----------------------------------------')
+    authCase = {}
+    authCase['method'] = 'post'
+    authCase['url'] = '/api/v1/role/permission'
+    authCase['params'] = {
+        'userid': testUserInfo.get('adminUserId'),
+        'token': testUserInfo.get('adminUserToken')
+    }
+    authCase['json'] = {
+        "operator": {
+            "type": apiCase.operatorType,
+            "id": int(apiCase.objectId)
+        },
+        "object": {
+            "type": apiCase.objectType,
+            "id": int(apiCase.objectId)
+        },
+        "actions": apiCase.actions.split(',')
+    }
+    authCase['response'] = {"errcode": 0, "errmsg": "ok"}
+    authCase['headers'] = {'content-type': 'application/json'}
+    # print(authCase)
+    result = doTest(authCase, RESTAPI_DOMAIN)
+    return result
+
+
+# 取消授权
+def deleteAuth(apiCase, RESTAPI_DOMAIN, testUserInfo):
+    # print('取消权限----------------------------------------')
+    authCase = {}
+    authCase['method'] = 'delete'
+    authCase['url'] = '/api/v1/role/permission'
+    authCase['params'] = {
+        'userid': testUserInfo.get('adminUserId'),
+        'token': testUserInfo.get('adminUserToken')
+    }
+    authCase['json'] = {
+        "operator": {
+            "type": apiCase.operatorType,
+            "id": int(apiCase.objectId)
+        },
+        "object": {
+            "type": apiCase.objectType,
+            "id": int(apiCase.objectId)
+        },
+        "actions": apiCase.actions.split(',')
+    }
+    authCase['response'] = {"errcode": 0, "errmsg": "ok"}
+    authCase['headers'] = {'content-type': 'application/json'}
+    # print(authCase)
+    result = doTest(authCase, RESTAPI_DOMAIN)
+    return result
+
+
 # 后端API单元测试
-def apiCase(url, apiType, apiManager):
+def apiCase(url, apiType, apiManager, testUserInfo):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
-    # 先登陆获取token
-    doTest(loginCase, RESTAPI_DOMAIN)
+    # 先登陆获取测试用户token
+    # doTest(loginCase, RESTAPI_DOMAIN)
     apiCases = ApiCase.objects.filter(testType=apiType.id)
     for apiCase in apiCases:
+        # 是否需要设置为管理员
+        if apiCase.isAdmin:
+            result = setAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo)
+            if result['error']:
+                data['errcode'] = 101
+                data['errmsg'] = apiCase.apiname + '-设置管理员' + '：' + result[
+                    'error']
+                apiCase.result = False
+                apiCase.save()
+                apiType.result = False
+                apiType.save()
+                apiManager.project.webresult = False
+                apiManager.project.save()
+                add_one_test_record(apiType, False)
+                apiManager.result = False
+                apiManager.save()
+                logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                             result['time'] + '-' + 'FAIL')
+                return data
+        # 是否需要添加权限
+        if apiCase.isAuth:
+            result = setAuth(apiCase, RESTAPI_DOMAIN, testUserInfo)
+            if result['error']:
+                data['errcode'] = 101
+                data['errmsg'] = apiCase.apiname + '-设置权限' + '：' + result[
+                    'error']
+                apiCase.result = False
+                apiCase.save()
+                apiType.result = False
+                apiType.save()
+                apiManager.project.webresult = False
+                apiManager.project.save()
+                add_one_test_record(apiType, False)
+                apiManager.result = False
+                apiManager.save()
+                logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                             result['time'] + '-' + 'FAIL')
+                return data
         # 格式化参数
         case = {}
         try:
             params = json.loads(apiCase.apiparam)
             if params.get('userid') and params.get('token'):
-                params['userid'] = user_token['userid']
-                params['token'] = user_token['token']
+                params['userid'] = testUserInfo['testUserId']
+                params['token'] = testUserInfo['testUserToken']
         except Exception:
             params = ''
         try:
@@ -650,7 +787,7 @@ def apiCase(url, apiType, apiManager):
         case['response'] = response
         case['headers'] = {'content-type': apiCase.contentType}
 
-        print(case)
+        # print(case)
         # 发送请求
         result = doTest(case, RESTAPI_DOMAIN)
         if result['error']:
@@ -669,6 +806,45 @@ def apiCase(url, apiType, apiManager):
                          result['time'] + '-' + 'FAIL')
             return data
 
+        # 是否需要取消设置为管理员
+        if apiCase.isAdmin:
+            result = deleteAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo)
+            if result['error']:
+                data['errcode'] = 101
+                data['errmsg'] = apiCase.apiname + '-取消管理员' + '：' + result[
+                    'error']
+                apiCase.result = False
+                apiCase.save()
+                apiType.result = False
+                apiType.save()
+                apiManager.project.webresult = False
+                apiManager.project.save()
+                add_one_test_record(apiType, False)
+                apiManager.result = False
+                apiManager.save()
+                logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                             result['time'] + '-' + 'FAIL')
+                return data
+        # 是否需要删除权限
+        if apiCase.isAuth:
+            result = deleteAuth(apiCase, RESTAPI_DOMAIN, testUserInfo)
+            if result['error']:
+                data['errcode'] = 101
+                data['errmsg'] = apiCase.apiname + '-删除权限' + '：' + result[
+                    'error']
+                apiCase.result = False
+                apiCase.save()
+                apiType.result = False
+                apiType.save()
+                apiManager.project.webresult = False
+                apiManager.project.save()
+                add_one_test_record(apiType, False)
+                apiManager.result = False
+                apiManager.save()
+                logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
+                             result['time'] + '-' + 'FAIL')
+                return data
+
         apiCase.result = True
         apiCase.save()
         logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
@@ -682,25 +858,66 @@ def apiCase(url, apiType, apiManager):
 
 @save_log
 # 后端模块测试
-def apiTest(url, apiTypes, apiManager, testName, type):
+def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
     print(1)
 
     # 先登陆获取token
-    doTest(loginCase, RESTAPI_DOMAIN)
+    # doTest(loginCase, RESTAPI_DOMAIN)
 
     for apiType in apiTypes:
         if apiType.is_test:
             apiCases = ApiCase.objects.filter(testType=apiType.id)
             for apiCase in apiCases:
+                # 是否需要设置为管理员
+                if apiCase.isAdmin:
+                    result = setAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo)
+                    if result['error']:
+                        data['errcode'] = 101
+                        data[
+                            'errmsg'] = apiCase.apiname + '-设置管理员' + '：' + result[
+                                'error']
+                        apiCase.result = False
+                        apiCase.save()
+                        apiType.result = False
+                        apiType.save()
+                        apiManager.project.webresult = False
+                        apiManager.project.save()
+                        add_one_test_record(apiType, False)
+                        apiManager.result = False
+                        apiManager.save()
+                        logging.info(apiCase.apiname + '-' + apiCase.apiurl +
+                                     '-' + result['time'] + '-' + 'FAIL')
+                        return data
+                # 是否需要添加权限
+                if apiCase.isAuth:
+                    result = setAuth(apiCase, RESTAPI_DOMAIN, testUserInfo)
+                    if result['error']:
+                        data['errcode'] = 101
+                        data[
+                            'errmsg'] = apiCase.apiname + '-设置权限' + '：' + result[
+                                'error']
+                        apiCase.result = False
+                        apiCase.save()
+                        apiType.result = False
+                        apiType.save()
+                        apiManager.project.webresult = False
+                        apiManager.project.save()
+                        add_one_test_record(apiType, False)
+                        apiManager.result = False
+                        apiManager.save()
+                        logging.info(apiCase.apiname + '-' + apiCase.apiurl +
+                                     '-' + result['time'] + '-' + 'FAIL')
+                        return data
+
                 # 格式化参数
                 case = {}
                 try:
                     params = json.loads(apiCase.apiparam)
                     if params.get('userid') and params.get('token'):
-                        params['userid'] = user_token['userid']
-                        params['token'] = user_token['token']
+                        params['userid'] = testUserInfo['testUserId']
+                        params['token'] = testUserInfo['testUserToken']
                 except Exception:
                     params = ''
                 try:
@@ -726,7 +943,9 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                 result = doTest(case, RESTAPI_DOMAIN)
                 if result['error']:
                     data['errcode'] = 101
-                    data['errmsg'] = apiType.typename + '-' + apiCase.apiname + '：' + result['error']
+                    data[
+                        'errmsg'] = apiType.typename + '-' + apiCase.apiname + '：' + result[
+                            'error']
                     apiCase.result = False
                     apiCase.save()
                     apiType.result = False
@@ -740,6 +959,47 @@ def apiTest(url, apiTypes, apiManager, testName, type):
                     logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
                                  result['time'] + '-' + 'FAIL')
                     return data
+
+                # 是否需要取消设置为管理员
+                if apiCase.isAdmin:
+                    result = deleteAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo)
+                    if result['error']:
+                        data['errcode'] = 101
+                        data[
+                            'errmsg'] = apiCase.apiname + '-取消管理员' + '：' + result[
+                                'error']
+                        apiCase.result = False
+                        apiCase.save()
+                        apiType.result = False
+                        apiType.save()
+                        apiManager.project.webresult = False
+                        apiManager.project.save()
+                        add_one_test_record(apiType, False)
+                        apiManager.result = False
+                        apiManager.save()
+                        logging.info(apiCase.apiname + '-' + apiCase.apiurl +
+                                     '-' + result['time'] + '-' + 'FAIL')
+                        return data
+                # 是否需要删除权限
+                if apiCase.isAuth:
+                    result = deleteAuth(apiCase, RESTAPI_DOMAIN, testUserInfo)
+                    if result['error']:
+                        data['errcode'] = 101
+                        data[
+                            'errmsg'] = apiCase.apiname + '-删除权限' + '：' + result[
+                                'error']
+                        apiCase.result = False
+                        apiCase.save()
+                        apiType.result = False
+                        apiType.save()
+                        apiManager.project.webresult = False
+                        apiManager.project.save()
+                        add_one_test_record(apiType, False)
+                        apiManager.result = False
+                        apiManager.save()
+                        logging.info(apiCase.apiname + '-' + apiCase.apiurl +
+                                     '-' + result['time'] + '-' + 'FAIL')
+                        return data
 
                 apiCase.result = True
                 apiCase.save()

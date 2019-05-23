@@ -288,12 +288,13 @@ class ApiCaseTest(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         url = request.GET.get('url')
         testType_id = request.GET.get('testType')
+        testUserInfo = request.data.get('testUserInfo')
         apiType = TestType.objects.filter(id=testType_id).first()
         apiManager = ApiManager.objects.filter(id=apiType.object_id).first()
-        data = apiCase(url, apiType, apiManager)
+        data = apiCase(url, apiType, apiManager, testUserInfo)
         return Response(data)
 
 
@@ -302,8 +303,9 @@ class ApiTypeTest(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         url = request.GET.get('url')
+        testUserInfo = request.data.get('testUserInfo')
         content_type_id = request.GET.get('content_type')
         object_id = request.GET.get('object_id')
         apiTypes = TestType.objects.filter(
@@ -314,7 +316,8 @@ class ApiTypeTest(APIView):
             apiTypes,
             apiManager,
             testName=apiManager.apiname,
-            type='后端测试')
+            type='后端测试',
+            testUserInfo=testUserInfo)
         return Response(data)
 
 
@@ -323,9 +326,11 @@ class ApiManagerTest(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         projectId = request.GET.get('projectId')
         project = Project.objects.get(id=projectId)
+        testUserInfo = request.data.get('testUserInfo')
+        # print(testUserInfo)
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
             content_type_id = ContentType.objects.get_for_model(ApiManager)
@@ -336,7 +341,8 @@ class ApiManagerTest(APIView):
                 apiTypes,
                 apiManager,
                 testName=apiManager.apiname,
-                type='后端测试')
+                type='后端测试',
+                testUserInfo=testUserInfo)
             if data['errcode']:
                 data['errmsg'] = apiManager.apiname + ': ' + data['errmsg']
                 project.apiresult = False
