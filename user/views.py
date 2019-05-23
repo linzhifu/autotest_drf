@@ -359,9 +359,11 @@ class projectTest(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         projectId = request.GET.get('projectId')
         project = Project.objects.get(id=projectId)
+        testUserInfo = request.data.get('testUserInfo')
+        print(testUserInfo)
         # 后端测试
         print('后端测试开始')
         apiManagers = ApiManager.objects.filter(project_id=projectId)
@@ -374,7 +376,8 @@ class projectTest(APIView):
                 apiTypes,
                 apiManager,
                 testName=apiManager.apiname,
-                type='后端测试')
+                type='后端测试',
+                testUserInfo=testUserInfo)
             if data['errcode']:
                 add_one_test_record(project, False)
                 return Response(data)
