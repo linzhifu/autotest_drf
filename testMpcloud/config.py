@@ -2,7 +2,7 @@
 # mpsystem@longsys.com
 # 2A12vx5O
 import datetime
-import os
+# import os
 # 测试用浏览器设置 0：谷歌 ，1：火狐 ，2：IE
 webBrower = 0
 
@@ -13,13 +13,7 @@ URL = 'https://mpstest.longsys.com'
 
 
 # 测试文件下载路径
-def filePath():
-    if os.path.exists(r'C:\Users\Administrator\Downloads'):
-        return r'C:\Users\Administrator\Downloads'
-    elif os.path.exists(r'/home/leo/下载'):
-        return r'/home/leo/下载'
-    else:
-        raise Exception('下载路径设置有误')
+filePath = r'C:\Users\Administrator\Downloads'
 
 
 # 操作等待时间

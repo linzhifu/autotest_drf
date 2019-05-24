@@ -65,7 +65,7 @@ proMod = config.proMod
 software = config.software
 
 # 测试文件下载路径
-filePath = config.filePath()
+filePath = config.filePath
 
 
 # API请求，默认获取管理员token
