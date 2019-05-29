@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, TestType, CheckWebCase
+from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, TestType, CheckWebCase, Report
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, ContentType
 
@@ -33,6 +33,25 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = '__all__'
         # fields = ['id', 'proname', 'prodes', 'user', 'username']
+
+
+# 测试记录
+class ReportSerializer(serializers.ModelSerializer):
+
+    proname = serializers.SerializerMethodField(read_only=True)
+    username = serializers.SerializerMethodField(read_only=True)
+
+    def get_proname(self, row):
+        prject = Project.objects.filter(id=row.project.id).first()
+        return prject.proname
+
+    def get_username(self, row):
+        user = User.objects.filter(id=row.user.id).first()
+        return user.username
+
+    class Meta:
+        model = Report
+        fields = ['id', 'project', 'proname', 'user', 'username', 'update_time']
 
 
 # 前端测试管理

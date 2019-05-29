@@ -10,9 +10,9 @@ from rest_framework.authtoken.models import Token
 from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
-from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, TestType, CheckWebCase
+from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, TestType, CheckWebCase, Report
 from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, CheckWebCaseSerializer
-from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer
+from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer, ReportSerializer
 import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
@@ -119,12 +119,11 @@ class CaptchaView(APIView):
                 # 邮件内容为HTML
                 # 登陆地址
                 url = 'http://autotest.longsys.com/'
-                html_content = "<p><strong>验证码：%s</strong></p>\
-                    <p>This is an <font size=3 color='green'>\
-                    <strong>important</strong></font> message.</p><br>\
-                    <a href='%s'>点击登陆<a>" % (code, url)
+                html_content = "<p>Hello %s：</p>\
+                    <p>This is longsys autotest system, your captcha is: %s</p>\
+                    <a href='%s'>Please Login<a>" % (email, code, url)
                 msg = EmailMessage(
-                    '自动化测试平台-%s' % (code),
+                    'Captcha:%s' % (code),
                     html_content,
                     'leo.lin@longsys.com',
                     [email],
@@ -153,6 +152,12 @@ class UserView(ModelViewSet):
 class ProjectView(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+
+# 测试报告记录
+class ReportView(ModelViewSet):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
 
 
 # 前端测试管理-自定义

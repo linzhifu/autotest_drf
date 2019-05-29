@@ -181,13 +181,13 @@ USER_ADMIN = {
     'proListEnable': 0,
 
     # 上传软件 upSoftEnable:0 不测试，1 测试
-    'upSoftEnable': 0,
+    'upSoftEnable': 1,
 
     # 创建订单 createOrderEnable:0 不测试，1 测试
     'createOrderEnable': 0,
 
     # 关联量产工具 orderToolEnable:0 不测试，1测试
-    'orderToolEnable': 1,
+    'orderToolEnable': 0,
 
     # 添加样品 createSampleEnable:0 不测试，1 测试
     'createSampleEnable': 0,

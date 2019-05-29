@@ -38,6 +38,22 @@ class Project(models.Model):
         return self.proname
 
 
+# 测试报告记录
+class Report(models.Model):
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+    update_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
+
+    class Meta:
+        verbose_name_plural = '测试报告记录'
+        ordering = ['-update_time']
+
+    def __str__(self):
+        return self.update_time
+
+
 # 前端测试管理
 class WebManager(models.Model):
     webname = models.CharField(verbose_name='前端测试名称', max_length=20, null=True)
