@@ -281,11 +281,7 @@ def save_log(fuc):
 #         print(response.content)
 #         self.assertEqual(True, True)
 def test():
-    url = 'http://127.0.0.1:8000/'
-    params = {"projectId": 52}
-    response = requests.request(
-        'get', url + '/api/v1/projectTest/', params=params)
-    print(response.json())
+    pass
 
 
 # 添加一次测试记录

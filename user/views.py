@@ -10,13 +10,17 @@ from rest_framework.authtoken.models import Token
 from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
-from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, TestType, CheckWebCase, Report
-from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, CheckWebCaseSerializer
-from user.serializer import ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, TestTypeSerializer, ReportSerializer
+from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, \
+    TestType, CheckWebCase, Report
+from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, \
+    CheckWebCaseSerializer, ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, \
+    TestTypeSerializer, ReportSerializer
 import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
 from user.tests import testMpcloudCase, mpcloudCases
+import openpyxl
+import os
 
 
 # Create your views here.
@@ -483,3 +487,43 @@ class webAutoTest(APIView):
             if result['errcode']:
                 return Response(result)
         return Response(result)
+
+
+# 前端自动化测试项目
+class MpcloudExcel(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok'}
+        # 量产云平台
+        data = request.data
+        report = data['mpcloudReport']
+        fileName = data['fileName']
+        try:
+            wb = openpyxl.load_workbook('量产云平台研发验证报告.xlsx')
+            sheet = wb.get_sheet_by_name('list')
+            sheet['C3'] = report['version']['量产云平台']
+            sheet['C4'] = report['version']['电流板']
+            sheet['M3'] = report['version']['MPTool']
+            sheet['J4'] = report['version']['离线Key授权工具']
+            sheet['J3'] = report['version']['syncAgent']
+            sheet['C5'] = report['version']['transferStation']
+            sheet['C9'] = report['releaseNote']
+            wb.save('../log/reports/' + fileName)
+        except Exception as e:
+            res['errcode'] = 1
+            res['errmsg'] = str(e)
+
+        return Response(res)
+
+    def delete(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok'}
+        fileName = request.GET.get('fileName')
+        try:
+            os.remove('../log/reports/' + fileName)
+        except Exception as e:
+            res['errcode'] = 1
+            res['errmsg'] = str(e)
+
+        return Response(res)

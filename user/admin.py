@@ -1,6 +1,6 @@
 from django.contrib import admin
 from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, \
-    WebCase, TestType, CheckWebCase, TestRecord
+    WebCase, TestType, CheckWebCase, TestRecord, Report
 
 
 # Register your models here.
@@ -92,3 +92,9 @@ class TestRecordAdmin(admin.ModelAdmin):
     list_display = [
         'content_object', 'test_all', 'test_pass', 'test_fail', 'test_time'
     ]
+
+
+@admin.register(Report)
+class ReportAdmin(admin.ModelAdmin):
+    model = Report
+    list_display = ['project', 'user', 'update_time', 'version', 'releaseNote']

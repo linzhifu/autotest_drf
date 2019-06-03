@@ -47,5 +47,6 @@ urlpatterns = [
     re_path(r'(?P<version>[v1|v2]+)/projectTest/', views.projectTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/getRecord/', views.getRecord.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webAutoTest/', views.webAutoTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/mpcloudExcel/', views.MpcloudExcel.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/', include(router.urls)),
 ]

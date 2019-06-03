@@ -44,6 +44,8 @@ class Report(models.Model):
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='创建人')
+    version = models.CharField(verbose_name='软件版本信息', max_length=800)
+    releaseNote = models.CharField('Release Note', max_length=800)
     update_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
 
     class Meta:
