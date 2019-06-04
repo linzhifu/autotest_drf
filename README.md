@@ -10,3 +10,4 @@ pip3 install django-filter
 
 pip3 install pymysql
 pip3 install selenium
+pip3 install openpyxl

@@ -20,6 +20,7 @@ import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
 from user.tests import testMpcloudCase, mpcloudCases
 import openpyxl
+from openpyxl.styles import colors, Font
 import os
 
 
@@ -502,6 +503,729 @@ class MpcloudExcel(APIView):
         fileName = data['fileName']
         try:
             wb = openpyxl.load_workbook('量产云平台研发验证报告.xlsx')
+            # 红色
+            redFont = Font(color=colors.RED)
+            # 绿色
+            greenFont = Font(color=colors.GREEN)
+
+            # 权限测试
+            sheet = wb.get_sheet_by_name('权限测试')
+            # 产品-产品工程师
+            product_pm = 'PASS'
+            for test in report['product_pm']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D4'] = test['result']
+                    sheet['E4'] = test['note']
+                    if sheet['D4'].value == 'PASS':
+                        sheet['D4'].font = greenFont
+                    else:
+                        product_pm = 'FAIL'
+                        sheet['D4'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D9'] = test['result']
+                    sheet['E9'] = test['note']
+                    if sheet['D9'].value == 'PASS':
+                        sheet['D9'].font = greenFont
+                    else:
+                        product_pm = 'FAIL'
+                        sheet['D9'].font = redFont
+
+                if test['testInfo'] == '添加项目':
+                    sheet['D16'] = test['result']
+                    sheet['E16'] = test['note']
+                    if sheet['D16'].value == 'PASS':
+                        sheet['D16'].font = greenFont
+                    else:
+                        product_pm = 'FAIL'
+                        sheet['D16'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D20'] = test['result']
+                    sheet['E20'] = test['note']
+                    if sheet['D20'].value == 'PASS':
+                        sheet['D20'].font = greenFont
+                    else:
+                        product_pm = 'FAIL'
+                        sheet['D20'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D28'] = test['result']
+                    sheet['E28'] = test['note']
+                    if sheet['D28'].value == 'PASS':
+                        sheet['D28'].font = greenFont
+                    else:
+                        product_pm = 'FAIL'
+                        sheet['D28'].font = redFont
+
+            # 项目-产品工程师
+            model_pm = 'PASS'
+            for test in report['model_pm']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D33'] = test['result']
+                    sheet['E33'] = test['note']
+                    if sheet['D33'].value == 'PASS':
+                        sheet['D33'].font = greenFont
+                    else:
+                        model_pm = 'FAIL'
+                        sheet['D33'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D38'] = test['result']
+                    sheet['E38'] = test['note']
+                    if sheet['D38'].value == 'PASS':
+                        sheet['D38'].font = greenFont
+                    else:
+                        model_pm = 'FAIL'
+                        sheet['D38'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D45'] = test['result']
+                    sheet['E45'] = test['note']
+                    if sheet['D45'].value == 'PASS':
+                        sheet['D45'].font = greenFont
+                    else:
+                        model_pm = 'FAIL'
+                        sheet['D45'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D51'] = test['result']
+                    sheet['E51'] = test['note']
+                    if sheet['D51'].value == 'PASS':
+                        sheet['D51'].font = greenFont
+                    else:
+                        model_pm = 'FAIL'
+                        sheet['D51'].font = redFont
+
+            # 产品-研发工程师
+            product_rd = 'PASS'
+            for test in report['product_rd']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D56'] = test['result']
+                    sheet['E56'] = test['note']
+                    if sheet['D56'].value == 'PASS':
+                        sheet['D56'].font = greenFont
+                    else:
+                        product_rd = 'FAIL'
+                        sheet['D56'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D61'] = test['result']
+                    sheet['E61'] = test['note']
+                    if sheet['D61'].value == 'PASS':
+                        sheet['D61'].font = greenFont
+                    else:
+                        product_rd = 'FAIL'
+                        sheet['D61'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D68'] = test['result']
+                    sheet['E68'] = test['note']
+                    if sheet['D68'].value == 'PASS':
+                        sheet['D68'].font = greenFont
+                    else:
+                        product_rd = 'FAIL'
+                        sheet['D68'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D73'] = test['result']
+                    sheet['E73'] = test['note']
+                    if sheet['D73'].value == 'PASS':
+                        sheet['D73'].font = greenFont
+                    else:
+                        product_rd = 'FAIL'
+                        sheet['D73'].font = redFont
+
+                if test['testInfo'] == '添加样品':
+                    sheet['D78'] = test['result']
+                    sheet['E78'] = test['note']
+                    if sheet['D78'].value == 'PASS':
+                        sheet['D78'].font = greenFont
+                    else:
+                        product_rd = 'FAIL'
+                        sheet['D78'].font = redFont
+
+            # 项目-研发工程师
+            model_rd = 'PASS'
+            for test in report['model_rd']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D81'] = test['result']
+                    sheet['E81'] = test['note']
+                    if sheet['D81'].value == 'PASS':
+                        sheet['D81'].font = greenFont
+                    else:
+                        model_rd = 'FAIL'
+                        sheet['D81'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D86'] = test['result']
+                    sheet['E86'] = test['note']
+                    if sheet['D86'].value == 'PASS':
+                        sheet['D86'].font = greenFont
+                    else:
+                        model_rd = 'FAIL'
+                        sheet['D86'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D93'] = test['result']
+                    sheet['E93'] = test['note']
+                    if sheet['D93'].value == 'PASS':
+                        sheet['D93'].font = greenFont
+                    else:
+                        model_rd = 'FAIL'
+                        sheet['D93'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D98'] = test['result']
+                    sheet['E98'] = test['note']
+                    if sheet['D98'].value == 'PASS':
+                        sheet['D98'].font = greenFont
+                    else:
+                        model_rd = 'FAIL'
+                        sheet['D98'].font = redFont
+
+                if test['testInfo'] == '添加样品':
+                    sheet['D103'] = test['result']
+                    sheet['E103'] = test['note']
+                    if sheet['D103'].value == 'PASS':
+                        sheet['D103'].font = greenFont
+                    else:
+                        model_rd = 'FAIL'
+                        sheet['D103'].font = redFont
+
+            # 产品-测试工程师
+            product_te = 'PASS'
+            for test in report['product_te']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D106'] = test['result']
+                    sheet['E106'] = test['note']
+                    if sheet['D106'].value == 'PASS':
+                        sheet['D106'].font = greenFont
+                    else:
+                        product_te = 'FAIL'
+                        sheet['D106'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D111'] = test['result']
+                    sheet['E111'] = test['note']
+                    if sheet['D111'].value == 'PASS':
+                        sheet['D111'].font = greenFont
+                    else:
+                        product_te = 'FAIL'
+                        sheet['D111'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D118'] = test['result']
+                    sheet['E118'] = test['note']
+                    if sheet['D118'].value == 'PASS':
+                        sheet['D118'].font = greenFont
+                    else:
+                        product_te = 'FAIL'
+                        sheet['D118'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D123'] = test['result']
+                    sheet['E123'] = test['note']
+                    if sheet['D123'].value == 'PASS':
+                        sheet['D123'].font = greenFont
+                    else:
+                        product_te = 'FAIL'
+                        sheet['D123'].font = redFont
+
+                if test['testInfo'] == '添加样品':
+                    sheet['D128'] = test['result']
+                    sheet['E128'] = test['note']
+                    if sheet['D128'].value == 'PASS':
+                        sheet['D128'].font = greenFont
+                    else:
+                        product_te = 'FAIL'
+                        sheet['D128'].font = redFont
+
+            # 项目-测试工程师
+            model_te = 'PASS'
+            for test in report['model_te']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D131'] = test['result']
+                    sheet['E131'] = test['note']
+                    if sheet['D131'].value == 'PASS':
+                        sheet['D131'].font = greenFont
+                    else:
+                        model_te = 'FAIL'
+                        sheet['D131'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D136'] = test['result']
+                    sheet['E136'] = test['note']
+                    if sheet['D136'].value == 'PASS':
+                        sheet['D136'].font = greenFont
+                    else:
+                        model_te = 'FAIL'
+                        sheet['D136'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D143'] = test['result']
+                    sheet['E143'] = test['note']
+                    if sheet['D143'].value == 'PASS':
+                        sheet['D143'].font = greenFont
+                    else:
+                        model_te = 'FAIL'
+                        sheet['D143'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D148'] = test['result']
+                    sheet['E148'] = test['note']
+                    if sheet['D148'].value == 'PASS':
+                        sheet['D148'].font = greenFont
+                    else:
+                        model_te = 'FAIL'
+                        sheet['D148'].font = redFont
+
+                if test['testInfo'] == '添加样品':
+                    sheet['D153'] = test['result']
+                    sheet['E153'] = test['note']
+                    if sheet['D153'].value == 'PASS':
+                        sheet['D153'].font = greenFont
+                    else:
+                        model_te = 'FAIL'
+                        sheet['D153'].font = redFont
+
+            # 产品-PMC
+            product_pmc = 'PASS'
+            for test in report['product_pmc']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D156'] = test['result']
+                    sheet['E156'] = test['note']
+                    if sheet['D156'].value == 'PASS':
+                        sheet['D156'].font = greenFont
+                    else:
+                        product_pmc = 'FAIL'
+                        sheet['D156'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D161'] = test['result']
+                    sheet['E161'] = test['note']
+                    if sheet['D161'].value == 'PASS':
+                        sheet['D161'].font = greenFont
+                    else:
+                        product_pmc = 'FAIL'
+                        sheet['D161'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D168'] = test['result']
+                    sheet['E168'] = test['note']
+                    if sheet['D168'].value == 'PASS':
+                        sheet['D168'].font = greenFont
+                    else:
+                        product_pmc = 'FAIL'
+                        sheet['D168'].font = redFont
+
+                if test['testInfo'] == '创建订单':
+                    sheet['D173'] = test['result']
+                    sheet['E173'] = test['note']
+                    if sheet['D173'].value == 'PASS':
+                        sheet['D173'].font = greenFont
+                    else:
+                        product_pmc = 'FAIL'
+                        sheet['D173'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D177'] = test['result']
+                    sheet['E177'] = test['note']
+                    if sheet['D177'].value == 'PASS':
+                        sheet['D177'].font = greenFont
+                    else:
+                        product_pmc = 'FAIL'
+                        sheet['D177'].font = redFont
+
+            # 项目-PMC
+            model_pmc = 'PASS'
+            for test in report['model_pmc']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D182'] = test['result']
+                    sheet['E182'] = test['note']
+                    if sheet['D182'].value == 'PASS':
+                        sheet['D182'].font = greenFont
+                    else:
+                        model_pmc = 'FAIL'
+                        sheet['D182'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D187'] = test['result']
+                    sheet['E187'] = test['note']
+                    if sheet['D187'].value == 'PASS':
+                        sheet['D187'].font = greenFont
+                    else:
+                        model_pmc = 'FAIL'
+                        sheet['D187'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D194'] = test['result']
+                    sheet['E194'] = test['note']
+                    if sheet['D194'].value == 'PASS':
+                        sheet['D194'].font = greenFont
+                    else:
+                        model_pmc = 'FAIL'
+                        sheet['D194'].font = redFont
+
+                if test['testInfo'] == '创建订单':
+                    sheet['D199'] = test['result']
+                    sheet['E199'] = test['note']
+                    if sheet['D199'].value == 'PASS':
+                        sheet['D199'].font = greenFont
+                    else:
+                        model_pmc = 'FAIL'
+                        sheet['D199'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D203'] = test['result']
+                    sheet['E203'] = test['note']
+                    if sheet['D203'].value == 'PASS':
+                        sheet['D203'].font = greenFont
+                    else:
+                        model_pmc = 'FAIL'
+                        sheet['D203'].font = redFont
+
+            # 产品-产线工程师
+            product_pe = 'PASS'
+            for test in report['product_pe']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D208'] = test['result']
+                    sheet['E208'] = test['note']
+                    if sheet['D208'].value == 'PASS':
+                        sheet['D208'].font = greenFont
+                    else:
+                        product_pe = 'FAIL'
+                        sheet['D208'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D213'] = test['result']
+                    sheet['E213'] = test['note']
+                    if sheet['D213'].value == 'PASS':
+                        sheet['D213'].font = greenFont
+                    else:
+                        product_pe = 'FAIL'
+                        sheet['D213'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D220'] = test['result']
+                    sheet['E220'] = test['note']
+                    if sheet['D220'].value == 'PASS':
+                        sheet['D220'].font = greenFont
+                    else:
+                        product_pe = 'FAIL'
+                        sheet['D220'].font = redFont
+
+            # 项目-产线工程师
+            model_pe = 'PASS'
+            for test in report['model_pe']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D225'] = test['result']
+                    sheet['E225'] = test['note']
+                    if sheet['D225'].value == 'PASS':
+                        sheet['D225'].font = greenFont
+                    else:
+                        model_pe = 'FAIL'
+                        sheet['D225'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D230'] = test['result']
+                    sheet['E230'] = test['note']
+                    if sheet['D230'].value == 'PASS':
+                        sheet['D230'].font = greenFont
+                    else:
+                        model_pe = 'FAIL'
+                        sheet['D230'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D237'] = test['result']
+                    sheet['E237'] = test['note']
+                    if sheet['D237'].value == 'PASS':
+                        sheet['D237'].font = greenFont
+                    else:
+                        model_pe = 'FAIL'
+                        sheet['D237'].font = redFont
+
+            # 产品-项目工程师
+            product_pj = 'PASS'
+            for test in report['product_pj']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D242'] = test['result']
+                    sheet['E242'] = test['note']
+                    if sheet['D242'].value == 'PASS':
+                        sheet['D242'].font = greenFont
+                    else:
+                        product_pj = 'FAIL'
+                        sheet['D242'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D247'] = test['result']
+                    sheet['E247'] = test['note']
+                    if sheet['D247'].value == 'PASS':
+                        sheet['D247'].font = greenFont
+                    else:
+                        product_pj = 'FAIL'
+                        sheet['D247'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D254'] = test['result']
+                    sheet['E254'] = test['note']
+                    if sheet['D254'].value == 'PASS':
+                        sheet['D254'].font = greenFont
+                    else:
+                        product_pj = 'FAIL'
+                        sheet['D254'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D259'] = test['result']
+                    sheet['E259'] = test['note']
+                    if sheet['D259'].value == 'PASS':
+                        sheet['D259'].font = greenFont
+                    else:
+                        product_pj = 'FAIL'
+                        sheet['D259'].font = redFont
+
+            # 项目-项目工程师
+            model_pj = 'PASS'
+            for test in report['model_pj']:
+                if test['testInfo'] == '个人资料':
+                    sheet['D263'] = test['result']
+                    sheet['E263'] = test['note']
+                    if sheet['D263'].value == 'PASS':
+                        sheet['D263'].font = greenFont
+                    else:
+                        model_pj = 'FAIL'
+                        sheet['D263'].font = redFont
+
+                if test['testInfo'] == '我的群组':
+                    sheet['D268'] = test['result']
+                    sheet['E268'] = test['note']
+                    if sheet['D268'].value == 'PASS':
+                        sheet['D268'].font = greenFont
+                    else:
+                        model_pj = 'FAIL'
+                        sheet['D268'].font = redFont
+
+                if test['testInfo'] == '产品列表':
+                    sheet['D275'] = test['result']
+                    sheet['E275'] = test['note']
+                    if sheet['D275'].value == 'PASS':
+                        sheet['D275'].font = greenFont
+                    else:
+                        model_pj = 'FAIL'
+                        sheet['D275'].font = redFont
+
+                if test['testInfo'] == '订单列表':
+                    sheet['D280'] = test['result']
+                    sheet['E280'] = test['note']
+                    if sheet['D280'].value == 'PASS':
+                        sheet['D280'].font = greenFont
+                    else:
+                        model_pj = 'FAIL'
+                        sheet['D280'].font = redFont
+
+            # 功能测试
+            sheet = wb.get_sheet_by_name('功能测试')
+            # 收集生产日志文件
+            collectLogFile = 'PASS'
+            for test in report['collectLogFile']:
+                if test['testInfo'] == '单台测试PC':
+                    sheet['H5'] = test['result']
+                    sheet['I5'] = test['note']
+                    if sheet['H5'].value == 'PASS':
+                        sheet['H5'].font = greenFont
+                    else:
+                        collectLogFile = 'FAIL'
+                        sheet['H5'].font = redFont
+
+                if test['testInfo'] == '多台测试PC':
+                    sheet['H9'] = test['result']
+                    sheet['I9'] = test['note']
+                    print
+                    if sheet['H9'].value == 'PASS':
+                        sheet['H9'].font = greenFont
+                    else:
+                        collectLogFile = 'FAIL'
+                        sheet['H9'].font = redFont
+
+                if test['testInfo'] == '测试完立即关闭MPTool':
+                    sheet['H10'] = test['result']
+                    sheet['I10'] = test['note']
+                    if sheet['H10'].value == 'PASS':
+                        sheet['H10'].font = greenFont
+                    else:
+                        collectLogFile = 'FAIL'
+                        sheet['H10'].font = redFont
+
+                if test['testInfo'] == '断网测试':
+                    sheet['H11'] = test['result']
+                    sheet['I11'] = test['note']
+                    if sheet['H11'].value == 'PASS':
+                        sheet['H11'].font = greenFont
+                    else:
+                        collectLogFile = 'FAIL'
+                        sheet['H11'].font = redFont
+
+            # 收集生产记录功能
+            collectLogRecord = 'PASS'
+            for test in report['collectLogRecord']:
+                if test['testInfo'] == '单台测试PC':
+                    sheet['H12'] = test['result']
+                    sheet['I12'] = test['note']
+                    if sheet['H12'].value == 'PASS':
+                        sheet['H12'].font = greenFont
+                    else:
+                        collectLogRecord = 'FAIL'
+                        sheet['H12'].font = redFont
+
+                if test['testInfo'] == '多台测试PC':
+                    sheet['H16'] = test['result']
+                    sheet['I16'] = test['note']
+                    print
+                    if sheet['H16'].value == 'PASS':
+                        sheet['H16'].font = greenFont
+                    else:
+                        collectLogRecord = 'FAIL'
+                        sheet['H16'].font = redFont
+
+                if test['testInfo'] == '测试完立即关闭MPTool':
+                    sheet['H17'] = test['result']
+                    sheet['I17'] = test['note']
+                    if sheet['H17'].value == 'PASS':
+                        sheet['H17'].font = greenFont
+                    else:
+                        collectLogRecord = 'FAIL'
+                        sheet['H17'].font = redFont
+
+                if test['testInfo'] == '断网测试':
+                    sheet['H18'] = test['result']
+                    sheet['I18'] = test['note']
+                    if sheet['H18'].value == 'PASS':
+                        sheet['H18'].font = greenFont
+                    else:
+                        collectLogRecord = 'FAIL'
+                        sheet['H18'].font = redFont
+
+            # 离线Key工具测试
+            offlineTest = 'PASS'
+            for test in report['offlineTest']:
+                if test['testInfo'] == '登陆、查看订单(离线Key授权工具使用)':
+                    sheet['H19'] = test['result']
+                    sheet['I19'] = test['note']
+                    if sheet['H19'].value == 'PASS':
+                        sheet['H19'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H19'].font = redFont
+
+                if test['testInfo'] == '查找设备(离线Key授权工具使用)':
+                    sheet['H20'] = test['result']
+                    sheet['I20'] = test['note']
+                    print
+                    if sheet['H20'].value == 'PASS':
+                        sheet['H20'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H20'].font = redFont
+
+                if test['testInfo'] == '查看订单权限(离线Key授权工具使用)':
+                    sheet['H21'] = test['result']
+                    sheet['I21'] = test['note']
+                    if sheet['H21'].value == 'PASS':
+                        sheet['H21'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H21'].font = redFont
+
+                if test['testInfo'] == '授权(离线Key授权工具使用)':
+                    sheet['H22'] = test['result']
+                    sheet['I22'] = test['note']
+                    if sheet['H22'].value == 'PASS':
+                        sheet['H22'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H22'].font = redFont
+
+                if test['testInfo'] == '正常使用':
+                    sheet['H23'] = test['result']
+                    sheet['I23'] = test['note']
+                    if sheet['H23'].value == 'PASS':
+                        sheet['H23'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H23'].font = redFont
+
+                if test['testInfo'] == 'Ukey没授权数量':
+                    sheet['H24'] = test['result']
+                    sheet['I24'] = test['note']
+                    print
+                    if sheet['H24'].value == 'PASS':
+                        sheet['H24'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H24'].font = redFont
+
+                if test['testInfo'] == 'Ukey授权订单和MPTool配置订单不一致':
+                    sheet['H25'] = test['result']
+                    sheet['I25'] = test['note']
+                    if sheet['H25'].value == 'PASS':
+                        sheet['H25'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H25'].font = redFont
+
+                if test['testInfo'] == '离线在线授权切换':
+                    sheet['H26'] = test['result']
+                    sheet['I26'] = test['note']
+                    if sheet['H26'].value == 'PASS':
+                        sheet['H26'].font = greenFont
+                    else:
+                        offlineTest = 'FAIL'
+                        sheet['H26'].font = redFont
+
+            # 在线授权测试
+            onlineTest = 'PASS'
+            for test in report['onlineTest']:
+                if test['testInfo'] == '单台测试PC':
+                    sheet['H27'] = test['result']
+                    sheet['I27'] = test['note']
+                    if sheet['H27'].value == 'PASS':
+                        sheet['H27'].font = greenFont
+                    else:
+                        onlineTest = 'FAIL'
+                        sheet['H27'].font = redFont
+
+                if test['testInfo'] == '多台测试PC':
+                    sheet['H28'] = test['result']
+                    sheet['I28'] = test['note']
+                    print
+                    if sheet['H28'].value == 'PASS':
+                        sheet['H28'].font = greenFont
+                    else:
+                        onlineTest = 'FAIL'
+                        sheet['H28'].font = redFont
+
+            # 中转测试
+            midwareTest = ''
+            if collectLogFile == 'PASS' and collectLogRecord == 'PASS'\
+                    and offlineTest == 'PASS' and onlineTest == 'PASS':
+                midwareTest = 'PASS'
+            else:
+                midwareTest = 'FAIL'
+
+            # 压力测试
+            pressureTest = 'PASS'
+            sheet = wb.get_sheet_by_name('压力测试')
+            for test in report['pressureTest']:
+                if test['testInfo'] == '获取授权API压力测试':
+                    sheet['H5'] = test['result']
+                    sheet['I5'] = test['note']
+                    if sheet['H5'].value == 'PASS':
+                        sheet['H5'].font = greenFont
+                    else:
+                        pressureTest = 'FAIL'
+                        sheet['H5'].font = redFont
+
+            # list页面表格
             sheet = wb.get_sheet_by_name('list')
             sheet['C3'] = report['version']['量产云平台']
             sheet['C4'] = report['version']['电流板']
@@ -510,7 +1234,120 @@ class MpcloudExcel(APIView):
             sheet['J3'] = report['version']['syncAgent']
             sheet['C5'] = report['version']['transferStation']
             sheet['C9'] = report['releaseNote']
+            sheet['C10'] = report['result']
+
+            # 测试结果
+            # 产品-产品经理
+            sheet['E12'] = product_pm
+            if product_pm == 'PASS':
+                sheet['E12'].font = greenFont
+            else:
+                sheet['E12'].font = redFont
+            # 项目-产品经理
+            sheet['E13'] = model_pm
+            if model_pm == 'PASS':
+                sheet['E13'].font = greenFont
+            else:
+                sheet['E13'].font = redFont
+            # 产品-研发工程师
+            sheet['E14'] = product_rd
+            if product_rd == 'PASS':
+                sheet['E14'].font = greenFont
+            else:
+                sheet['E14'].font = redFont
+            # 项目-研发工程师
+            sheet['E15'] = model_rd
+            if model_rd == 'PASS':
+                sheet['E15'].font = greenFont
+            else:
+                sheet['E15'].font = redFont
+            # 产品-测试工程师
+            sheet['E16'] = product_te
+            if product_te == 'PASS':
+                sheet['E16'].font = greenFont
+            else:
+                sheet['E16'].font = redFont
+            # 项目-测试工程师
+            sheet['E17'] = model_te
+            if model_te == 'PASS':
+                sheet['E17'].font = greenFont
+            else:
+                sheet['E17'].font = redFont
+            # 产品-PMC
+            sheet['E18'] = product_pmc
+            if product_pmc == 'PASS':
+                sheet['E18'].font = greenFont
+            else:
+                sheet['E18'].font = redFont
+            # 项目-PMC
+            sheet['E19'] = model_pmc
+            if model_pmc == 'PASS':
+                sheet['E19'].font = greenFont
+            else:
+                sheet['E19'].font = redFont
+            # 产品-产线工程师
+            sheet['E20'] = product_pe
+            if product_pe == 'PASS':
+                sheet['E20'].font = greenFont
+            else:
+                sheet['E20'].font = redFont
+            # 项目-产线工程师
+            sheet['E21'] = model_pe
+            if model_pe == 'PASS':
+                sheet['E21'].font = greenFont
+            else:
+                sheet['E21'].font = redFont
+            # 产品-项目工程师
+            sheet['E22'] = product_pj
+            if product_pj == 'PASS':
+                sheet['E22'].font = greenFont
+            else:
+                sheet['E22'].font = redFont
+            # 产品-项目工程师
+            sheet['E23'] = model_pj
+            if model_pj == 'PASS':
+                sheet['E23'].font = greenFont
+            else:
+                sheet['E23'].font = redFont
+            # 收集生产日志文件
+            sheet['E23'] = collectLogFile
+            if collectLogFile == 'PASS':
+                sheet['E23'].font = greenFont
+            else:
+                sheet['E23'].font = redFont
+            # 收集生产记录功能
+            sheet['E24'] = collectLogRecord
+            if collectLogRecord == 'PASS':
+                sheet['E24'].font = greenFont
+            else:
+                sheet['E24'].font = redFont
+            # 离线授权
+            sheet['E25'] = offlineTest
+            if offlineTest == 'PASS':
+                sheet['E25'].font = greenFont
+            else:
+                sheet['E25'].font = redFont
+            # 在线授权
+            sheet['E26'] = onlineTest
+            if onlineTest == 'PASS':
+                sheet['E26'].font = greenFont
+            else:
+                sheet['E26'].font = redFont
+            # 中转软件
+            sheet['E27'] = midwareTest
+            if midwareTest == 'PASS':
+                sheet['E27'].font = greenFont
+            else:
+                sheet['E27'].font = redFont
+            # 压力测试
+            sheet['E28'] = pressureTest
+            if pressureTest == 'PASS':
+                sheet['E28'].font = greenFont
+            else:
+                sheet['E28'].font = redFont
+
             wb.save('../log/reports/' + fileName)
+            wb.close()
         except Exception as e:
             res['errcode'] = 1
             res['errmsg'] = str(e)

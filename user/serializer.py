@@ -52,7 +52,7 @@ class ReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Report
-        fields = ['id', 'project', 'proname', 'user', 'username', 'update_time', 'version', 'releaseNote']
+        fields = ['id', 'project', 'proname', 'user', 'username', 'update_time', 'version', 'releaseNote', 'allInfo']
         # depth = 1
 
 
