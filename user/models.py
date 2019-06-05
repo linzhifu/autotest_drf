@@ -46,7 +46,8 @@ class Report(models.Model):
         User, on_delete=models.CASCADE, verbose_name='创建人')
     version = models.CharField(verbose_name='软件版本信息', max_length=800)
     releaseNote = models.CharField('Release Note', max_length=800)
-    allInfo = models.CharField('所有信息', max_length=10000)
+    result = models.CharField(verbose_name='测试结果汇总', max_length=800)
+    allInfo = models.TextField('所有信息')
     update_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
 
     class Meta:
