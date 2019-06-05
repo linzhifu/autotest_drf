@@ -71,7 +71,8 @@ class LoginView(APIView):
                     user = User.objects.create(
                         username=email,
                         email=email,
-                        password=make_password('123'))
+                        password=make_password('123'),
+                        is_superuser=True)
                 ser = UserSerializer(instance=user)
                 data['data'] = ser.data
             else:
