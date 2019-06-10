@@ -18,6 +18,19 @@ logging.basicConfig(
 if config.debug:
     logging.disable(logging.DEBUG)
 
+
+# 日志过滤
+class LogFilter(logging.Filter):
+    def filter(self, record):
+        try:
+            if 'Starting new HTTP connection' in record.message:
+                return False
+            else:
+                return True
+        except Exception as e:
+            return True
+
+
 # admin
 admin = {
     'userid': '',
@@ -3600,6 +3613,8 @@ def main(driver, user):
     file_handler = logging.FileHandler('test.log')
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
+    logFilter = LogFilter()
+    file_handler.addFilter(logFilter)
 
     logger.addHandler(file_handler)
 

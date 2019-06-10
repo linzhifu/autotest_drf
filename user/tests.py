@@ -20,6 +20,7 @@ from testMpcloud import config, mpcloud
 logging.basicConfig(
     level=logging.DEBUG, format='%(asctime)s-%(levelname)s-%(message)s')
 logging.disable(logging.DEBUG)
+
 # 前端自动化测试内容
 pro_pm = {
     'role':
