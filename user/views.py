@@ -68,11 +68,10 @@ class LoginView(APIView):
                 user = User.objects.filter(email=email).first()
                 if not user:
                     # 用户不存在，创建新用户，用户名默认为邮箱，密码123
-                    user = User.objects.create(
-                        username=email,
-                        email=email,
-                        password=make_password('123'),
-                        is_superuser=True)
+                    user = User.objects.create(username=email,
+                                               email=email,
+                                               password=make_password('123'),
+                                               is_superuser=True)
                 ser = UserSerializer(instance=user)
                 data['data'] = ser.data
             else:
@@ -247,16 +246,15 @@ class WebTypeTest(APIView):
         url = request.GET.get('url')
         content_type_id = request.GET.get('content_type')
         object_id = request.GET.get('object_id')
-        webTypes = TestType.objects.filter(
-            object_id=object_id, content_type_id=content_type_id)
+        webTypes = TestType.objects.filter(object_id=object_id,
+                                           content_type_id=content_type_id)
         webManager = WebManager.objects.filter(id=object_id).first()
-        data = webTest(
-            url,
-            host,
-            webTypes,
-            webManager,
-            testName=webManager.webname,
-            type='前端测试')
+        data = webTest(url,
+                       host,
+                       webTypes,
+                       webManager,
+                       testName=webManager.webname,
+                       type='前端测试')
         return Response(data)
 
 
@@ -276,15 +274,14 @@ class WebManagerTest(APIView):
         webManagers = WebManager.objects.filter(project_id=projectId)
         for webManager in webManagers:
             content_type_id = ContentType.objects.get_for_model(WebManager)
-            webTypes = TestType.objects.filter(
-                object_id=webManager.id, content_type_id=content_type_id)
-            data = webTest(
-                webManager.weburl,
-                host,
-                webTypes,
-                webManager,
-                testName=webManager.webname,
-                type='前端测试')
+            webTypes = TestType.objects.filter(object_id=webManager.id,
+                                               content_type_id=content_type_id)
+            data = webTest(webManager.weburl,
+                           host,
+                           webTypes,
+                           webManager,
+                           testName=webManager.webname,
+                           type='前端测试')
             if data['errcode']:
                 data['errmsg'] = webManager.webname + '-' + data['errmsg']
                 return Response(data)
@@ -319,16 +316,15 @@ class ApiTypeTest(APIView):
         testUserInfo = request.data.get('testUserInfo')
         content_type_id = request.GET.get('content_type')
         object_id = request.GET.get('object_id')
-        apiTypes = TestType.objects.filter(
-            object_id=object_id, content_type_id=content_type_id)
+        apiTypes = TestType.objects.filter(object_id=object_id,
+                                           content_type_id=content_type_id)
         apiManager = ApiManager.objects.filter(id=object_id).first()
-        data = apiTest(
-            url,
-            apiTypes,
-            apiManager,
-            testName=apiManager.apiname,
-            type='后端测试',
-            testUserInfo=testUserInfo)
+        data = apiTest(url,
+                       apiTypes,
+                       apiManager,
+                       testName=apiManager.apiname,
+                       type='后端测试',
+                       testUserInfo=testUserInfo)
         return Response(data)
 
 
@@ -345,15 +341,14 @@ class ApiManagerTest(APIView):
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
             content_type_id = ContentType.objects.get_for_model(ApiManager)
-            apiTypes = TestType.objects.filter(
-                object_id=apiManager.id, content_type_id=content_type_id)
-            data = apiTest(
-                apiManager.apiurl,
-                apiTypes,
-                apiManager,
-                testName=apiManager.apiname,
-                type='后端测试',
-                testUserInfo=testUserInfo)
+            apiTypes = TestType.objects.filter(object_id=apiManager.id,
+                                               content_type_id=content_type_id)
+            data = apiTest(apiManager.apiurl,
+                           apiTypes,
+                           apiManager,
+                           testName=apiManager.apiname,
+                           type='后端测试',
+                           testUserInfo=testUserInfo)
             if data['errcode']:
                 data['errmsg'] = apiManager.apiname + ': ' + data['errmsg']
                 project.apiresult = False
@@ -380,15 +375,14 @@ class projectTest(APIView):
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
             content_type_id = ContentType.objects.get_for_model(ApiManager)
-            apiTypes = TestType.objects.filter(
-                object_id=apiManager.id, content_type_id=content_type_id)
-            data = apiTest(
-                apiManager.apiurl,
-                apiTypes,
-                apiManager,
-                testName=apiManager.apiname,
-                type='后端测试',
-                testUserInfo=testUserInfo)
+            apiTypes = TestType.objects.filter(object_id=apiManager.id,
+                                               content_type_id=content_type_id)
+            data = apiTest(apiManager.apiurl,
+                           apiTypes,
+                           apiManager,
+                           testName=apiManager.apiname,
+                           type='后端测试',
+                           testUserInfo=testUserInfo)
             if data['errcode']:
                 add_one_test_record(project, False)
                 return Response(data)
@@ -418,13 +412,12 @@ class projectTest(APIView):
                 content_type_id = ContentType.objects.get_for_model(WebManager)
                 webTypes = TestType.objects.filter(
                     object_id=webManager.id, content_type_id=content_type_id)
-                data = webTest(
-                    webManager.weburl,
-                    host,
-                    webTypes,
-                    webManager,
-                    testName=webManager.webname,
-                    type='前端测试')
+                data = webTest(webManager.weburl,
+                               host,
+                               webTypes,
+                               webManager,
+                               testName=webManager.webname,
+                               type='前端测试')
                 if data['errcode']:
                     add_one_test_record(project, False)
                     return Response(data)
