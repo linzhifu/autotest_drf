@@ -2,7 +2,7 @@
 import logging
 import os
 import shutil
-from testMpcloud import get_video
+# from testMpcloud import get_video
 from time import sleep
 from datetime import datetime
 from selenium import webdriver

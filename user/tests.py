@@ -14,6 +14,7 @@ import requests
 import time
 import json
 from testMpcloud import config, mpcloud
+from django.core.cache import cache
 # Create your tests here.
 
 # 日子打印配置
@@ -550,17 +551,74 @@ def webTest(url, host, webTypes, webManager, testName, type):
     return data
 
 
+# 赋值变量
+def asign_var(data):
+    # 赋值系统变量
+    if data.startswith('$'):
+        if data == '$Date':
+            return int(time.time())
+        else:
+            return data
+    # 赋值系统变量
+    elif data.startswith('&'):
+        return cache.get(data[1:])
+    else:
+        return data
+
+
+# 遍历对象，赋值变量
+def parse_obj(data):
+    if isinstance(data, str):
+        return asign_var(data)
+    elif isinstance(data, dict):
+        for key in data:
+            data[key] = parse_obj(data[key])
+        return data
+    else:
+        return data
+
+
+# 遍历对象，保存自定义变量
+def save_userObj(data, data1, key='response'):
+    if isinstance(data, str):
+        if data.startswith('&'):
+            cache.set(data[1:], data1)
+        else:
+            if data == data1:
+                pass
+            else:
+                raise Exception(key+' 不一致')
+    elif isinstance(data, dict):
+        if isinstance(data1, dict):
+            if data == {} and data != data1:
+                raise Exception(key+' 不一致')
+            for _data in data:
+                if data.get(_data) is not None:
+                    save_userObj(data[_data], data1[_data], _data)
+                else:
+                    raise Exception(_data+' 不一致')
+        else:
+            raise Exception(key+' 不一致')
+    else:
+        if data == data1:
+            pass
+        else:
+            raise Exception(key+' 不一致')
+
+
 # API请求
 def doTest(case, RESTAPI_DOMAIN):
     start = time.time()
     response = ''
     error = None
+    # print(case)
     try:
         response = requests.request(
             method=case['method'],
             url=RESTAPI_DOMAIN + case['url'],
             params=case['params'],
             json=case['json'],
+            data=case['form'],
             headers=case['headers'],
             verify=False)
     except requests.exceptions.ConnectionError:
@@ -582,35 +640,17 @@ def doTest(case, RESTAPI_DOMAIN):
         # rev = json.loads(r.text)
         try:
             rev = response.json()
-        except Exception as e:
+        except Exception:
             error = '返回数据不是JSON对象'
-    # print(rev)
+    print(rev)
     if error is None:
         if not case['response']:
             error = 'response为空'
-
     if error is None:
-        if rev.get('errcode') != case['response'].get('errcode'):
-            error = 'errcode不一致'
-    if error is None:
-        if rev.get('errmsg') != case['response'].get('errmsg'):
-            error = 'errmsg不一致'
-    if error is None:
-        if case['response'].get('data'):
-            if not rev.get('data'):
-                error = 'data不一致'
-            else:
-                for key in case['response']['data']:
-                    if case['response']['data'][key] != rev['data'].get(key):
-                        error = 'data不一致'
-                        break
-
-    # # 记录userId和token
-    # if error is None:
-    #     if rev.get('data'):
-    #         if rev['data'].get('userid') and rev['data'].get('token'):
-    #             user_token['userid'] = rev['data'].get('userid')
-    #             user_token['token'] = rev['data'].get('token')
+        try:
+            save_userObj(case['response'], rev)
+        except Exception as e:
+            error = str(e)
     result = {'time': str(round(timeval, 2)), 'error': error}
     return result
 
@@ -629,13 +669,14 @@ def setAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo):
         'roleid': 1,
         'userid': int(testUserInfo.get('testUserId'))
     }
+    adminCase['form'] = ''
     adminCase['response'] = {"errcode": 0, "errmsg": "ok"}
     adminCase['headers'] = {'content-type': 'application/json'}
     result = doTest(adminCase, RESTAPI_DOMAIN)
     return result
 
 
-# 设置管理员
+# 取消设置管理员
 def deleteAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo):
     # print('取消管理员----------------------------------------')
     adminCase = {}
@@ -649,6 +690,7 @@ def deleteAdmin(apiCase, RESTAPI_DOMAIN, testUserInfo):
         'roleid': 1,
         'userid': int(testUserInfo.get('testUserId'))
     }
+    adminCase['form'] = ''
     adminCase['response'] = {"errcode": 0, "errmsg": "ok"}
     adminCase['headers'] = {'content-type': 'application/json'}
     result = doTest(adminCase, RESTAPI_DOMAIN)
@@ -676,6 +718,7 @@ def setAuth(apiCase, RESTAPI_DOMAIN, testUserInfo):
         },
         "actions": apiCase.actions.split(',')
     }
+    authCase['form'] = ''
     authCase['response'] = {"errcode": 0, "errmsg": "ok"}
     authCase['headers'] = {'content-type': 'application/json'}
     # print(authCase)
@@ -704,6 +747,7 @@ def deleteAuth(apiCase, RESTAPI_DOMAIN, testUserInfo):
         },
         "actions": apiCase.actions.split(',')
     }
+    authCase['form'] = ''
     authCase['response'] = {"errcode": 0, "errmsg": "ok"}
     authCase['headers'] = {'content-type': 'application/json'}
     # print(authCase)
@@ -759,19 +803,36 @@ def apiCase(url, apiType, apiManager, testUserInfo):
                 return data
         # 格式化参数
         case = {}
+        # params
         try:
             params = json.loads(apiCase.apiparam)
-            if params.get('userid') and params.get('token'):
-                params['userid'] = testUserInfo['testUserId']
-                params['token'] = testUserInfo['testUserToken']
+            for key in params:
+                params[key] = asign_var(params[key])
         except Exception:
             params = ''
-        try:
-            body_json = json.loads(apiCase.apijson)
-            if body_json.get('timestamp'):
-                body_json['timestamp'] = int(time.time())
-        except Exception:
+        # print(params)
+
+        # body_json
+        if apiCase.contentType == 'application/json':
+            try:
+                body_json = json.loads(apiCase.apijson)
+                body_json = parse_obj(body_json)
+            except Exception:
+                body_json = ''
+            body_form = ''
+
+        # body_form
+        if apiCase.contentType == 'application/x-www-form-urlencoded':
+            try:
+                body_form = json.loads(apiCase.apijson)
+                for _key in body_form:
+                    body_form[_key] = body_form[_key][5:]
+                body_form = parse_obj(body_form)
+            except Exception:
+                body_form = ''
             body_json = ''
+
+        # response
         try:
             response = json.loads(apiCase.apiresponse)
         except Exception:
@@ -781,10 +842,11 @@ def apiCase(url, apiType, apiManager, testUserInfo):
         case['url'] = apiCase.apiurl
         case['params'] = params
         case['json'] = body_json
+        case['form'] = body_form
         case['response'] = response
         case['headers'] = {'content-type': apiCase.contentType}
 
-        # print(case)
+        print(case)
         # 发送请求
         result = doTest(case, RESTAPI_DOMAIN)
         if result['error']:
@@ -858,7 +920,6 @@ def apiCase(url, apiType, apiManager, testUserInfo):
 def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
-    print(1)
 
     # 先登陆获取token
     # doTest(loginCase, RESTAPI_DOMAIN)
@@ -910,19 +971,36 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
 
                 # 格式化参数
                 case = {}
+                # params
                 try:
                     params = json.loads(apiCase.apiparam)
-                    if params.get('userid') and params.get('token'):
-                        params['userid'] = testUserInfo['testUserId']
-                        params['token'] = testUserInfo['testUserToken']
+                    for key in params:
+                        params[key] = asign_var(params[key])
                 except Exception:
                     params = ''
-                try:
-                    body_json = json.loads(apiCase.apijson)
-                    if body_json.get('timestamp'):
-                        body_json['timestamp'] = int(time.time())
-                except Exception:
+                # print(params)
+
+                # body_json
+                if apiCase.contentType == 'application/json':
+                    try:
+                        body_json = json.loads(apiCase.apijson)
+                        body_json = parse_obj(body_json)
+                    except Exception:
+                        body_json = ''
+                    body_form = ''
+
+                # body_form
+                if apiCase.contentType == 'application/x-www-form-urlencoded':
+                    try:
+                        body_form = json.loads(apiCase.apijson)
+                        for _key in body_form:
+                            body_form[_key] = body_form[_key][5:]
+                        body_form = parse_obj(body_form)
+                    except Exception:
+                        body_form = ''
                     body_json = ''
+
+                # response
                 try:
                     response = json.loads(apiCase.apiresponse)
                 except Exception:
@@ -932,6 +1010,7 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                 case['url'] = apiCase.apiurl
                 case['params'] = params
                 case['json'] = body_json
+                case['form'] = body_form
                 case['response'] = response
                 case['headers'] = {'content-type': apiCase.contentType}
 
