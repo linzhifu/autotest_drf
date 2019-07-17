@@ -154,4 +154,4 @@ def createUser(driver, user):
 
 if __name__ == '__main__':
     driver = webdriver.Chrome()
-    createUser(driver, config.USER_PRO_PM)
+    createUser(driver, config.USER_MOD_GE)

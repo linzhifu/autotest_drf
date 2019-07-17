@@ -810,8 +810,8 @@ def addRole(driver, wait, user):
                               message='找不到 下拉列表角色')
 
         # 添加角色
-        if len(roleList) != 6:
-            raise Exception('添加角色总数有误(6)：' + str(len(roleList)))
+        if len(roleList) != 7:
+            raise Exception('添加角色总数有误(7)：' + str(len(roleList)))
         for i in range(len(roleList)):
             logging.debug('添加角色总数：' + str(len(roleList)))
             if i:
@@ -870,8 +870,8 @@ def addRole(driver, wait, user):
         (By.CSS_SELECTOR, '[x-placement] li')),
                              message='找不到 已添加角色')
 
-    if len(roleAddList) != 6:
-        raise Exception('已添加角色总数有误(6)：' + str(len(roleAddList)))
+    if len(roleAddList) != 7:
+        raise Exception('已添加角色总数有误(7)：' + str(len(roleAddList)))
 
     # 列表行，获取显示用户角色
     row = 0
@@ -1676,7 +1676,7 @@ def test_modifyProMod(driver, wait, user):
                     (By.CSS_SELECTOR,
                      '[aria-labelledby=tab-0] tbody tr td:nth-child(2)')),
                                    message='找不到项目成员')
-                if len(users) != 6:
+                if len(users) != 7:
                     raise Exception('项目成员数量不对')
                 for _user in users:
                     name = _user.get_attribute('innerText').strip('\n')
@@ -1708,7 +1708,7 @@ def test_modifyProMod(driver, wait, user):
                     (By.CSS_SELECTOR,
                      '[aria-labelledby=tab-1] tbody tr td:nth-child(2)')),
                                    message='找不到项目成员')
-                if len(users) != 6:
+                if len(users) != 7:
                     raise Exception('项目成员数量不对')
                 for _user in users:
                     name = _user.get_attribute('innerText').strip('\n')
@@ -1817,8 +1817,8 @@ def addProRole(driver, wait, user):
         (By.CSS_SELECTOR, '[x-placement] li')),
                              message='找不到 已添加角色')
 
-    if len(roleAddList) != 6:
-        raise Exception('已添加角色总数有误(6)：' + str(len(roleAddList)))
+    if len(roleAddList) != 7:
+        raise Exception('已添加角色总数有误(7)：' + str(len(roleAddList)))
 
     for i in range(len(roleAddList)):
         logging.debug('已添加角色总数：' + str(len(roleAddList)))
@@ -2679,6 +2679,16 @@ def test_softFuc(driver, wait, user):
     downloadSoftBtn.click()
     sleep(sleepTime + 2)
 
+    try:
+        downloadBtn = wait.until(EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, '.download-btn')),
+                                    message='找不到 确定下载软件按键')
+        logging.debug('软件管理-软件列表：' + downloadSoftBtn.text)
+        downloadBtn.click()
+        sleep(sleepTime + 2)
+    except Exception:
+        pass
+
     # 核对下载的软件是否正确
     # myfile = filePath + '/' + software['name']
     # if os.path.exists(myfile):
@@ -3314,9 +3324,10 @@ def orderList(driver, wait, user):
         orderListsBtn.click()
         sleep(sleepTime)
 
-        logging.info('测试订单查询功能')
-        searchOrder(driver, wait, user)
-        logging.info('测试订单查询功能成功')
+        if '产线工程师' not in user['NAME']:
+            logging.info('测试订单查询功能')
+            searchOrder(driver, wait, user)
+            logging.info('测试订单查询功能成功')
 
         if '产品经理' in user['NAME']:
             logging.info('测试订单关联量产工具')

@@ -110,6 +110,36 @@ mod_te = {
         '添加样品': True
     }]
 }
+pro_ge = {
+    'role':
+    '产品-工艺工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
+mod_ge = {
+    'role':
+    '项目-工艺工程师',
+    'options': [{
+        '个人资料': True
+    }, {
+        '我的群组': True
+    }, {
+        '产品列表': True
+    }, {
+        '订单列表': True
+    }, {
+        '添加样品': True
+    }]
+}
 pro_pmc = {
     'role':
     '产品-pmc',
@@ -185,7 +215,7 @@ mod_pj = {
     }]
 }
 mpcloudCases = [
-    pro_pm, mod_pm, pro_rd, mod_rd, pro_te, mod_te, pro_pmc, mod_pmc, pro_pe,
+    pro_pm, mod_pm, pro_rd, mod_rd, pro_te, mod_te, pro_ge, mod_ge, pro_pmc, mod_pmc, pro_pe,
     mod_pe, pro_pj, mod_pj
 ]
 
@@ -1110,6 +1140,10 @@ def testMpcloudCase(host, case):
         user = config.USER_PRO_TE
     elif case.get('role') == '项目-测试工程师':
         user = config.USER_MOD_TE
+    elif case.get('role') == '产品-工艺工程师':
+        user = config.USER_PRO_GE
+    elif case.get('role') == '项目-工艺工程师':
+        user = config.USER_MOD_GE
     elif case.get('role') == '产品-pmc':
         user = config.USER_PRO_PMC
     elif case.get('role') == '项目-pmc':

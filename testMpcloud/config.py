@@ -178,13 +178,13 @@ USER_ADMIN = {
     'addProEable': 0,
 
     # 产品列表(添加型号、角色) proListEable:0 不测试，1 测试
-    'proListEnable': 0,
+    'proListEnable': 1,
 
     # 上传软件 upSoftEnable:0 不测试，1 测试
     'upSoftEnable': 0,
 
     # 创建订单 createOrderEnable:0 不测试，1 测试
-    'createOrderEnable': 1,
+    'createOrderEnable': 0,
 
     # 关联量产工具 orderToolEnable:0 不测试，1测试
     'orderToolEnable': 0,
@@ -310,7 +310,7 @@ USER_PRO_RD = {
 
     # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
     'updateUserInfoEnable': 1,
-    'userName': 'TestProduct-研发工程师',
+    'userName': 'Update 产品-研发工程师',
     'qq': '254082684',
     'im': 'Test',
     'phone': '18129832245',
@@ -364,7 +364,7 @@ USER_MOD_RD = {
     'updateUserInfoEnable':
     0,
     'userName':
-    'TestProduct-研发工程师',
+    'Update 项目-研发工程师',
     'qq':
     '254082684',
     'im':
@@ -420,7 +420,7 @@ USER_PRO_TE = {
 
     # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
     'updateUserInfoEnable': 0,
-    'userName': 'TestProduct-产品测试工程师',
+    'userName': 'Update 产品-测试工程师',
     'qq': '254082684',
     'im': 'Test',
     'phone': '18129832245',
@@ -474,7 +474,117 @@ USER_MOD_TE = {
     'updateUserInfoEnable':
     0,
     'userName':
-    'TestProduct-测试工程师',
+    'Update 项目-测试工程师',
+    'qq':
+    '254082684',
+    'im':
+    'Test',
+    'phone':
+    '18129832245',
+    'passWord':
+    '123456',
+
+    # 测试team功能 teamEnable:0 不测试，1测试
+    'teamEnable':
+    0,
+    'teamName':
+    'Temp test team',
+    'teamDes':
+    'Temp test add team',
+    'modifyTeamName':
+    'Temp Team',
+    'modifyTeamDes':
+    'Temp test modify team',
+
+    # 测试产品列表功能 proLisEnable:0 不测试，1测试
+    'proLisEnable':
+    1,
+
+    # 测试上传软件 upSoftEnable:0 不测试，1测试
+    'upSoftEnable':
+    0,
+
+    # 测试软件列表 softListEnable:0 不测试，1测试
+    'softListEnable':
+    0,
+
+    # 订单列表 orderListEnable:0 不测试，1测试
+    'orderListEnable':
+    1,
+
+    # 添加样品 createSampleEnable:0 不测试，1 测试
+    'createSampleEnable':
+    1,
+}
+
+# 产品-工艺工程师
+USER_PRO_GE = {
+    # 基础默认设置(用于第一次测试创建用户,一般不做修改)
+    'EMAIL': 'linzhifu229@163.com',
+    'PSW': 'Lin5535960',
+    'SERVER': 'pop.163.com',
+    'NAME': 'TEST 产品-工艺工程师',
+    'LOGIN': '123',
+    'TEAM': [testTeam['NAME']],
+    'ROLE': [proMod['PRONAME_1'] + '-工艺工程师', proMod['PRONAME_2'] + '-工艺工程师'],
+
+    # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
+    'updateUserInfoEnable': 0,
+    'userName': 'Update 产品-工艺工程师',
+    'qq': '254082684',
+    'im': 'Test',
+    'phone': '18129832245',
+    'passWord': '123456',
+
+    # 测试team功能 teamEnable:0 不测试，1测试
+    'teamEnable': 0,
+    'teamName': 'Temp test team',
+    'teamDes': 'Temp test add team',
+    'modifyTeamName': 'Temp Team',
+    'modifyTeamDes': 'Temp test modify team',
+
+    # 测试产品列表功能 proLisEnable:0 不测试，1测试
+    'proLisEnable': 1,
+
+    # 测试上传软件 upSoftEnable:0 不测试，1测试
+    'upSoftEnable': 0,
+
+    # 测试软件列表 softListEnable:0 不测试，1测试
+    'softListEnable': 0,
+
+    # 订单列表 orderListEnable:0 不测试，1测试
+    'orderListEnable': 1,
+
+    # 添加样品 createSampleEnable:0 不测试，1 测试
+    'createSampleEnable': 1,
+}
+
+# 项目-工艺工程师
+USER_MOD_GE = {
+    # 基础默认设置(用于第一次测试创建用户,一般不做修改)
+    'EMAIL':
+    'linzhifu230@163.com',
+    'PSW':
+    'Lin5535960',
+    'SERVER':
+    'pop.163.com',
+    'NAME':
+    'TEST 项目-工艺工程师',
+    'LOGIN':
+    '123',
+    'TEAM': [testTeam['NAME']],
+    'ROLE': [
+        proMod['PRONAME_1'] + '-' + proMod['MODNAME_1'] + '-工艺工程师',
+        proMod['PRONAME_1'] + '-' + proMod['MODNAME_2'] + '-工艺工程师',
+        proMod['PRONAME_2'] + '-' + proMod['MODNAME_1'] + '-工艺工程师',
+        proMod['PRONAME_2'] + '-' + proMod['MODNAME_2'] + '-工艺工程师',
+    ],
+
+    # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
+    'updateUserInfoEnable':
+    0,
+    'userName':
+    'Update 项目-工艺工程师',
     'qq':
     '254082684',
     'im':
@@ -806,8 +916,8 @@ teamUsers = (
     USER_PRO_RD['NAME'],
     USER_MOD_RD['NAME'],
     USER_MOD_PM['NAME'],
-    # USER_PRO_TL['NAME'],
-    # USER_MOD_TL['NAME'],
+    USER_PRO_GE['NAME'],
+    USER_MOD_GE['NAME'],
     USER_PRO_TE['NAME'],
     USER_MOD_TE['NAME'],
     USER_PRO_PMC['NAME'],
