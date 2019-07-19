@@ -300,6 +300,10 @@ class ApiCaseTest(APIView):
         url = request.GET.get('url')
         testType_id = request.GET.get('testType')
         testUserInfo = request.data.get('testUserInfo')
+        cache.set('adminUserId', testUserInfo['adminUserId'])
+        cache.set('adminUserToken', testUserInfo['adminUserToken'])
+        cache.set('testUserId', testUserInfo['testUserId'])
+        cache.set('testUserToken', testUserInfo['testUserToken'])
         apiType = TestType.objects.filter(id=testType_id).first()
         apiManager = ApiManager.objects.filter(id=apiType.object_id).first()
         data = apiCase(url, apiType, apiManager, testUserInfo)
@@ -314,6 +318,10 @@ class ApiTypeTest(APIView):
     def post(self, request, *args, **kwargs):
         url = request.GET.get('url')
         testUserInfo = request.data.get('testUserInfo')
+        cache.set('adminUserId', testUserInfo['adminUserId'])
+        cache.set('adminUserToken', testUserInfo['adminUserToken'])
+        cache.set('testUserId', testUserInfo['testUserId'])
+        cache.set('testUserToken', testUserInfo['testUserToken'])
         content_type_id = request.GET.get('content_type')
         object_id = request.GET.get('object_id')
         apiTypes = TestType.objects.filter(object_id=object_id,
@@ -337,6 +345,10 @@ class ApiManagerTest(APIView):
         projectId = request.GET.get('projectId')
         project = Project.objects.get(id=projectId)
         testUserInfo = request.data.get('testUserInfo')
+        cache.set('adminUserId', testUserInfo['adminUserId'])
+        cache.set('adminUserToken', testUserInfo['adminUserToken'])
+        cache.set('testUserId', testUserInfo['testUserId'])
+        cache.set('testUserToken', testUserInfo['testUserToken'])
         # print(testUserInfo)
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:

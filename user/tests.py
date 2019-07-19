@@ -844,6 +844,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
 
         # body_json
         if apiCase.contentType == 'application/json':
+            case['headers'] = {'content-type': 'application/json'}
             try:
                 body_json = json.loads(apiCase.apijson)
                 body_json = parse_obj(body_json)
@@ -853,6 +854,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
 
         # body_form
         if apiCase.contentType == 'application/x-www-form-urlencoded':
+            case['headers'] = {'content-type': 'multipart/form-data'}
             try:
                 body_form = json.loads(apiCase.apijson)
                 for _key in body_form:
@@ -874,7 +876,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
         case['json'] = body_json
         case['form'] = body_form
         case['response'] = response
-        case['headers'] = {'content-type': apiCase.contentType}
+        # case['headers'] = {'content-type': apiCase.contentType}
 
         print(case)
         # 发送请求
