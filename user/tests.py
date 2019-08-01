@@ -18,8 +18,8 @@ from django.core.cache import cache
 # Create your tests here.
 
 # 日子打印配置
-logging.basicConfig(
-    level=logging.DEBUG, format='%(asctime)s-%(levelname)s-%(message)s')
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s-%(levelname)s-%(message)s')
 logging.disable(logging.DEBUG)
 
 # 前端自动化测试内容
@@ -215,8 +215,8 @@ mod_pj = {
     }]
 }
 mpcloudCases = [
-    pro_pm, mod_pm, pro_rd, mod_rd, pro_te, mod_te, pro_ge, mod_ge, pro_pmc, mod_pmc, pro_pe,
-    mod_pe, pro_pj, mod_pj
+    pro_pm, mod_pm, pro_rd, mod_rd, pro_te, mod_te, pro_ge, mod_ge, pro_pmc,
+    mod_pmc, pro_pe, mod_pe, pro_pj, mod_pj
 ]
 
 # token配置
@@ -354,8 +354,8 @@ def get_record(object):
 def webCase(url, host, webType, webManager):
     try:
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
-        driver = webdriver.Remote(
-            host, desired_capabilities=desired_capabilities)
+        driver = webdriver.Remote(host,
+                                  desired_capabilities=desired_capabilities)
     except Exception:
         # opt = webdriver.ChromeOptions()
         # opt.set_headless()
@@ -379,10 +379,9 @@ def webCase(url, host, webType, webManager):
     webCases = WebCase.objects.filter(testType=webType.id)
     for webCase in webCases:
         try:
-            element = wait.until(
-                EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                webCase.webcss)),
-                message='找不到元素-%s' % (webCase.webcss))
+            element = wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, webCase.webcss)),
+                                 message='找不到元素-%s' % (webCase.webcss))
             if webCase.weboprate:
                 method = getattr(element, webCase.weboprate)
                 if webCase.webparam:
@@ -410,10 +409,9 @@ def webCase(url, host, webType, webManager):
     checkWebCases = CheckWebCase.objects.filter(testType=webType.id)
     for checkWebCase in checkWebCases:
         try:
-            element = wait.until(
-                EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                checkWebCase.webcss)),
-                message='找不到元素-%s' % (checkWebCase.webcss))
+            element = wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, checkWebCase.webcss)),
+                                 message='找不到元素-%s' % (checkWebCase.webcss))
             if checkWebCase.weboprate:
                 method = getattr(element, checkWebCase.weboprate)
                 if checkWebCase.webparam:
@@ -464,8 +462,8 @@ def webCase(url, host, webType, webManager):
 def webTest(url, host, webTypes, webManager, testName, type):
     try:
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
-        driver = webdriver.Remote(
-            host, desired_capabilities=desired_capabilities)
+        driver = webdriver.Remote(host,
+                                  desired_capabilities=desired_capabilities)
     except Exception:
         # opt = webdriver.ChromeOptions()
         # opt.set_headless()
@@ -491,10 +489,9 @@ def webTest(url, host, webTypes, webManager, testName, type):
             webCases = WebCase.objects.filter(testType=webType.id)
             for webCase in webCases:
                 try:
-                    element = wait.until(
-                        EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                        webCase.webcss)),
-                        message='找不到元素-%s' % (webCase.webcss))
+                    element = wait.until(EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, webCase.webcss)),
+                                         message='找不到元素-%s' % (webCase.webcss))
                     if webCase.weboprate:
                         method = getattr(element, webCase.weboprate)
                         if webCase.webparam:
@@ -524,10 +521,10 @@ def webTest(url, host, webTypes, webManager, testName, type):
             checkWebCases = CheckWebCase.objects.filter(testType=webType.id)
             for checkWebCase in checkWebCases:
                 try:
-                    element = wait.until(
-                        EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                        checkWebCase.webcss)),
-                        message='找不到元素-%s' % (checkWebCase.webcss))
+                    element = wait.until(EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, checkWebCase.webcss)),
+                                         message='找不到元素-%s' %
+                                         (checkWebCase.webcss))
                     if checkWebCase.weboprate:
                         method = getattr(element, checkWebCase.weboprate)
                         if checkWebCase.webparam:
@@ -590,6 +587,8 @@ def asign_var(data):
         else:
             return data
     # 赋值系统变量
+    elif data.startswith('&i-'):
+        return int(cache.get(data[3:]))
     elif data.startswith('&'):
         return cache.get(data[1:])
     else:
@@ -617,23 +616,34 @@ def save_userObj(data, data1, key='response'):
             if data == data1:
                 pass
             else:
-                raise Exception(key+' 不一致')
+                raise Exception(key + ' 不一致')
     elif isinstance(data, dict):
         if isinstance(data1, dict):
             if data == {} and data != data1:
-                raise Exception(key+' 不一致')
+                raise Exception(key + ' 不一致')
             for _data in data:
                 if data.get(_data) is not None:
                     save_userObj(data[_data], data1[_data], _data)
                 else:
-                    raise Exception(_data+' 不一致')
+                    raise Exception(_data + ' 不一致')
         else:
-            raise Exception(key+' 不一致')
+            raise Exception(key + ' 不一致')
+    elif isinstance(data, list):
+        if isinstance(data1, list):
+            if data == [] and data != data1:
+                raise Exception(key + ' 不一致')
+            for _data in range(len(data)):
+                if _data < len(data1):
+                    save_userObj(data[_data], data1[_data], _data)
+                else:
+                    raise Exception(_data + ' 不一致')
+        else:
+            raise Exception(key + ' 不一致')
     else:
         if data == data1:
             pass
         else:
-            raise Exception(key+' 不一致')
+            raise Exception(key + ' 不一致')
 
 
 # API请求
@@ -643,14 +653,13 @@ def doTest(case, RESTAPI_DOMAIN):
     error = None
     # print(case)
     try:
-        response = requests.request(
-            method=case['method'],
-            url=RESTAPI_DOMAIN + case['url'],
-            params=case['params'],
-            json=case['json'],
-            data=case['form'],
-            headers=case['headers'],
-            verify=False)
+        response = requests.request(method=case['method'],
+                                    url=RESTAPI_DOMAIN + case['url'],
+                                    params=case['params'],
+                                    json=case['json'],
+                                    data=case['form'],
+                                    headers=case['headers'],
+                                    verify=False)
     except requests.exceptions.ConnectionError:
         error = "ConnectionError"
     except requests.exceptions.HTTPError:
@@ -1179,8 +1188,8 @@ def testMpcloudCase(host, case):
     # 尝试远程启动客户端浏览器，启动失败再在服务器端启动浏览器
     try:
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
-        driver = webdriver.Remote(
-            host, desired_capabilities=desired_capabilities)
+        driver = webdriver.Remote(host,
+                                  desired_capabilities=desired_capabilities)
     except Exception as E:
         # opt = webdriver.ChromeOptions()
         # opt.set_headless()
