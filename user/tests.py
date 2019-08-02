@@ -587,10 +587,19 @@ def asign_var(data):
         else:
             return data
     # 赋值系统变量
+    # 整数型
     elif data.startswith('&i-'):
         return int(cache.get(data[3:]))
+    # 字符串
     elif data.startswith('&'):
         return cache.get(data[1:])
+    # 列表
+    elif data.startswith('[') and data.endswith(']'):
+        _data = json.loads(data)
+        for i in range(len(_data)):
+            if isinstance(_data[i], str) or isinstance(_data[i], list):
+                _data[i] = asign_var(_data[i])
+        return json.dumps(_data)
     else:
         return data
 
@@ -681,7 +690,7 @@ def doTest(case, RESTAPI_DOMAIN):
             rev = response.json()
         except Exception:
             error = '返回数据不是JSON对象'
-    print(rev)
+    # print(rev)
     if error is None:
         if not case['response']:
             error = 'response为空'
@@ -887,7 +896,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
         case['response'] = response
         # case['headers'] = {'content-type': apiCase.contentType}
 
-        print(case)
+        # print(case)
         # 发送请求
         result = doTest(case, RESTAPI_DOMAIN)
         if result['error']:
