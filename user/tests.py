@@ -612,6 +612,10 @@ def parse_obj(data):
         for key in data:
             data[key] = parse_obj(data[key])
         return data
+    elif isinstance(data, list):
+        for i in range(len(data)):
+            data[i] = parse_obj(data[i])
+        return data
     else:
         return data
 
@@ -660,7 +664,7 @@ def doTest(case, RESTAPI_DOMAIN):
     start = time.time()
     response = ''
     error = None
-    # print(case)
+    print(case)
     try:
         response = requests.request(method=case['method'],
                                     url=RESTAPI_DOMAIN + case['url'],
