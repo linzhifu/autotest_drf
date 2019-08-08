@@ -664,7 +664,7 @@ def doTest(case, RESTAPI_DOMAIN):
     start = time.time()
     response = ''
     error = None
-    print(case)
+    # print(case)
     try:
         response = requests.request(method=case['method'],
                                     url=RESTAPI_DOMAIN + case['url'],
@@ -703,7 +703,7 @@ def doTest(case, RESTAPI_DOMAIN):
             save_userObj(case['response'], rev)
         except Exception as e:
             error = str(e)
-    result = {'time': str(round(timeval, 2)), 'error': error}
+    result = {'time': str(round(timeval, 2)), 'error': error, 'response': rev}
     return result
 
 
