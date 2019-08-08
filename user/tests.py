@@ -675,8 +675,8 @@ def doTest(case, RESTAPI_DOMAIN):
                                     verify=False)
     except requests.exceptions.ConnectionError:
         error = "ConnectionError"
-    except requests.exceptions.HTTPError:
-        error = "HTTPError"
+    # except requests.exceptions.HTTPError:
+    #     error = "HTTPError"
     except requests.exceptions.URLRequired:
         error = "URLRequired"
     except requests.exceptions.TooManyRedirects:
