@@ -906,6 +906,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
         if result['error']:
             data['errcode'] = 101
             data['errmsg'] = apiCase.apiname + '：' + result['error']
+            data['detail'] = result['response']
             apiCase.result = False
             apiCase.save()
             apiType.result = False
@@ -1076,6 +1077,7 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                     data[
                         'errmsg'] = apiType.typename + '-' + apiCase.apiname + '：' + result[
                             'error']
+                    data['detail'] = result['response']
                     apiCase.result = False
                     apiCase.save()
                     apiType.result = False
