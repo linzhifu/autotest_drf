@@ -584,6 +584,10 @@ def asign_var(data):
     if data.startswith('$'):
         if data == '$Date':
             return int(time.time())
+        elif data == '$true':
+            return True
+        elif data == '$false':
+            return False
         else:
             return data
     # 赋值系统变量
