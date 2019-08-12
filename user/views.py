@@ -11,10 +11,10 @@ from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
 from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, \
-    TestType, CheckWebCase, Report
+    TestType, CheckWebCase, Report, ApiVar
 from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, \
     CheckWebCaseSerializer, ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, \
-    TestTypeSerializer, ReportSerializer
+    TestTypeSerializer, ReportSerializer, ApiVarSerializer
 import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
@@ -205,6 +205,14 @@ class ApiCaseView(ModelViewSet):
     filter_fields = ('testType', )
 
 
+# 后端测试案例自定义变量
+class ApiVarView(ModelViewSet):
+    queryset = ApiVar.objects.all()
+    serializer_class = ApiVarSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('apiManager', )
+
+
 # 测试类型
 class TestTypeView(ModelViewSet):
     queryset = TestType.objects.all()
@@ -306,6 +314,9 @@ class ApiCaseTest(APIView):
         cache.set('testUserToken', testUserInfo['testUserToken'])
         apiType = TestType.objects.filter(id=testType_id).first()
         apiManager = ApiManager.objects.filter(id=apiType.object_id).first()
+        apiVars = ApiVar.objects.filter(apiManager=apiManager)
+        for apiVar in apiVars:
+            cache.set(apiVar.varname[1:], apiVar.varvalue)
         data = apiCase(url, apiType, apiManager, testUserInfo)
         return Response(data)
 
@@ -327,6 +338,9 @@ class ApiTypeTest(APIView):
         apiTypes = TestType.objects.filter(object_id=object_id,
                                            content_type_id=content_type_id)
         apiManager = ApiManager.objects.filter(id=object_id).first()
+        apiVars = ApiVar.objects.filter(apiManager=apiManager)
+        for apiVar in apiVars:
+            cache.set(apiVar.varname[1:], apiVar.varvalue)
         data = apiTest(url,
                        apiTypes,
                        apiManager,
@@ -352,6 +366,9 @@ class ApiManagerTest(APIView):
         # print(testUserInfo)
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
+            apiVars = ApiVar.objects.filter(apiManager=apiManager)
+            for apiVar in apiVars:
+                cache.set(apiVar.varname[1:], apiVar.varvalue)
             content_type_id = ContentType.objects.get_for_model(ApiManager)
             apiTypes = TestType.objects.filter(object_id=apiManager.id,
                                                content_type_id=content_type_id)
@@ -386,6 +403,9 @@ class projectTest(APIView):
         print('后端测试开始')
         apiManagers = ApiManager.objects.filter(project_id=projectId)
         for apiManager in apiManagers:
+            apiVars = ApiVar.objects.filter(apiManager=apiManager)
+            for apiVar in apiVars:
+                cache.set(apiVar.varname[1:], apiVar.varvalue)
             content_type_id = ContentType.objects.get_for_model(ApiManager)
             apiTypes = TestType.objects.filter(object_id=apiManager.id,
                                                content_type_id=content_type_id)

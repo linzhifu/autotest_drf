@@ -174,6 +174,22 @@ class ApiCase(models.Model):
         verbose_name_plural = '后端测试案例'
         ordering = ['index']
 
+    def __str__(self):
+        return self.apiname
+
+
+# 后端自定义变量
+class ApiVar(models.Model):
+    apiManager = models.ForeignKey(
+        'ApiManager', on_delete=models.CASCADE, verbose_name='后端模块')
+    # 变量名称
+    varname = models.CharField('变量名称', max_length=100)
+    # 变量值
+    varvalue = models.CharField('变量值', max_length=800)
+
+    class Meta:
+        verbose_name_plural = '后端自定义变量'
+
 
 # 前端测试案例
 class WebCase(models.Model):

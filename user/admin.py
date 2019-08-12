@@ -1,6 +1,6 @@
 from django.contrib import admin
 from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, \
-    WebCase, TestType, CheckWebCase, TestRecord, Report
+    WebCase, TestType, CheckWebCase, TestRecord, Report, ApiVar
 
 
 # Register your models here.
@@ -44,6 +44,15 @@ class ApiCaseAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'apiname', 'apimethod', 'apiurl', 'testType', 'result',
         'create_time', 'update_time', 'index', 'user'
+    ]
+
+
+@admin.register(ApiVar)
+class ApiVarAdmin(admin.ModelAdmin):
+    model = ApiVar
+
+    list_display = [
+        'id', 'apiManager', 'varname', 'varvalue'
     ]
 
 

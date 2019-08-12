@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, \
-    TestType, CheckWebCase, Report
+    TestType, CheckWebCase, Report, ApiVar
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, ContentType
 
@@ -155,6 +155,13 @@ class ApiCaseSerializer(serializers.ModelSerializer):
         #     'apiresponse', 'update_time', 'create_time', 'index',
         #     'apiManagerName', 'apiManagerUrl', 'apiManager', 'user'
         # ]
+
+
+# 后端测试案例自定义变量
+class ApiVarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiVar
+        fields = '__all__'
 
 
 # 测试分类
