@@ -1,6 +1,7 @@
 from django.contrib import admin
 from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, \
-    WebCase, TestType, CheckWebCase, TestRecord, Report, ApiVar
+    WebCase, TestType, CheckWebCase, TestRecord, Report, ApiVar, AppManager, AppCase, \
+    CheckAppCase
 
 
 # Register your models here.
@@ -19,22 +20,19 @@ class ProjectAdmin(admin.ModelAdmin):
     model = Project
 
     list_display = [
-        'id',
-        'proname',
-        'prodes',
-        'user',
-        'webresult',
-        'apiresult',
-        'apiresult',
-        'update_time'
+        'id', 'proname', 'prodes', 'user', 'webresult', 'apiresult',
+        'apiresult', 'update_time'
     ]
 
 
 @admin.register(ApiManager)
 class ApiManagerAdmin(admin.ModelAdmin):
-    model = Project
+    model = ApiManager
 
-    list_display = ['id', 'apiname', 'apides', 'apiurl', 'user', 'project', 'result', 'update_time']
+    list_display = [
+        'id', 'apiname', 'apides', 'apiurl', 'user', 'project', 'result',
+        'update_time'
+    ]
 
 
 @admin.register(ApiCase)
@@ -51,9 +49,7 @@ class ApiCaseAdmin(admin.ModelAdmin):
 class ApiVarAdmin(admin.ModelAdmin):
     model = ApiVar
 
-    list_display = [
-        'id', 'apiManager', 'varname', 'varvalue'
-    ]
+    list_display = ['id', 'apiManager', 'varname', 'varvalue']
 
 
 @admin.register(WebManager)
@@ -82,6 +78,33 @@ class WebCaseAdmin(admin.ModelAdmin):
 
     list_display = [
         'id', 'webname', 'testType', 'create_time', 'update_time', 'index',
+        'user'
+    ]
+
+
+@admin.register(AppManager)
+class AppManagerAdmin(admin.ModelAdmin):
+    model = AppManager
+
+    list_display = [
+        'id', 'appname', 'appdes', 'desired_caps', 'user', 'project', 'result',
+        'update_time'
+    ]
+
+
+@admin.register(AppCase)
+class AppCaseAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 'appname', 'testType', 'create_time', 'update_time', 'index',
+        'user'
+    ]
+
+
+@admin.register(CheckAppCase)
+class CheckAppCaseAdmin(admin.ModelAdmin):
+
+    list_display = [
+        'id', 'appname', 'testType', 'create_time', 'update_time', 'index',
         'user'
     ]
 

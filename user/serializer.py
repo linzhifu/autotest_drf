@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, \
-    TestType, CheckWebCase, Report, ApiVar
+    TestType, CheckWebCase, Report, ApiVar, AppManager, AppCase, CheckAppCase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, ContentType
 
@@ -52,7 +52,10 @@ class ReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Report
-        fields = ['id', 'project', 'proname', 'user', 'username', 'update_time', 'version', 'releaseNote', 'allInfo', 'result']
+        fields = [
+            'id', 'project', 'proname', 'user', 'username', 'update_time',
+            'version', 'releaseNote', 'allInfo', 'result'
+        ]
         # depth = 1
 
 
@@ -161,6 +164,46 @@ class ApiCaseSerializer(serializers.ModelSerializer):
 class ApiVarSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApiVar
+        fields = '__all__'
+
+
+# app测试管理
+class AppManagerSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField(read_only=True)
+    proname = serializers.SerializerMethodField(read_only=True)
+    contenttype = serializers.SerializerMethodField(read_only=True)
+
+    def get_username(self, row):
+        user = User.objects.filter(id=row.user.id).first()
+        return user.username
+
+    def get_proname(self, row):
+        project = Project.objects.filter(id=row.project.id).first()
+        return project.proname
+
+    def get_contenttype(self, row):
+        contenttype = ContentType.objects.get_for_model(AppManager)
+        return contenttype.id
+
+    class Meta:
+        model = AppManager
+        fields = [
+            'id', 'appname', 'appdes', 'desired_caps', 'user', 'username',
+            'project', 'proname', 'contenttype', 'result', 'update_time'
+        ]
+
+
+# app测试案例
+class AppCaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppCase
+        fields = '__all__'
+
+
+# app测试数据验证
+class CheckAppCaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CheckAppCase
         fields = '__all__'
 
 

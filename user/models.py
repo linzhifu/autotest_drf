@@ -22,6 +22,7 @@ class Project(models.Model):
         User, on_delete=models.CASCADE, verbose_name='创建人')
     webresult = models.BooleanField(verbose_name='前端测试结果', default=False)
     apiresult = models.BooleanField(verbose_name='后端测试结果', default=False)
+    appresult = models.BooleanField(verbose_name='后端测试结果', default=False)
     result = models.BooleanField(verbose_name='测试结果', default=False)
     update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
 
@@ -272,6 +273,91 @@ class TestType(models.Model):
 
     def __str__(self):
         return self.typename
+
+
+# app测试管理
+class AppManager(models.Model):
+    appname = models.CharField(verbose_name='app名称', max_length=20, null=True)
+    appdes = models.CharField(verbose_name='app描述', max_length=50, null=True)
+    desired_caps = models.TextField(
+        'desired_caps参数', max_length=800, null=True, blank=True, default='')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+    update_time = models.DateTimeField(verbose_name='最后修改', auto_now=True)
+
+    # 数据库不生成，只用于链表查询
+    test_type = GenericRelation('TestType')
+    test_record = GenericRelation('TestRecord')
+
+    class Meta:
+        verbose_name_plural = 'app测试管理'
+        ordering = ['-update_time']
+
+    def __str__(self):
+        return self.appname
+
+
+# app测试案例
+class AppCase(models.Model):
+    testType = models.ForeignKey(
+        'TestType', on_delete=models.CASCADE, verbose_name='测试分类')
+    # 步骤名称
+    appname = models.CharField('步骤名称', max_length=100)
+    # 元素定位方法
+    selectmethod = models.CharField('元素定位方法', max_length=800, null=True, blank=True)
+    # 元素定位参数
+    selectparam = models.CharField('元素定位参数', max_length=800, null=True, blank=True)
+    # 元素操作
+    appoprate = models.CharField('元素操作', max_length=800, null=True, blank=True)
+    # 操作参数
+    appparam = models.CharField('操作参数', max_length=500, null=True, blank=True)
+    # 创建时间-自动获取当前时间
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    # 更新时间-自动获取当前时间
+    update_time = models.DateTimeField('最近修改', auto_now=True)
+    # 测试顺序
+    index = models.IntegerField('测试序号', default=1)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+
+    class Meta:
+        verbose_name_plural = 'app测试案例'
+        ordering = ('index', )
+
+
+# app数据验证
+class CheckAppCase(models.Model):
+    testType = models.ForeignKey(
+        'TestType', on_delete=models.CASCADE, verbose_name='测试分类')
+    # 步骤名称
+    appname = models.CharField('步骤名称', max_length=100)
+    # 元素定位方法
+    selectmethod = models.CharField('元素定位方法', max_length=800, null=True, blank=True)
+    # 元素定位参数
+    selectparam = models.CharField('元素定位参数', max_length=800, null=True, blank=True)
+    # 元素操作
+    appoprate = models.CharField('元素操作', max_length=800, null=True, blank=True)
+    # 操作参数
+    appparam = models.CharField('操作参数', max_length=500, null=True, blank=True)
+    # 验证数据
+    checktext = models.CharField('验证数据', max_length=500, null=True, blank=True)
+    # 创建时间-自动获取当前时间
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    # 更新时间-自动获取当前时间
+    update_time = models.DateTimeField('最近修改', auto_now=True)
+    # 测试顺序
+    index = models.IntegerField('测试序号', default=1)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+
+    class Meta:
+        verbose_name_plural = 'app测试数据验证'
+        ordering = ('index', )
 
 
 # 测试记录
