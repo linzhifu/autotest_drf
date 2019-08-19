@@ -18,7 +18,8 @@ from user.serializer import ProjectSerializer, UserSerializer, WebManagerSeriali
     AppCaseSerializer, CheckAppCaseSerializer
 import string
 import random
-from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record
+from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record, \
+    appCase, appTest
 from user.tests import testMpcloudCase, mpcloudCases
 import openpyxl
 from openpyxl.styles import colors, Font
@@ -410,6 +411,80 @@ class ApiManagerTest(APIView):
                 return Response(data)
 
         project.apiresult = True
+        project.save()
+        return Response(data)
+
+
+# 移动端测试案例单元测试-自定义
+class AppCaseTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4723/wd/hub'
+        testType_id = request.GET.get('testType')
+        appType = TestType.objects.filter(id=testType_id).first()
+        appManager = AppManager.objects.filter(id=appType.object_id).first()
+        data = appCase(host, appType, appManager)
+        return Response(data)
+
+
+# 移动端模块测试-自定义
+class AppTypeTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4723/wd/hub'
+        content_type_id = request.GET.get('content_type')
+        object_id = request.GET.get('object_id')
+        appTypes = TestType.objects.filter(object_id=object_id,
+                                           content_type_id=content_type_id)
+        appManager = AppManager.objects.filter(id=object_id).first()
+        data = appTest(host,
+                       appTypes,
+                       appManager,
+                       testName=appManager.appname,
+                       type='移动端测试')
+        return Response(data)
+
+
+# 移动整体测试-自定义
+class AppManagerTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        host = ip + ':4723/wd/hub'
+        projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
+        appManagers = AppManager.objects.filter(project_id=projectId)
+        for appManager in appManagers:
+            content_type_id = ContentType.objects.get_for_model(AppManager)
+            appTypes = TestType.objects.filter(object_id=appManager.id,
+                                               content_type_id=content_type_id)
+            data = appTest(host,
+                           appTypes,
+                           appManager,
+                           testName=appManager.appname,
+                           type='移动端测试')
+            if data['errcode']:
+                data['errmsg'] = appManager.appname + '-' + data['errmsg']
+                return Response(data)
+
+        project.appresult = True
         project.save()
         return Response(data)
 

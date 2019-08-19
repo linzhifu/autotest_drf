@@ -1,10 +1,11 @@
 # from django.test import TestCase, Client
 from selenium import webdriver
+from selenium import webdriver as appdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
-from user.models import WebCase, CheckWebCase, TestRecord, ApiCase
+from user.models import WebCase, CheckWebCase, TestRecord, ApiCase, AppCase, CheckAppCase
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 import logging
@@ -574,6 +575,240 @@ def webTest(url, host, webTypes, webManager, testName, type):
     webManager.result = True
     webManager.save()
     add_one_test_record(webManager, True)
+    driver.quit()
+    return data
+
+
+# 移动端单元测试操作
+def appCase(host, appType, appManager):
+    # 测试结果
+    data = {'errcode': 0, 'errmsg': 'ok'}
+    text = ''
+    driver = ''
+    el = ''
+    try:
+        desired_caps = parse_obj(json.loads(appManager.desired_caps))
+        # print(desired_caps)
+        driver = appdriver.Remote(host, desired_caps)
+    except Exception:
+        data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
+        return data
+
+    # 操作前端页面
+    appCases = AppCase.objects.filter(testType=appType.id)
+    for appCase in appCases:
+        try:
+            # 选择元素
+            if appCase.selectmethod:
+                method = getattr(driver, appCase.selectmethod)
+                if appCase.selectparam:
+                    el = method(appCase.selectparam)
+                else:
+                    raise Exception('元素定位参数为空')
+            else:
+                raise Exception('元素定位方法为空')
+            sleep(1)
+            # 元素操作
+            if appCase.appoprate:
+                method = getattr(el, appCase.appoprate)
+                if appCase.appparam:
+                    method(appCase.appparam)
+                else:
+                    method()
+            sleep(1)
+        except Exception as e:
+            print(appCase.appname + ' ：', e)
+            appType.result = False
+            appType.save()
+            add_one_test_record(appType, False)
+            appManager.result = False
+            appManager.save()
+            appManager.project.appresult = False
+            appManager.project.save()
+            data['errcode'] = 101
+            data['errmsg'] = appCase.appname + ' ：操作异常'
+            data['detail'] = str(e)
+            driver.quit()
+            logging.info(appType.typename + '-FAIL')
+            return data
+
+    # 验证文本
+    text = ''
+    checkAppCases = CheckAppCase.objects.filter(testType=appType.id)
+    for checkAppCase in checkAppCases:
+        try:
+            # 选择元素
+            if checkAppCase.selectmethod:
+                method = getattr(driver, checkAppCase.selectmethod)
+                if checkAppCase.selectparam:
+                    el = method(checkAppCase.selectparam)
+                else:
+                    raise Exception('元素定位参数为空')
+            else:
+                raise Exception('元素定位方法为空')
+            sleep(1)
+            # 元素操作
+            if checkAppCase.appoprate:
+                method = getattr(el, checkAppCase.appoprate)
+                if checkAppCase.appparam:
+                    text = method(checkAppCase.appparam)
+                else:
+                    text = method()
+                sleep(1)
+                if text != checkAppCase.checktext:
+                    appType.result = False
+                    appType.save()
+                    add_one_test_record(appType, False)
+                    appManager.result = False
+                    appManager.save()
+                    data['errcode'] = 102
+                    data['errmsg'] = checkAppCase.appname \
+                        + '：' + checkAppCase.checktext + ' != ' + text
+                    driver.quit()
+                    logging.info(appType.typename + '-FAIL')
+                    return data
+
+        except Exception as e:
+            print(checkAppCase.appname + ' ：', e)
+            appType.result = False
+            appType.save()
+            add_one_test_record(appType, False)
+            appManager.result = False
+            appManager.save()
+            appManager.project.webresult = False
+            appManager.project.save()
+            data['errcode'] = 103
+            data['errmsg'] = checkAppCase.appname + ' ：操作异常'
+            data['detail'] = str(e)
+            driver.quit()
+            logging.info(appType.typename + '-FAIL')
+            return data
+
+    appType.result = True
+    appType.save()
+    add_one_test_record(appType, True)
+    logging.info(appType.typename + '-PASS')
+
+    driver.quit()
+    return data
+
+
+# 移动端整体测试
+@save_log
+def appTest(host, appTypes, appManager, testName, type):
+    # 测试结果
+    data = {'errcode': 0, 'errmsg': 'ok'}
+    text = ''
+    driver = ''
+    el = ''
+    try:
+        desired_caps = parse_obj(json.loads(appManager.desired_caps))
+        # print(desired_caps)
+        driver = appdriver.Remote(host, desired_caps)
+    except Exception:
+        data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
+        return data
+
+    for appType in appTypes:
+        if appType.is_test:
+            # 操作前端页面
+            appCases = AppCase.objects.filter(testType=appType.id)
+            for appCase in appCases:
+                try:
+                    # 选择元素
+                    if appCase.selectmethod:
+                        method = getattr(driver, appCase.selectmethod)
+                        if appCase.selectparam:
+                            el = method(appCase.selectparam)
+                        else:
+                            raise Exception('元素定位参数为空')
+                    else:
+                        raise Exception('元素定位方法为空')
+                    sleep(1)
+                    # 元素操作
+                    if appCase.appoprate:
+                        method = getattr(el, appCase.appoprate)
+                        if appCase.appparam:
+                            method(appCase.appparam)
+                        else:
+                            method()
+                    sleep(1)
+                except Exception as e:
+                    print(appCase.appname + ' ：', e)
+                    appType.result = False
+                    appType.save()
+                    add_one_test_record(appType, False)
+                    appManager.result = False
+                    appManager.save()
+                    appManager.project.appresult = False
+                    appManager.project.save()
+                    data['errcode'] = 101
+                    data['errmsg'] = appCase.appname + ' ：操作异常'
+                    data['detail'] = str(e)
+                    driver.quit()
+                    logging.info(appType.typename + '-FAIL')
+                    return data
+
+            # 验证文本
+            text = ''
+            checkAppCases = CheckAppCase.objects.filter(testType=appType.id)
+            for checkAppCase in checkAppCases:
+                try:
+                    # 选择元素
+                    if checkAppCase.selectmethod:
+                        method = getattr(driver, checkAppCase.selectmethod)
+                        if checkAppCase.selectparam:
+                            el = method(checkAppCase.selectparam)
+                        else:
+                            raise Exception('元素定位参数为空')
+                    else:
+                        raise Exception('元素定位方法为空')
+                    sleep(1)
+                    # 元素操作
+                    if checkAppCase.appoprate:
+                        method = getattr(el, checkAppCase.appoprate)
+                        if checkAppCase.appparam:
+                            text = method(checkAppCase.appparam)
+                        else:
+                            text = method()
+                        sleep(1)
+                        if text != checkAppCase.checktext:
+                            appType.result = False
+                            appType.save()
+                            add_one_test_record(appType, False)
+                            appManager.result = False
+                            appManager.save()
+                            data['errcode'] = 102
+                            data['errmsg'] = checkAppCase.appname \
+                                + '：' + checkAppCase.checktext + ' != ' + text
+                            driver.quit()
+                            logging.info(appType.typename + '-FAIL')
+                            return data
+
+                except Exception as e:
+                    print(checkAppCase.appname + ' ：', e)
+                    appType.result = False
+                    appType.save()
+                    add_one_test_record(appType, False)
+                    appManager.result = False
+                    appManager.save()
+                    appManager.project.webresult = False
+                    appManager.project.save()
+                    data['errcode'] = 103
+                    data['errmsg'] = checkAppCase.appname + ' ：操作异常'
+                    data['detail'] = str(e)
+                    driver.quit()
+                    logging.info(appType.typename + '-FAIL')
+                    return data
+
+        appType.result = True
+        appType.save()
+        add_one_test_record(appType, True)
+        logging.info(appType.typename + '-PASS')
+
+    appManager.result = True
+    appManager.save()
+    add_one_test_record(appManager, True)
     driver.quit()
     return data
 
