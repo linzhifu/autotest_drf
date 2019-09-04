@@ -2531,7 +2531,7 @@ def addOrderTool(driver, wait, user):
     # 软件列表
     relatedBtn = wait.until(EC.element_to_be_clickable((
         By.CSS_SELECTOR,
-        'tbody .el-table__row:nth-of-type(3) td:nth-of-type(8) span:nth-child(2)'
+        'tbody .el-table__row:nth-of-type(3) td:nth-of-type(9) span:nth-child(4)'
     )),
                             message='找不到 软件列表')
     logging.debug('订单管理-量产工具：' + relatedBtn.text)
