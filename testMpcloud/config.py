@@ -178,13 +178,13 @@ USER_ADMIN = {
     'addProEable': 0,
 
     # 产品列表(添加型号、角色) proListEable:0 不测试，1 测试
-    'proListEnable': 1,
+    'proListEnable': 0,
 
     # 上传软件 upSoftEnable:0 不测试，1 测试
     'upSoftEnable': 0,
 
     # 创建订单 createOrderEnable:0 不测试，1 测试
-    'createOrderEnable': 0,
+    'createOrderEnable': 1,
 
     # 关联量产工具 orderToolEnable:0 不测试，1测试
     'orderToolEnable': 0,
