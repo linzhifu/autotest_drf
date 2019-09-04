@@ -30,7 +30,7 @@ time.sleep(2)
 
 # 获取屏幕尺寸
 screem = driver.get_window_size()
-
+print(screem)
 # 下拉屏幕，打开微信小程序页面
 driver.swipe(screem['width'] * 0.5, screem['width'] * 0.5,
              screem['height'] * 0.2, screem['height'] * 0.8, 1000)

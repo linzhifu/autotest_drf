@@ -1,6 +1,6 @@
 # from django.test import TestCase, Client
 from selenium import webdriver
-from selenium import webdriver as appdriver
+from appium import webdriver as appdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -586,36 +586,52 @@ def appCase(host, appType, appManager):
     text = ''
     driver = ''
     el = ''
+    # 启动appium会话
     try:
         desired_caps = parse_obj(json.loads(appManager.desired_caps))
         # print(desired_caps)
         driver = appdriver.Remote(host, desired_caps)
+        # 设置隐形等待时间，单位s
+        driver.implicitly_wait(10)
     except Exception:
         data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
         return data
-
+    # 等待程序页面启动成功
+    driver.wait_activity(desired_caps['appActivity'], 10)
+    sleep(1)
     # 操作前端页面
     appCases = AppCase.objects.filter(testType=appType.id)
     for appCase in appCases:
         try:
-            # 选择元素
+            # 选择元素并操作
             if appCase.selectmethod:
+                # print('选择元素并操作')
                 method = getattr(driver, appCase.selectmethod)
                 if appCase.selectparam:
                     el = method(appCase.selectparam)
                 else:
                     raise Exception('元素定位参数为空')
-            else:
-                raise Exception('元素定位方法为空')
-            sleep(1)
-            # 元素操作
-            if appCase.appoprate:
-                method = getattr(el, appCase.appoprate)
+                # 元素操作
+                if appCase.appoprate:
+                    method = getattr(el, appCase.appoprate)
+                    if appCase.appparam:
+                        method(appCase.appparam)
+                    else:
+                        method()
+                sleep(1)
+            # 操作界面
+            elif appCase.appoprate:
+                # print('操作界面')
+                method = getattr(driver, appCase.appoprate)
+                # print(method)
                 if appCase.appparam:
-                    method(appCase.appparam)
+                    # print(appCase.appparam.split(','))
+                    method(*(appCase.appparam.split(',')))
                 else:
                     method()
-            sleep(1)
+                sleep(1)
+            else:
+                raise Exception('元素定位方法和元素操作方法都为空')
         except Exception as e:
             print(appCase.appname + ' ：', e)
             appType.result = False
@@ -701,13 +717,19 @@ def appTest(host, appTypes, appManager, testName, type):
     text = ''
     driver = ''
     el = ''
+    # 启动appium会话
     try:
         desired_caps = parse_obj(json.loads(appManager.desired_caps))
         # print(desired_caps)
         driver = appdriver.Remote(host, desired_caps)
+        # 设置隐形等待时间，单位s
+        driver.implicitly_wait(10)
     except Exception:
         data = {'errcode': 1, 'errmsg': '未识别到浏览器服务端，请检查是否打开'}
         return data
+    # 等待程序页面启动成功
+    driver.wait_activity(desired_caps['appActivity'], 10)
+    sleep(1)
 
     for appType in appTypes:
         if appType.is_test:
@@ -715,24 +737,35 @@ def appTest(host, appTypes, appManager, testName, type):
             appCases = AppCase.objects.filter(testType=appType.id)
             for appCase in appCases:
                 try:
-                    # 选择元素
+                    # 选择元素并操作
                     if appCase.selectmethod:
+                        # print('选择元素并操作')
                         method = getattr(driver, appCase.selectmethod)
                         if appCase.selectparam:
                             el = method(appCase.selectparam)
                         else:
                             raise Exception('元素定位参数为空')
-                    else:
-                        raise Exception('元素定位方法为空')
-                    sleep(1)
-                    # 元素操作
-                    if appCase.appoprate:
-                        method = getattr(el, appCase.appoprate)
+                        # 元素操作
+                        if appCase.appoprate:
+                            method = getattr(el, appCase.appoprate)
+                            if appCase.appparam:
+                                method(appCase.appparam)
+                            else:
+                                method()
+                        sleep(1)
+                    # 操作界面
+                    elif appCase.appoprate:
+                        # print('操作界面')
+                        method = getattr(driver, appCase.appoprate)
+                        # print(method)
                         if appCase.appparam:
-                            method(appCase.appparam)
+                            # print(appCase.appparam.split(','))
+                            method(*(appCase.appparam.split(',')))
                         else:
                             method()
-                    sleep(1)
+                        sleep(1)
+                    else:
+                        raise Exception('元素定位方法和元素操作方法都为空')
                 except Exception as e:
                     print(appCase.appname + ' ：', e)
                     appType.result = False
