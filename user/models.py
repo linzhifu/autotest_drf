@@ -360,6 +360,32 @@ class CheckAppCase(models.Model):
         ordering = ('index', )
 
 
+# app脚本测试案例
+class AppSrcCase(models.Model):
+    # 所属项目
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    # 案例名称
+    appname = models.CharField('案例名称', max_length=100)
+    # 案例描述
+    appdes = models.CharField(verbose_name='案例描述', max_length=50, null=True)
+    # 测试脚本
+    srcname = models.CharField('测试脚本', max_length=100, null=True)
+    # 更新时间-自动获取当前时间
+    update_time = models.DateTimeField('最近修改', auto_now=True)
+    # 创建人
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='创建人')
+    # 测试序号
+    index = models.IntegerField('测试序号', default=1)
+    # 测试结果
+    result = models.BooleanField(verbose_name='测试结果', default=False)
+
+    class Meta:
+        verbose_name_plural = 'app脚本测试案例'
+        ordering = ('index', )
+
+
 # 测试记录
 class TestRecord(models.Model):
     test_all = models.IntegerField(default=0)

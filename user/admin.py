@@ -1,7 +1,7 @@
 from django.contrib import admin
 from user.models import LoginRecord, Project, ApiManager, ApiCase, WebManager, \
     WebCase, TestType, CheckWebCase, TestRecord, Report, ApiVar, AppManager, AppCase, \
-    CheckAppCase
+    CheckAppCase, AppSrcCase
 
 
 # Register your models here.
@@ -106,6 +106,14 @@ class CheckAppCaseAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'appname', 'testType', 'create_time', 'update_time', 'index',
         'user'
+    ]
+
+
+@admin.register(AppSrcCase)
+class AppSrcCaseAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 'appname', 'appdes', 'srcname', 'project', 'update_time', 'index',
+        'user', 'result'
     ]
 
 

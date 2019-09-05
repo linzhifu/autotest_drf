@@ -46,9 +46,6 @@ time.sleep(2)
 # 点击数据统计
 dataBtn = driver.find_element_by_xpath('//*[@text="数据统计"]')
 dataBtn.click()
-# 等待页面刷新
-driver.wait_activity('.plugin.appbrand.ui.AppBrandUI', 10)
-time.sleep(2)
 
 # 点击返回
 backBtn = driver.find_element_by_xpath('//*[@text="功能"]')

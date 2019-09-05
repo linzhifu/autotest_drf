@@ -11,11 +11,11 @@ from django.core.cache import cache
 from django.contrib.auth.hashers import make_password
 from django_filters.rest_framework import DjangoFilterBackend
 from user.models import LoginRecord, Project, WebManager, ApiManager, ApiCase, WebCase, \
-    TestType, CheckWebCase, Report, ApiVar, AppManager, AppCase, CheckAppCase
+    TestType, CheckWebCase, Report, ApiVar, AppManager, AppCase, CheckAppCase, AppSrcCase
 from user.serializer import ProjectSerializer, UserSerializer, WebManagerSerializer, \
     CheckWebCaseSerializer, ApiManagerSerializer, ApiCaseSerializer, WebCaseSerializer, \
     TestTypeSerializer, ReportSerializer, ApiVarSerializer, AppManagerSerializer, \
-    AppCaseSerializer, CheckAppCaseSerializer
+    AppCaseSerializer, CheckAppCaseSerializer, AppSrcCaseSerializer
 import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record, \
@@ -223,7 +223,7 @@ class AppManagerView(ModelViewSet):
     filter_fields = ('project', )
 
 
-# 前端测试案例-自定义
+# 移动端测试案例-自定义
 class AppCaseView(ModelViewSet):
     queryset = AppCase.objects.all()
     serializer_class = AppCaseSerializer
@@ -231,12 +231,20 @@ class AppCaseView(ModelViewSet):
     filter_fields = ('testType', )
 
 
-# 前端测试数据验证-自定义
+# 移动端测试数据验证-自定义
 class CheckAppCaseView(ModelViewSet):
     queryset = CheckAppCase.objects.all()
     serializer_class = CheckAppCaseSerializer
     filter_backends = (DjangoFilterBackend, )
     filter_fields = ('testType', )
+
+
+# 移动端测试案例-自定义
+class AppSrcCaseView(ModelViewSet):
+    queryset = AppSrcCase.objects.all()
+    serializer_class = AppSrcCaseSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('project', )
 
 
 # 测试类型

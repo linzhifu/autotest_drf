@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from user.models import Project, WebManager, WebCase, ApiManager, ApiCase, \
-    TestType, CheckWebCase, Report, ApiVar, AppManager, AppCase, CheckAppCase
+    TestType, CheckWebCase, Report, ApiVar, AppManager, AppCase, CheckAppCase, \
+    AppSrcCase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, ContentType
 
@@ -205,6 +206,27 @@ class CheckAppCaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = CheckAppCase
         fields = '__all__'
+
+
+# app脚本测试案例
+class AppSrcCaseSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField(read_only=True)
+    proname = serializers.SerializerMethodField(read_only=True)
+
+    def get_username(self, row):
+        user = User.objects.filter(id=row.user.id).first()
+        return user.username
+
+    def get_proname(self, row):
+        project = Project.objects.filter(id=row.project.id).first()
+        return project.proname
+
+    class Meta:
+        model = AppSrcCase
+        fields = [
+            'id', 'appname', 'appdes', 'srcname', 'index', 'proname',
+            'update_time', 'username', 'project', 'user', 'result'
+        ]
 
 
 # 测试分类

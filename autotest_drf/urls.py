@@ -36,6 +36,7 @@ router.register('report', views.ReportView)
 router.register('appManager', views.AppManagerView)
 router.register('appCase', views.AppCaseView)
 router.register('checkAppCase', views.CheckAppCaseView)
+router.register('appSrcCase', views.AppSrcCaseView)
 
 urlpatterns = [
     path('', views.home),
