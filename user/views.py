@@ -24,6 +24,7 @@ from user.tests import testMpcloudCase, mpcloudCases
 import openpyxl
 from openpyxl.styles import colors, Font
 import os
+import codecs
 
 
 # Create your views here.
@@ -1495,6 +1496,92 @@ class MpcloudExcel(APIView):
             os.remove('../log/reports/' + fileName)
         except Exception as e:
             res['errcode'] = 1
+            res['errmsg'] = str(e)
+
+        return Response(res)
+
+
+# 保存测试脚本
+class saveSrc(APIView):
+    permission_classes = []
+
+    # 获取测试脚本
+    def get(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok', 'src': '请编辑python脚本'}
+        data = request.GET
+        src_type = data['type']
+        src_id = data['id']
+
+        # 查询文件夹
+        src_type_dir = '../src/' + src_type
+        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+
+        try:
+            with codecs.open(src_id_dir, 'rb', 'utf-8') as f:
+                res['src'] = f.read()
+        except Exception as e:
+            res['errmsg'] = str(e)
+
+        return Response(res)
+
+    # 保存测试脚本
+    def post(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok'}
+        data = request.data
+        src_type = data['type']
+        src_id = data['id']
+        src_info = data['src']
+
+        # 创建文件夹
+        src_type_dir = '../src/' + src_type
+        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+
+        if os.path.exists('../src/'):
+            pass
+        else:
+            os.mkdir('../src/')
+
+        if os.path.exists(src_type_dir):
+            pass
+        else:
+            os.mkdir(src_type_dir)
+
+        # if os.path.exists(src_id_dir):
+        #     pass
+        # else:
+        #     os.mkdir(src_id_dir)
+
+        # if os.path.exists(src_info_dir):
+        #     pass
+        # else:
+        #     os.mkdir(src_info_dir)
+
+        # 保存脚本
+        try:
+            with codecs.open(src_id_dir, 'w', 'utf-8') as f:
+                f.write(src_info)
+        except Exception as e:
+            res['errcode'] = 1
+            res['errmsg'] = str(e)
+
+        return Response(res)
+
+    # 运行测试脚本
+    def patch(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok'}
+        data = request.GET
+        src_type = data['type']
+        src_id = data['id']
+
+        # 查询文件夹
+        src_type_dir = '../src/' + src_type
+        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+
+        try:
+            cmd = 'python' + ' ' + src_id_dir
+            print(cmd)
+            os.system(cmd)
+        except Exception as e:
             res['errmsg'] = str(e)
 
         return Response(res)
