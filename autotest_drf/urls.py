@@ -45,6 +45,7 @@ urlpatterns = [
     re_path(r'(?P<version>[v1|v2]+)/login/', views.LoginView.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/appTypeTest/', views.AppTypeTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/appCaseTest/', views.AppCaseTest.as_view()),
+    re_path(r'(?P<version>[v1|v2]+)/appSrcTest/', views.AppSrcTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/appManagerTest/', views.AppManagerTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webCaseTest/', views.WebCaseTest.as_view()),
     re_path(r'(?P<version>[v1|v2]+)/webTypeTest/', views.WebTypeTest.as_view()),

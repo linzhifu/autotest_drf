@@ -1568,7 +1568,7 @@ class saveSrc(APIView):
 
     # 运行测试脚本
     def patch(self, request, *args, **kwargs):
-        res = {'errcode': 0, 'errmsg': 'ok'}
+        res = {'errcode': 0, 'errmsg': 'PASS', 'info': ''}
         data = request.GET
         src_type = data['type']
         src_id = data['id']
@@ -1577,11 +1577,53 @@ class saveSrc(APIView):
         src_type_dir = '../src/' + src_type
         src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
 
-        try:
-            cmd = 'python' + ' ' + src_id_dir
-            print(cmd)
-            os.system(cmd)
-        except Exception as e:
-            res['errmsg'] = str(e)
+        cmd = 'python' + ' ' + src_id_dir
+        # print(cmd)
+        # msg = os.system(cmd)
+        msg = os.popen(cmd)
+        # msg.read 获取程序运行后print打印的信息
+        resu = msg.read()
+        # msg.close 获取程序运行完返回值
+        if msg.close():
+            res['errcode'] = 1
+            res['errmsg'] = 'Fail'
+        res['info'] = resu
+        return Response(res)
 
+
+# 移动整体测试-自定义
+class AppSrcTest(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'PASS'}
+        data = request.GET
+        src_type = data['type']
+        pro_id = data['project']
+        project = Project.objects.filter(id=pro_id).first()
+        app_srcs = AppSrcCase.objects.filter(project=pro_id)
+        for app_src in app_srcs:
+            src_id = app_src.id
+            # 查询文件夹
+            src_type_dir = '../src/' + src_type
+            src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+
+            cmd = 'python' + ' ' + src_id_dir
+            # print(cmd)
+            msg = os.system(cmd)
+            # print(msg)
+            if msg:
+                res['errcode'] = 1
+                res['errmsg'] = app_src.appname + 'Fail'
+                app_src.result = False
+                app_src.save()
+                project.appresult = False
+                project.save()
+                return Response(res)
+            else:
+                app_src.result = True
+                app_src.save()
+        project.appresult = True
+        project.save()
         return Response(res)
