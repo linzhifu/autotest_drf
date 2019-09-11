@@ -1600,6 +1600,13 @@ class saveSrc(APIView):
         src_type_dir = '../src/' + src_type
         src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
 
+        if os.path.exists(src_id_dir):
+            pass
+        else:
+            res['errcode'] = 2
+            res['errmsg'] = '脚本不存在，请编辑并提交脚本后再测试'
+            return Response(res)
+
         cmd = 'python' + ' ' + src_id_dir
         # print(cmd)
         # msg = os.system(cmd)
@@ -1648,6 +1655,13 @@ class AppSrcTest(APIView):
             else:
                 src.result = True
                 src.save()
-        project.appresult = True
+        if src_type == 'app':
+            project.appresult = True
+        elif src_type == 'api':
+            project.apiresult = True
+        elif src_type == 'web':
+            project.webresult = True
+        else:
+            pass
         project.save()
         return Response(res)
