@@ -360,11 +360,13 @@ class CheckAppCase(models.Model):
         ordering = ('index', )
 
 
-# app脚本测试案例
+# 脚本测试案例
 class AppSrcCase(models.Model):
     # 所属项目
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name='所属项目')
+    # 脚本类型
+    src_type = models.CharField('脚本类型', max_length=100)
     # 案例名称
     appname = models.CharField('案例名称', max_length=100)
     # 案例描述
@@ -382,7 +384,7 @@ class AppSrcCase(models.Model):
     result = models.BooleanField(verbose_name='测试结果', default=False)
 
     class Meta:
-        verbose_name_plural = 'app脚本测试案例'
+        verbose_name_plural = '脚本测试案例'
         ordering = ('index', )
 
 

@@ -225,7 +225,7 @@ class AppSrcCaseSerializer(serializers.ModelSerializer):
         model = AppSrcCase
         fields = [
             'id', 'appname', 'appdes', 'srcname', 'index', 'proname',
-            'update_time', 'username', 'project', 'user', 'result'
+            'update_time', 'username', 'project', 'user', 'result', 'src_type'
         ]
 
 

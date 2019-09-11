@@ -113,7 +113,7 @@ class CheckAppCaseAdmin(admin.ModelAdmin):
 class AppSrcCaseAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'appname', 'appdes', 'srcname', 'project', 'update_time', 'index',
-        'user', 'result'
+        'user', 'result', 'src_type'
     ]
 
 

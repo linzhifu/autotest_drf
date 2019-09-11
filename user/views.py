@@ -26,6 +26,29 @@ from openpyxl.styles import colors, Font
 import os
 import codecs
 
+src_demo = '''# python3脚本示例
+# 此处导入所需模块
+# import xxx
+# from xxx import xxx
+
+def main():
+    # 通过print打印需要的信息
+    # 在API请求中的返回值info可以看到print打印的信息
+    print('python脚本示例')
+    # raise通过抛出异常，显示测试报错
+    # 添加运行代码
+
+if __name__ == '__main__':
+    # 推荐运行方法
+    try:
+        main()
+    except Exception as e:
+        # 打印错误信息
+        print(str(e))
+        # 报错
+        raise Exception('fail')
+'''
+
 
 # Create your views here.
 # 首页
@@ -240,12 +263,12 @@ class CheckAppCaseView(ModelViewSet):
     filter_fields = ('testType', )
 
 
-# 移动端测试案例-自定义
+# 脚本测试案例
 class AppSrcCaseView(ModelViewSet):
     queryset = AppSrcCase.objects.all()
     serializer_class = AppSrcCaseSerializer
     filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('project', )
+    filter_fields = ('project', 'src_type')
 
 
 # 测试类型
@@ -1507,7 +1530,7 @@ class saveSrc(APIView):
 
     # 获取测试脚本
     def get(self, request, *args, **kwargs):
-        res = {'errcode': 0, 'errmsg': 'ok', 'src': '请编辑python脚本'}
+        res = {'errcode': 0, 'errmsg': 'ok', 'src': src_demo}
         data = request.GET
         src_type = data['type']
         src_id = data['id']
@@ -1599,12 +1622,13 @@ class AppSrcTest(APIView):
     def get(self, request, *args, **kwargs):
         res = {'errcode': 0, 'errmsg': 'PASS'}
         data = request.GET
+        srcs = ''
         src_type = data['type']
         pro_id = data['project']
         project = Project.objects.filter(id=pro_id).first()
-        app_srcs = AppSrcCase.objects.filter(project=pro_id)
-        for app_src in app_srcs:
-            src_id = app_src.id
+        srcs = AppSrcCase.objects.filter(project=pro_id, src_type=src_type)
+        for src in srcs:
+            src_id = src.id
             # 查询文件夹
             src_type_dir = '../src/' + src_type
             src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
@@ -1615,15 +1639,15 @@ class AppSrcTest(APIView):
             # print(msg)
             if msg:
                 res['errcode'] = 1
-                res['errmsg'] = app_src.appname + 'Fail'
-                app_src.result = False
-                app_src.save()
+                res['errmsg'] = src.appname + 'Fail'
+                src.result = False
+                src.save()
                 project.appresult = False
                 project.save()
                 return Response(res)
             else:
-                app_src.result = True
-                app_src.save()
+                src.result = True
+                src.save()
         project.appresult = True
         project.save()
         return Response(res)
