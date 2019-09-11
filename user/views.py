@@ -1607,7 +1607,7 @@ class saveSrc(APIView):
             res['errmsg'] = '脚本不存在，请编辑并提交脚本后再测试'
             return Response(res)
 
-        cmd = 'python' + ' ' + src_id_dir
+        cmd = 'python3' + ' ' + src_id_dir
         # print(cmd)
         # msg = os.system(cmd)
         msg = os.popen(cmd)
@@ -1640,7 +1640,7 @@ class AppSrcTest(APIView):
             src_type_dir = '../src/' + src_type
             src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
 
-            cmd = 'python' + ' ' + src_id_dir
+            cmd = 'python3' + ' ' + src_id_dir
             # print(cmd)
             msg = os.system(cmd)
             # print(msg)
