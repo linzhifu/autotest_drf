@@ -1495,5 +1495,15 @@ def testMpcloudCase(host, case):
     return result
 
 
+@save_log
+# 保存脚本测试LOG
+def saveSrcLog(msg, testName, type, res):
+    logs = msg.split('\n')
+    for log in logs:
+        if log:
+            logging.info(log)
+    return res
+
+
 if __name__ == '__main__':
     test()

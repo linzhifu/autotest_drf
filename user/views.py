@@ -20,11 +20,12 @@ import string
 import random
 from user.tests import webCase, webTest, apiCase, apiTest, get_record, add_one_test_record, \
     appCase, appTest
-from user.tests import testMpcloudCase, mpcloudCases
+from user.tests import testMpcloudCase, mpcloudCases, saveSrcLog
 import openpyxl
 from openpyxl.styles import colors, Font
 import os
 import codecs
+import shutil
 
 src_demo = '''# python3脚本示例
 # 此处导入所需模块
@@ -1530,18 +1531,64 @@ class saveSrc(APIView):
 
     # 获取测试脚本
     def get(self, request, *args, **kwargs):
-        res = {'errcode': 0, 'errmsg': 'ok', 'src': src_demo}
+        res = {
+            'errcode': 0,
+            'errmsg': 'ok',
+            'src': [{
+                'title': 'main.py',
+                'name': 'main',
+                'content': src_demo
+            }]
+        }
         data = request.GET
         src_type = data['type']
         src_id = data['id']
 
-        # 查询文件夹
+        # 创建文件夹
         src_type_dir = '../src/' + src_type
-        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+        src_id_dir = src_type_dir + '/' + str(src_id)
 
+        if os.path.exists('../src/'):
+            pass
+        else:
+            os.mkdir('../src/')
+
+        if os.path.exists(src_type_dir):
+            pass
+        else:
+            os.mkdir(src_type_dir)
+
+        if os.path.exists(src_id_dir):
+            pass
+        else:
+            os.mkdir(src_id_dir)
+
+        srcs = []
         try:
-            with codecs.open(src_id_dir, 'rb', 'utf-8') as f:
-                res['src'] = f.read()
+            filenames = os.listdir(src_id_dir)
+            # print(filenames)
+            # 判断是否有文件
+            if filenames:
+                for filename in filenames:
+                    src = {'title': '', 'name': '', 'content': ''}
+                    src['title'] = filename
+                    src['name'] = filename.split('.')[0]
+                    file_dir = src_id_dir + '/' + '' + filename
+                    if os.path.isfile(file_dir):
+                        with codecs.open(file_dir, 'rb', 'utf-8') as f:
+                            src['content'] = f.read()
+                        srcs.append(src)
+                res['src'] = srcs
+            # 没有文件，自动生成mian.py
+            else:
+                try:
+                    filename = src_id_dir + '/' + 'main.py'
+                    # print(filename)
+                    with codecs.open(filename, 'w', 'utf-8') as f:
+                        f.write(src_demo)
+                except Exception as e:
+                    res['errmsg'] = str(e)
+
         except Exception as e:
             res['errmsg'] = str(e)
 
@@ -1557,7 +1604,7 @@ class saveSrc(APIView):
 
         # 创建文件夹
         src_type_dir = '../src/' + src_type
-        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+        src_id_dir = src_type_dir + '/' + str(src_id)
 
         if os.path.exists('../src/'):
             pass
@@ -1569,10 +1616,10 @@ class saveSrc(APIView):
         else:
             os.mkdir(src_type_dir)
 
-        # if os.path.exists(src_id_dir):
-        #     pass
-        # else:
-        #     os.mkdir(src_id_dir)
+        if os.path.exists(src_id_dir):
+            pass
+        else:
+            os.mkdir(src_id_dir)
 
         # if os.path.exists(src_info_dir):
         #     pass
@@ -1581,8 +1628,11 @@ class saveSrc(APIView):
 
         # 保存脚本
         try:
-            with codecs.open(src_id_dir, 'w', 'utf-8') as f:
-                f.write(src_info)
+            filename = src_id_dir + '/' + src_info.get(
+                'name') + '.' + src_info.get('title').split('.')[1]
+            # print(filename)
+            with codecs.open(filename, 'w', 'utf-8') as f:
+                f.write(src_info.get('content'))
         except Exception as e:
             res['errcode'] = 1
             res['errmsg'] = str(e)
@@ -1598,7 +1648,8 @@ class saveSrc(APIView):
 
         # 查询文件夹
         src_type_dir = '../src/' + src_type
-        src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+        src_id_dir = src_type_dir + '/' + str(src_id)
+        filename = src_id_dir + '/' + 'main.py'
 
         if os.path.exists(src_id_dir):
             pass
@@ -1607,7 +1658,7 @@ class saveSrc(APIView):
             res['errmsg'] = '脚本不存在，请编辑并提交脚本后再测试'
             return Response(res)
 
-        cmd = 'python3' + ' ' + src_id_dir
+        cmd = 'python3' + ' ' + filename
         # print(cmd)
         # msg = os.system(cmd)
         msg = os.popen(cmd)
@@ -1618,6 +1669,29 @@ class saveSrc(APIView):
             res['errcode'] = 1
             res['errmsg'] = 'Fail'
         res['info'] = resu
+        return Response(res)
+
+    # 删除测试脚本
+    def delete(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'ok'}
+        data = request.data
+        src_type = data['type']
+        src_id = data['id']
+        src_info = data['src']
+
+        # 创建文件夹
+        src_type_dir = '../src/' + src_type
+        src_id_dir = src_type_dir + '/' + str(src_id)
+
+        # 删除脚本
+        try:
+            filename = src_id_dir + '/' + src_info.get(
+                'name') + '.' + src_info.get('title').split('.')[1]
+            os.remove(filename)
+        except Exception as e:
+            res['errcode'] = 1
+            res['errmsg'] = str(e)
+
         return Response(res)
 
 
@@ -1638,23 +1712,34 @@ class AppSrcTest(APIView):
             src_id = src.id
             # 查询文件夹
             src_type_dir = '../src/' + src_type
-            src_id_dir = src_type_dir + '/test_' + str(src_id) + '_app.py'
+            src_id_dir = src_type_dir + '/' + str(src_id) + '/' + 'main.py'
 
             cmd = 'python3' + ' ' + src_id_dir
             # print(cmd)
-            msg = os.system(cmd)
-            # print(msg)
-            if msg:
+            # msg = os.system(cmd)
+            msg = os.popen(cmd)
+            # msg.read 获取程序运行后print打印的信息
+            resu = msg.read()
+            # msg.close 获取程序运行完返回值
+            if msg.close():
                 res['errcode'] = 1
                 res['errmsg'] = src.appname + 'Fail'
                 src.result = False
                 src.save()
                 project.appresult = False
                 project.save()
+                saveSrcLog(msg=resu,
+                           type='脚本测试-' + src.src_type,
+                           testName=src.appname,
+                           res=res)
                 return Response(res)
             else:
                 src.result = True
                 src.save()
+                saveSrcLog(msg=resu,
+                           type='脚本测试-' + src.src_type,
+                           testName=src.appname,
+                           res=res)
         if src_type == 'app':
             project.appresult = True
         elif src_type == 'api':
@@ -1664,4 +1749,24 @@ class AppSrcTest(APIView):
         else:
             pass
         project.save()
+        return Response(res)
+
+    # 删除脚本文件夹
+    def delete(self, request, *args, **kwargs):
+        res = {'errcode': 0, 'errmsg': 'PASS'}
+        data = request.GET
+        src_type = data['type']
+        src_id = data['id']
+
+        # 文件路径
+        src_type_dir = os.path.abspath('..') + '/src/' + src_type
+        src_id_dir = src_type_dir + '/' + str(src_id)
+        # 删除脚本
+        try:
+            # os.rmdir 文件夹必须为空，所以只能用shutil.rmtree，必须用绝对路径
+            shutil.rmtree(src_id_dir)
+        except Exception as e:
+            res['errcode'] = 1
+            res['errmsg'] = str(e)
+
         return Response(res)
