@@ -63,7 +63,7 @@ ORDER_1 = {
     'NUM': '20180001',
     'OFFLINE': '2000',
     'ONLINE': '1000',
-    'FACTORY': 'DLT',
+    'FACTORY': '中山测试厂_debug',
     'TIME': '20191101',
     'DES': 'only for test1',
 }
@@ -72,7 +72,7 @@ ORDER_2 = {
     'NUM': '20180002',
     'OFFLINE': '1000',
     'ONLINE': '2000',
-    'FACTORY': 'OSE',
+    'FACTORY': '中山测试厂',
     'TIME': '20191101',
     'DES': 'only for test2',
 }
@@ -82,7 +82,7 @@ ORDER_3 = {
     'NUM': '20180003',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'Walton',
+    'FACTORY': '中山测试厂_debug',
     'TIME': '20191101',
     'DES': 'only for test3',
 }
@@ -92,7 +92,7 @@ ORDER_4 = {
     'NUM': '20180004',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'ZKT',
+    'FACTORY': '中山测试厂',
     'TIME': '20191101',
     'DES': 'only for test4',
 }
@@ -102,7 +102,7 @@ ORDER_5 = {
     'NUM': '20180005',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'DLT',
+    'FACTORY': '中山测试厂_debug',
     'TIME': '20191101',
     'DES': 'only for test5',
 }
@@ -112,7 +112,7 @@ ORDER_6 = {
     'NUM': '20180006',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'OSE',
+    'FACTORY': '中山测试厂',
     'TIME': '20191101',
     'DES': 'only for test6',
 }
@@ -122,7 +122,7 @@ ORDER_7 = {
     'NUM': '20180007',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'Walton',
+    'FACTORY': '中山测试厂_debug',
     'TIME': '20191101',
     'DES': 'only for test7',
 }
@@ -132,7 +132,7 @@ ORDER_8 = {
     'NUM': '20180008',
     'OFFLINE': '3000',
     'ONLINE': '3000',
-    'FACTORY': 'ZKT',
+    'FACTORY': '中山测试厂',
     'TIME': '20191101',
     'DES': 'only for test8',
 }
