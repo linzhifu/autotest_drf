@@ -2211,7 +2211,7 @@ def createOrder(wait, product, module, order, pe, user, driver):
     outLineNum = wait.until(EC.visibility_of_element_located(
         (By.CSS_SELECTOR, '.order-item:nth-of-type(4) div .el-input__inner')),
                             message='找不到 生产数量输入栏')
-    outLineNum.send_keys(test123456789)
+    outLineNum.send_keys('test123456789')
     logging.debug('创建订单-料号：test123456789')
 
     # 生产数量
