@@ -1080,11 +1080,20 @@ def createOrder(wait, product, module, order, pe):
     inputOrderNum.send_keys(order['NUM'])
     logging.debug('创建订单-订单：' + order['NUM'])
 
-    # 生产数量
+    # 生产料号
     outLineNum = wait.until(
         EC.visibility_of_element_located(
             (By.CSS_SELECTOR,
              '.order-item:nth-of-type(4) div .el-input__inner')),
+        message='找不到 生产数量输入栏')
+    outLineNum.send_keys('test123456789')
+    logging.debug('创建订单-生产料号：test123456789')
+
+    # 生产数量
+    outLineNum = wait.until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR,
+             '.order-item:nth-of-type(5) div .el-input__inner')),
         message='找不到 生产数量输入栏')
     outLineNum.send_keys(1000)
     logging.debug('创建订单-生产数量：1000')
@@ -1092,7 +1101,7 @@ def createOrder(wait, product, module, order, pe):
     # 生产工厂
     factoryName = wait.until(
         EC.visibility_of_element_located(
-            (By.CSS_SELECTOR, '.order-item:nth-of-type(5) .el-input__inner')),
+            (By.CSS_SELECTOR, '.order-item:nth-of-type(6) .el-input__inner')),
         message='找不到 生产工厂输入栏')
     factoryName.click()
     sleep(time)
@@ -1112,28 +1121,28 @@ def createOrder(wait, product, module, order, pe):
             raise Exception('找不到工厂 ' + order['FACTORY'])
     logging.debug('创建订单-生产工厂：' + order['FACTORY'])
 
-    # 申请者
-    applicantListBtn = wait.until(
-        EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, '.order-item:nth-of-type(6) .el-input__inner')),
-        message='找不到 申请人列表下拉按键')
-    applicantListBtn.click()
-    sleep(time)
+    # # 申请者
+    # applicantListBtn = wait.until(
+    #     EC.element_to_be_clickable(
+    #         (By.CSS_SELECTOR, '.order-item:nth-of-type(6) .el-input__inner')),
+    #     message='找不到 申请人列表下拉按键')
+    # applicantListBtn.click()
+    # sleep(time)
 
-    applicantList = wait.until(
-        EC.visibility_of_any_elements_located((By.CSS_SELECTOR,
-                                               'div[x-placement] li')),
-        message='找不到 申请人列表')
-    if len(applicantList):
-        for applicant in applicantList:
-            appName = applicant.get_attribute('innerText')
-            if appName == pe:
-                logging.debug('创建订单-申请者：' + appName)
-                applicant.click()
-                sleep(time)
-                break
-            if applicant == applicantList[len(applicantList) - 1]:
-                raise Exception(pe + ' 申请者不存在')
+    # applicantList = wait.until(
+    #     EC.visibility_of_any_elements_located((By.CSS_SELECTOR,
+    #                                            'div[x-placement] li')),
+    #     message='找不到 申请人列表')
+    # if len(applicantList):
+    #     for applicant in applicantList:
+    #         appName = applicant.get_attribute('innerText')
+    #         if appName == pe:
+    #             logging.debug('创建订单-申请者：' + appName)
+    #             applicant.click()
+    #             sleep(time)
+    #             break
+    #         if applicant == applicantList[len(applicantList) - 1]:
+    #             raise Exception(pe + ' 申请者不存在')
 
     # 证书有效时间
     inputDate = wait.until(

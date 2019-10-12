@@ -155,7 +155,7 @@ SAMPLE = {
     'SIZE': '8Gb',
     'BITWID': '4bit',
     'DIE': 'x4',
-    'PACKAGE': 'FBGA200',
+    'PACKAGE': 'FBGA90',
     'SUB': '1120009721',
     'AREA': '10*10',
     'PROCESS': 'TEST',
@@ -175,10 +175,10 @@ USER_ADMIN = {
     'teamEable': 0,
 
     # 新增产品 addProEable:0 不测试，1 测试
-    'addProEable': 0,
+    'addProEable': 1,
 
     # 产品列表(添加型号、角色) proListEable:0 不测试，1 测试
-    'proListEnable': 0,
+    'proListEnable': 1,
 
     # 上传软件 upSoftEnable:0 不测试，1 测试
     'upSoftEnable': 0,
@@ -662,8 +662,8 @@ USER_PRO_PMC = {
         'NUM': '20181111',
         'OFFLINE': '1000',
         'ONLINE': '2000',
-        'FACTORY': 'OSE',
-        'TIME': '20191001',
+        'FACTORY': '中山测试厂',
+        'TIME': '20201001',
         'DES': 'only for test temOrder',
     },
 
@@ -729,8 +729,8 @@ USER_MOD_PMC = {
         'NUM': '20181111',
         'OFFLINE': '1000',
         'ONLINE': '2000',
-        'FACTORY': 'DLT',
-        'TIME': '20191101',
+        'FACTORY': '中山测试厂',
+        'TIME': '20201101',
         'DES': 'only for test temOrder',
     },
 
@@ -748,7 +748,7 @@ USER_PRO_PE = {
     'NAME': 'TEST 产品-产线工程师',
     'LOGIN': '123',
     'TEAM': [testTeam['NAME']],
-    'ROLE': [proMod['PRONAME_1'] + '-产线工程师', proMod['PRONAME_2'] + '-产线工程师'],
+    'ROLE': [proMod['PRONAME_1'] + '-产线工程师', proMod['PRONAME_2'] + '-产线工程师', 'FactoryOperator(中山测试厂_debug)'],
 
     # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
     'updateUserInfoEnable': 0,
@@ -788,6 +788,7 @@ USER_MOD_PE = {
         proMod['PRONAME_1'] + '-' + proMod['MODNAME_2'] + '-产线工程师',
         proMod['PRONAME_2'] + '-' + proMod['MODNAME_1'] + '-产线工程师',
         proMod['PRONAME_2'] + '-' + proMod['MODNAME_2'] + '-产线工程师',
+        'FactoryOperator(中山测试厂)'
     ],
 
     # 测试修改资料，包括个人资料和密码 updateUserInfoEnable:0 不测试，1 测试
