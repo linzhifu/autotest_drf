@@ -1544,7 +1544,7 @@ class saveSrc(APIView):
         src_type = data['type']
         src_id = data['id']
 
-        # 创建文件夹
+        # 判断脚本是否存在，不存在->创建文件夹，并返回默认案例
         src_type_dir = '../src/' + src_type
         src_id_dir = src_type_dir + '/' + str(src_id)
 
@@ -1602,7 +1602,7 @@ class saveSrc(APIView):
         src_id = data['id']
         src_info = data['src']
 
-        # 创建文件夹
+        # 创建文件夹 如:'../src/web/11'
         src_type_dir = '../src/' + src_type
         src_id_dir = src_type_dir + '/' + str(src_id)
 
@@ -1679,27 +1679,29 @@ class saveSrc(APIView):
         src_id = data['id']
         src_info = data['src']
 
-        # 创建文件夹
+        # 判断文件夹是否存在
         src_type_dir = '../src/' + src_type
         src_id_dir = src_type_dir + '/' + str(src_id)
 
-        # 删除脚本
-        try:
-            filename = src_id_dir + '/' + src_info.get(
-                'name') + '.' + src_info.get('title').split('.')[1]
-            os.remove(filename)
-        except Exception as e:
-            res['errcode'] = 1
-            res['errmsg'] = str(e)
+        if os.path.exists(src_id_dir):
+            # 删除脚本
+            try:
+                filename = src_id_dir + '/' + src_info.get(
+                    'name') + '.' + src_info.get('title').split('.')[1]
+                os.remove(filename)
+            except Exception as e:
+                res['errcode'] = 1
+                res['errmsg'] = str(e)
 
         return Response(res)
 
 
-# 移动整体测试-自定义
+# 脚本测试-整体(生产log)
 class AppSrcTest(APIView):
     authentication_classes = []
     permission_classes = []
 
+    # 运行脚本测试
     def get(self, request, *args, **kwargs):
         res = {'errcode': 0, 'errmsg': 'PASS'}
         data = request.GET
@@ -1720,35 +1722,43 @@ class AppSrcTest(APIView):
             msg = os.popen(cmd)
             # msg.read 获取程序运行后print打印的信息
             resu = msg.read()
+            # print(resu)
             # msg.close 获取程序运行完返回值
             if msg.close():
                 res['errcode'] = 1
-                res['errmsg'] = src.appname + 'Fail'
+                res['errmsg'] = src.appname + ' Fail'
+                res['info'] = resu
                 src.result = False
                 src.save()
-                project.appresult = False
-                project.save()
+                # 脚本测试结果暂不记入项目
+                # project.appresult = False
+                # project.save()
                 saveSrcLog(msg=resu,
-                           type='脚本测试-' + src.src_type,
+                           proType=src_type,
+                           type='脚本测试',
                            testName=src.appname,
+                           proName=project.proname,
                            res=res)
                 return Response(res)
             else:
                 src.result = True
                 src.save()
                 saveSrcLog(msg=resu,
-                           type='脚本测试-' + src.src_type,
+                           proType=src_type,
+                           type='脚本测试',
                            testName=src.appname,
+                           proName=project.proname,
                            res=res)
-        if src_type == 'app':
-            project.appresult = True
-        elif src_type == 'api':
-            project.apiresult = True
-        elif src_type == 'web':
-            project.webresult = True
-        else:
-            pass
-        project.save()
+        # 脚本测试结果暂不记入项目
+        # if src_type == 'app':
+        #     project.appresult = True
+        # elif src_type == 'api':
+        #     project.apiresult = True
+        # elif src_type == 'web':
+        #     project.webresult = True
+        # else:
+        #     pass
+        # project.save()
         return Response(res)
 
     # 删除脚本文件夹
@@ -1764,7 +1774,9 @@ class AppSrcTest(APIView):
         # 删除脚本
         try:
             # os.rmdir 文件夹必须为空，所以只能用shutil.rmtree，必须用绝对路径
-            shutil.rmtree(src_id_dir)
+            if os.path.exists(src_id_dir):
+                # 判断文件夹是否存在
+                shutil.rmtree(src_id_dir)
         except Exception as e:
             res['errcode'] = 1
             res['errmsg'] = str(e)

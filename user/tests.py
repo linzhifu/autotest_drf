@@ -251,9 +251,13 @@ def save_log(fuc):
     def wrapper(*args, **kwargs):
         testName = kwargs.get('testName')
         testType = kwargs.get('type')
+        testPro = kwargs.get('proName')
+        proType = kwargs.get('proType')
         # 测试目录
         logData = '../log/' + datetime.now().strftime('%Y-%m-%d')
-        logType = logData + '/' + testType
+        logPro = logData + '/' + testPro
+        logProType = logPro + '/' + proType
+        logType = logProType + '/' + testType
         LOGDIR = logType + '/' + testName
 
         # 检查目录
@@ -261,6 +265,16 @@ def save_log(fuc):
             pass
         else:
             os.mkdir(logData)
+
+        if os.path.exists(logPro):
+            pass
+        else:
+            os.mkdir(logPro)
+
+        if os.path.exists(logProType):
+            pass
+        else:
+            os.mkdir(logProType)
 
         if os.path.exists(logType):
             pass
@@ -1497,7 +1511,7 @@ def testMpcloudCase(host, case):
 
 @save_log
 # 保存脚本测试LOG
-def saveSrcLog(msg, testName, type, res):
+def saveSrcLog(msg, proType, testName, type, proName, res):
     logs = msg.split('\n')
     for log in logs:
         if log:
