@@ -1988,11 +1988,9 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_2['FACTORY']:
             raise Exception(config.ORDER_2['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != str(
-                (datetime(2019, 11, 1) - datetime.now()).days):
-            raise Exception(
-                str((datetime(2019, 11, 1) - datetime.now()).days) +
-                ' 有效时间不对：' + getTeamInfo(wait, 1, 6))
+        if getTeamInfo(wait, 1, 6) != config.authTime:
+            raise Exception(config.authTime + ' 有效时间不对：' +
+                            getTeamInfo(wait, 1, 6))
     else:
         # 检查查询结果
         if getTeamInfo(wait, 1, 2) != config.ORDER_1['NUM']:
@@ -2001,11 +1999,9 @@ def searchByOrderNum(driver, wait, user):
         if getTeamInfo(wait, 1, 5) != config.ORDER_1['FACTORY']:
             raise Exception(config.ORDER_1['FACTORY'] + ' 工厂不对：' +
                             getTeamInfo(wait, 1, 5))
-        if getTeamInfo(wait, 1, 6) != str(
-                (datetime(2019, 11, 1) - datetime.now()).days):
-            raise Exception(
-                str((datetime(2019, 11, 1) - datetime.now()).days) +
-                ' 有效时间不对：' + getTeamInfo(wait, 1, 6))
+        if getTeamInfo(wait, 1, 6) != config.authTime:
+            raise Exception(config.authTime + ' 有效时间不对：' +
+                            getTeamInfo(wait, 1, 6))
 
 
 # 按产品类型查询
@@ -2617,6 +2613,43 @@ def addAuthor(driver, wait, user, str, num):
             raise Exception('追加离线授权失败')
 
 
+# 延迟授权日期
+def addAuthTime(driver, wait, dateTime):
+    # 获取延长日期按键
+    authTimeBtn = wait.until(EC.element_to_be_clickable(
+        (By.CSS_SELECTOR,
+         'tbody tr:nth-of-type(1) .download-url:nth-child(4)')),
+                             message='找不到 延长日期按键')
+    logging.debug('订单管理-订单列表：' + authTimeBtn.text)
+    goToElement(authTimeBtn, driver)
+    authTimeBtn.click()
+    sleep(sleepTime)
+
+    # 延长日期输入栏
+    dataTimeInput = wait.until(EC.visibility_of_element_located(
+        (By.CSS_SELECTOR, '.el-date-editor input')),
+                               message='找不到 延长日期输入栏')
+    dataTimeInput.send_keys(dateTime)
+    dataTimeInput.send_keys(Keys.ENTER)
+
+    # 确定
+    okBtn = wait.until(EC.element_to_be_clickable((
+        By.CSS_SELECTOR,
+        '.el-dialog__wrapper:nth-of-type(5) .dialog-footer button:nth-child(2)'
+    )),
+                       message='找不到 确定按键')
+    logging.debug('延长日期：' + okBtn.text)
+    okBtn.click()
+    sleep(sleepTime)
+
+    # 确定日期是否正确
+    days = wait.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, 'tbody tr:nth-child(1) td:nth-child(6) div')),
+                      message='找不到 授权剩余天数')
+    if days.text != config.authTime:
+        raise Exception('延长授权天数失败')
+
+
 # 删除订单
 def deleteOrder(driver, wait, user):
     order = user['tempOrder']
@@ -2690,7 +2723,7 @@ def test_softFuc(driver, wait, user):
     try:
         downloadBtn = wait.until(EC.element_to_be_clickable(
             (By.CSS_SELECTOR, '.download-btn')),
-                                    message='找不到 确定下载软件按键')
+                                 message='找不到 确定下载软件按键')
         logging.debug('软件管理-软件列表：' + downloadSoftBtn.text)
         downloadBtn.click()
         sleep(sleepTime + 2)
@@ -3348,6 +3381,10 @@ def orderList(driver, wait, user):
             addAuthor(driver, wait, user, '在线', '1000')
             addAuthor(driver, wait, user, '离线', '1000')
             logging.info('追加授权成功')
+
+            logging.info('延长授权日期')
+            addAuthTime(driver, wait, config.days)
+            logging.info('延长授权日期成功')
 
             logging.info('删除订单')
             deleteOrder(driver, wait, user)

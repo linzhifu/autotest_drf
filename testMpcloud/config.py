@@ -25,8 +25,9 @@ hide = 0
 # 是否隐藏DEBUG日志 1:隐藏 ，0：显示
 debug = 1
 
+days = '20501010'
 # 订单授权剩余天数
-authTime = str((datetime.datetime(2019, 11, 1) - datetime.datetime.now()).days)
+authTime = str((datetime.datetime(int(days[:4]), int(days[4:6]), int(days[6:])) - datetime.datetime.now()).days)
 
 # 测试产品-型号
 proMod = {
@@ -64,7 +65,7 @@ ORDER_1 = {
     'OFFLINE': '2000',
     'ONLINE': '1000',
     'FACTORY': '中山测试厂_debug',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test1',
 }
 # 测试订单2
@@ -73,7 +74,7 @@ ORDER_2 = {
     'OFFLINE': '1000',
     'ONLINE': '2000',
     'FACTORY': '中山测试厂',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test2',
 }
 
@@ -83,7 +84,7 @@ ORDER_3 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂_debug',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test3',
 }
 
@@ -93,7 +94,7 @@ ORDER_4 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test4',
 }
 
@@ -103,7 +104,7 @@ ORDER_5 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂_debug',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test5',
 }
 
@@ -113,7 +114,7 @@ ORDER_6 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test6',
 }
 
@@ -123,7 +124,7 @@ ORDER_7 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂_debug',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test7',
 }
 
@@ -133,7 +134,7 @@ ORDER_8 = {
     'OFFLINE': '3000',
     'ONLINE': '3000',
     'FACTORY': '中山测试厂',
-    'TIME': '20191101',
+    'TIME': days,
     'DES': 'only for test8',
 }
 
@@ -175,10 +176,10 @@ USER_ADMIN = {
     'teamEable': 0,
 
     # 新增产品 addProEable:0 不测试，1 测试
-    'addProEable': 1,
+    'addProEable': 0,
 
     # 产品列表(添加型号、角色) proListEable:0 不测试，1 测试
-    'proListEnable': 1,
+    'proListEnable': 0,
 
     # 上传软件 upSoftEnable:0 不测试，1 测试
     'upSoftEnable': 0,
