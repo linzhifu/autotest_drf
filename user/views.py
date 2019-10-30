@@ -320,8 +320,10 @@ class WebTypeTest(APIView):
                        host,
                        webTypes,
                        webManager,
+                       proName=webManager.project.proname,
+                       proType='web',
                        testName=webManager.webname,
-                       type='前端测试')
+                       type='单元测试')
         return Response(data)
 
 
@@ -347,14 +349,16 @@ class WebManagerTest(APIView):
                            host,
                            webTypes,
                            webManager,
+                           proName=project.proname,
+                           proType='web',
                            testName=webManager.webname,
-                           type='前端测试')
+                           type='单元测试')
             if data['errcode']:
                 data['errmsg'] = webManager.webname + '-' + data['errmsg']
                 return Response(data)
-
-        project.webresult = True
-        project.save()
+        # 单元测试暂不记入测试记录
+        # project.webresult = True
+        # project.save()
         return Response(data)
 
 
@@ -485,8 +489,10 @@ class AppTypeTest(APIView):
         data = appTest(host,
                        appTypes,
                        appManager,
+                       proName=appManager.project.proname,
+                       proType='app',
                        testName=appManager.appname,
-                       type='移动端测试')
+                       type='单元测试')
         return Response(data)
 
 
@@ -511,14 +517,16 @@ class AppManagerTest(APIView):
             data = appTest(host,
                            appTypes,
                            appManager,
+                           proName=project.proname,
+                           proType='app',
                            testName=appManager.appname,
-                           type='移动端测试')
+                           type='单元测试')
             if data['errcode']:
                 data['errmsg'] = appManager.appname + '-' + data['errmsg']
                 return Response(data)
-
-        project.appresult = True
-        project.save()
+        # 单元测试暂不记入测试记录
+        # project.appresult = True
+        # project.save()
         return Response(data)
 
 

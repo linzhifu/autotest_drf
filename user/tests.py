@@ -411,10 +411,11 @@ def webCase(url, host, webType, webManager):
             add_one_test_record(webType, False)
             webManager.result = False
             webManager.save()
-            webManager.project.webresult = False
-            webManager.project.save()
+            # 单元测试暂不记入测试记录
+            # webManager.project.webresult = False
+            # webManager.project.save()
             data['errcode'] = 101
-            data['errmsg'] = webCase.webname + ' ：操作异常'
+            data['errmsg'] = webCase.webname + ' ：' + str(e)
             data['detail'] = str(e)
             driver.quit()
             logging.info(webType.typename + '-FAIL')
@@ -454,10 +455,11 @@ def webCase(url, host, webType, webManager):
             add_one_test_record(webType, False)
             webManager.result = False
             webManager.save()
-            webManager.project.webresult = False
-            webManager.project.save()
+            # 单元测试暂不记入测试记录
+            # webManager.project.webresult = False
+            # webManager.project.save()
             data['errcode'] = 103
-            data['errmsg'] = checkWebCase.webname + ' ：操作异常'
+            data['errmsg'] = checkWebCase.webname + ' ：' + str(e)
             data['detail'] = str(e)
             driver.quit()
             logging.info(webType.typename + '-FAIL')
@@ -474,7 +476,7 @@ def webCase(url, host, webType, webManager):
 
 # 前端整体测试
 @save_log
-def webTest(url, host, webTypes, webManager, testName, type):
+def webTest(url, host, webTypes, webManager, proName, proType, testName, type):
     try:
         desired_capabilities = {'platform': 'WINDOWS', 'browserName': 'chrome'}
         driver = webdriver.Remote(host,
@@ -520,13 +522,15 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     webType.save()
                     webManager.result = False
                     webManager.save()
-                    webManager.project.webresult = False
-                    webManager.project.save()
+                    # 单元测试暂不记入测试记录
+                    # webManager.project.webresult = False
+                    # webManager.project.save()
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 101
-                    data[
-                        'errmsg'] = webType.typename + '-' + webCase.webname + ' ：操作异常'
+                    errinfo = testName + webType.typename + '-' + webCase.webname + ' ：' + str(
+                        e)
+                    data['errmsg'] = errinfo
                     data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
@@ -552,12 +556,13 @@ def webTest(url, host, webTypes, webManager, testName, type):
                             webType.save()
                             webManager.result = False
                             webManager.save()
-                            webManager.project.webresult = False
-                            webManager.project.save()
+                            # 单元测试暂不记入测试记录
+                            # webManager.project.webresult = False
+                            # webManager.project.save()
                             add_one_test_record(webType, False)
                             add_one_test_record(webManager, False)
                             data['errcode'] = 102
-                            data['errmsg'] = webType.typename + '-' + checkWebCase.webname \
+                            data['errmsg'] = testName + webType.typename + '-' + checkWebCase.webname \
                                 + '：' + checkWebCase.checktext + ' != ' + text
                             driver.quit()
                             logging.info(webType.typename + '-FAIL')
@@ -569,13 +574,15 @@ def webTest(url, host, webTypes, webManager, testName, type):
                     webType.save()
                     webManager.result = False
                     webManager.save()
-                    webManager.project.webresult = False
-                    webManager.project.save()
+                    # 单元测试暂不记入测试记录
+                    # webManager.project.webresult = False
+                    # webManager.project.save()
                     add_one_test_record(webType, False)
                     add_one_test_record(webManager, False)
                     data['errcode'] = 103
                     data[
-                        'errmsg'] = webType.typename + '-' + checkWebCase.webname + ' ：操作异常'
+                        'errmsg'] = testName + webType.typename + '-' + checkWebCase.webname + ' ：' + str(
+                            e)
                     data['detail'] = str(e)
                     driver.quit()
                     logging.info(webType.typename + '-FAIL')
@@ -653,10 +660,11 @@ def appCase(host, appType, appManager):
             add_one_test_record(appType, False)
             appManager.result = False
             appManager.save()
-            appManager.project.appresult = False
-            appManager.project.save()
+            # 单元测试暂不记入测试记录
+            # appManager.project.appresult = False
+            # appManager.project.save()
             data['errcode'] = 101
-            data['errmsg'] = appCase.appname + ' ：操作异常'
+            data['errmsg'] = appCase.appname + ' ：' + str(e)
             data['detail'] = str(e)
             driver.quit()
             logging.info(appType.typename + '-FAIL')
@@ -705,10 +713,11 @@ def appCase(host, appType, appManager):
             add_one_test_record(appType, False)
             appManager.result = False
             appManager.save()
-            appManager.project.webresult = False
-            appManager.project.save()
+            # 单元测试暂不记入测试记录
+            # appManager.project.webresult = False
+            # appManager.project.save()
             data['errcode'] = 103
-            data['errmsg'] = checkAppCase.appname + ' ：操作异常'
+            data['errmsg'] = checkAppCase.appname + ' ：' + str(e)
             data['detail'] = str(e)
             driver.quit()
             logging.info(appType.typename + '-FAIL')
@@ -725,7 +734,7 @@ def appCase(host, appType, appManager):
 
 # 移动端整体测试
 @save_log
-def appTest(host, appTypes, appManager, testName, type):
+def appTest(host, appTypes, appManager, proName, proType, testName, type):
     # 测试结果
     data = {'errcode': 0, 'errmsg': 'ok'}
     text = ''
@@ -787,8 +796,9 @@ def appTest(host, appTypes, appManager, testName, type):
                     add_one_test_record(appType, False)
                     appManager.result = False
                     appManager.save()
-                    appManager.project.appresult = False
-                    appManager.project.save()
+                    # 单元测试暂不记入测试记录
+                    # appManager.project.appresult = False
+                    # appManager.project.save()
                     data['errcode'] = 101
                     data['errmsg'] = appCase.appname + ' ：操作异常'
                     data['detail'] = str(e)
@@ -839,8 +849,9 @@ def appTest(host, appTypes, appManager, testName, type):
                     add_one_test_record(appType, False)
                     appManager.result = False
                     appManager.save()
-                    appManager.project.webresult = False
-                    appManager.project.save()
+                    # 单元测试暂不记入测试记录
+                    # appManager.project.webresult = False
+                    # appManager.project.save()
                     data['errcode'] = 103
                     data['errmsg'] = checkAppCase.appname + ' ：操作异常'
                     data['detail'] = str(e)
