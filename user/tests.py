@@ -1123,8 +1123,9 @@ def apiCase(url, apiType, apiManager, testUserInfo):
                 apiCase.save()
                 apiType.result = False
                 apiType.save()
-                apiManager.project.webresult = False
-                apiManager.project.save()
+                # 单元测试暂不记入测试记录
+                # apiManager.project.webresult = False
+                # apiManager.project.save()
                 add_one_test_record(apiType, False)
                 apiManager.result = False
                 apiManager.save()
@@ -1142,8 +1143,9 @@ def apiCase(url, apiType, apiManager, testUserInfo):
                 apiCase.save()
                 apiType.result = False
                 apiType.save()
-                apiManager.project.webresult = False
-                apiManager.project.save()
+                # 单元测试暂不记入测试记录
+                # apiManager.project.webresult = False
+                # apiManager.project.save()
                 add_one_test_record(apiType, False)
                 apiManager.result = False
                 apiManager.save()
@@ -1208,8 +1210,9 @@ def apiCase(url, apiType, apiManager, testUserInfo):
             apiCase.save()
             apiType.result = False
             apiType.save()
-            apiManager.project.webresult = False
-            apiManager.project.save()
+            # 单元测试暂不记入测试记录
+            # apiManager.project.webresult = False
+            # apiManager.project.save()
             add_one_test_record(apiType, False)
             apiManager.result = False
             apiManager.save()
@@ -1228,8 +1231,9 @@ def apiCase(url, apiType, apiManager, testUserInfo):
                 apiCase.save()
                 apiType.result = False
                 apiType.save()
-                apiManager.project.webresult = False
-                apiManager.project.save()
+                # 单元测试暂不记入测试记录
+                # apiManager.project.webresult = False
+                # apiManager.project.save()
                 add_one_test_record(apiType, False)
                 apiManager.result = False
                 apiManager.save()
@@ -1247,8 +1251,9 @@ def apiCase(url, apiType, apiManager, testUserInfo):
                 apiCase.save()
                 apiType.result = False
                 apiType.save()
-                apiManager.project.webresult = False
-                apiManager.project.save()
+                # 单元测试暂不记入测试记录
+                # apiManager.project.webresult = False
+                # apiManager.project.save()
                 add_one_test_record(apiType, False)
                 apiManager.result = False
                 apiManager.save()
@@ -1269,7 +1274,7 @@ def apiCase(url, apiType, apiManager, testUserInfo):
 
 @save_log
 # 后端模块测试
-def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
+def apiTest(url, apiTypes, apiManager, proName, proType, testName, type, testUserInfo):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
 
@@ -1292,8 +1297,9 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                         apiCase.save()
                         apiType.result = False
                         apiType.save()
-                        apiManager.project.webresult = False
-                        apiManager.project.save()
+                        # 单元测试暂不记入测试记录
+                        # apiManager.project.webresult = False
+                        # apiManager.project.save()
                         add_one_test_record(apiType, False)
                         apiManager.result = False
                         apiManager.save()
@@ -1312,8 +1318,9 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                         apiCase.save()
                         apiType.result = False
                         apiType.save()
-                        apiManager.project.webresult = False
-                        apiManager.project.save()
+                        # 单元测试暂不记入测试记录
+                        # apiManager.project.webresult = False
+                        # apiManager.project.save()
                         add_one_test_record(apiType, False)
                         apiManager.result = False
                         apiManager.save()
@@ -1381,8 +1388,9 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                     apiType.save()
                     apiManager.result = False
                     apiManager.save()
-                    apiManager.project.webresult = False
-                    apiManager.project.save()
+                    # 单元测试暂不记入测试记录
+                    # apiManager.project.webresult = False
+                    # apiManager.project.save()
                     add_one_test_record(apiType, False)
                     add_one_test_record(apiManager, False)
                     logging.info(apiCase.apiname + '-' + apiCase.apiurl + '-' +
@@ -1401,8 +1409,9 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                         apiCase.save()
                         apiType.result = False
                         apiType.save()
-                        apiManager.project.webresult = False
-                        apiManager.project.save()
+                        # 单元测试暂不记入测试记录
+                        # apiManager.project.webresult = False
+                        # apiManager.project.save()
                         add_one_test_record(apiType, False)
                         apiManager.result = False
                         apiManager.save()
@@ -1421,8 +1430,9 @@ def apiTest(url, apiTypes, apiManager, testName, type, testUserInfo):
                         apiCase.save()
                         apiType.result = False
                         apiType.save()
-                        apiManager.project.webresult = False
-                        apiManager.project.save()
+                        # 单元测试暂不记入测试记录
+                        # apiManager.project.webresult = False
+                        # apiManager.project.save()
                         add_one_test_record(apiType, False)
                         apiManager.result = False
                         apiManager.save()

@@ -407,8 +407,10 @@ class ApiTypeTest(APIView):
         data = apiTest(url,
                        apiTypes,
                        apiManager,
+                       proName=apiManager.project.proname,
+                       proType='api',
                        testName=apiManager.apiname,
-                       type='后端测试',
+                       type='单元测试',
                        testUserInfo=testUserInfo)
         return Response(data)
 
@@ -438,17 +440,21 @@ class ApiManagerTest(APIView):
             data = apiTest(apiManager.apiurl,
                            apiTypes,
                            apiManager,
+                           proName=project.proname,
+                           proType='api',
                            testName=apiManager.apiname,
-                           type='后端测试',
+                           type='单元测试',
                            testUserInfo=testUserInfo)
             if data['errcode']:
                 data['errmsg'] = apiManager.apiname + ': ' + data['errmsg']
-                project.apiresult = False
-                project.save()
+                # 单元测试暂不记入测试记录
+                # project.apiresult = False
+                # project.save()
                 return Response(data)
 
-        project.apiresult = True
-        project.save()
+        # 单元测试暂不记入测试记录
+        # project.apiresult = True
+        # project.save()
         return Response(data)
 
 
