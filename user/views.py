@@ -631,36 +631,66 @@ class webAutoTest(APIView):
     permission_classes = []
 
     def get(self, request, *args, **kwargs):
+        projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
         # 量产云平台
-        if request.GET.get('project') == '量产云平台':
+        if project.proname == '量产云平台':
             return Response(mpcloudCases)
-
+        # 其他项目，暂未添加
         else:
             return Response([])
 
+    # 前端自动化测试项目-单元测试
     def patch(self, request, *args, **kwargs):
-        if request.META.get('HTTP_X_FORWARDED_FOR'):
-            ip = request.META['HTTP_X_FORWARDED_FOR']
-        else:
-            ip = request.META['REMOTE_ADDR']
-        host = ip + ':4444/wd/hub'
-        case = request.data
-        result = testMpcloudCase(host, case)
-        return Response(result)
-
-    def post(self, request, *args, **kwargs):
-        if request.META.get('HTTP_X_FORWARDED_FOR'):
-            ip = request.META['HTTP_X_FORWARDED_FOR']
-        else:
-            ip = request.META['REMOTE_ADDR']
-        host = ip + ':4444/wd/hub'
-        result = {}
-        cases = request.data
-        for case in cases:
-            result = testMpcloudCase(host, case)
+        projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
+        url = request.GET.get('url')
+        # 量产云平台
+        if project.proname == '量产云平台':
+            if request.META.get('HTTP_X_FORWARDED_FOR'):
+                ip = request.META['HTTP_X_FORWARDED_FOR']
+            else:
+                ip = request.META['REMOTE_ADDR']
+            host = ip + ':4444/wd/hub'
+            case = request.data
+            result = testMpcloudCase(host, case, url)
             if result['errcode']:
-                return Response(result)
-        return Response(result)
+                # 自动化测试记入测试记录
+                project.webresult = False
+                project.save()
+            return Response(result)
+        # 其他项目，暂未添加
+        else:
+            return Response({'errcode': 1, 'errmsg': '该项目暂未不支持自动化测试'})
+
+    # 前端自动化测试项目-整体测试
+    def post(self, request, *args, **kwargs):
+        projectId = request.GET.get('projectId')
+        project = Project.objects.get(id=projectId)
+        url = request.GET.get('url')
+        # 量产云平台
+        if project.proname == '量产云平台':
+            if request.META.get('HTTP_X_FORWARDED_FOR'):
+                ip = request.META['HTTP_X_FORWARDED_FOR']
+            else:
+                ip = request.META['REMOTE_ADDR']
+            host = ip + ':4444/wd/hub'
+            result = {}
+            cases = request.data
+            for case in cases:
+                result = testMpcloudCase(host, case, url)
+                if result['errcode']:
+                    # 自动化测试记入测试记录
+                    project.webresult = False
+                    project.save()
+                    return Response(result)
+            # 自动化测试记入测试记录
+            project.webresult = True
+            project.save()
+            return Response(result)
+        # 其他项目，暂未添加
+        else:
+            return Response({'errcode': 1, 'errmsg': '该项目暂未不支持自动化测试'})
 
 
 # 前端自动化测试项目

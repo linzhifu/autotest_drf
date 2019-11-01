@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s-%(levelname)s-%(message)s')
 logging.disable(logging.DEBUG)
 
-# 前端自动化测试内容
+# 量产云平台-前端自动化测试内容
 pro_pm = {
     'role':
     '产品-产品工程师',
@@ -1274,7 +1274,8 @@ def apiCase(url, apiType, apiManager, testUserInfo):
 
 @save_log
 # 后端模块测试
-def apiTest(url, apiTypes, apiManager, proName, proType, testName, type, testUserInfo):
+def apiTest(url, apiTypes, apiManager, proName, proType, testName, type,
+            testUserInfo):
     data = {'errcode': 0, 'errmsg': 'ok'}
     RESTAPI_DOMAIN = url
 
@@ -1456,7 +1457,7 @@ def apiTest(url, apiTypes, apiManager, proName, proType, testName, type, testUse
 
 
 # 量产云平台前端自动化单元测试
-def testMpcloudCase(host, case):
+def testMpcloudCase(host, case, url):
     result = {}
     user = {}
 
@@ -1506,6 +1507,10 @@ def testMpcloudCase(host, case):
             user['orderListEnable'] = option['订单列表']
         if '添加样品' in option:
             user['createSampleEnable'] = option['添加样品']
+
+    # 云平台网站地址
+    if url:
+        config.URL = url
 
     # 尝试远程启动客户端浏览器，启动失败再在服务器端启动浏览器
     try:
