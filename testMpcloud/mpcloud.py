@@ -3434,8 +3434,10 @@ def main(driver, user):
 
     # 测试目录
     logData = '../log/' + datetime.now().strftime('%Y-%m-%d')
-    logType = logData + '/' + '量产云平台'
-    LOGDIR = logType + '/' + user['NAME']
+    logPro = logData + '/' + '量产云平台'
+    logType = logPro + '/' + 'web'
+    logType_1 = logType + '/' + '自动化测试'
+    LOGDIR = logType_1 + '/' + user['NAME']
 
     # 检查目录
     if os.path.exists(logData):
@@ -3443,10 +3445,20 @@ def main(driver, user):
     else:
         os.mkdir(logData)
 
+    if os.path.exists(logPro):
+        pass
+    else:
+        os.mkdir(logPro)
+
     if os.path.exists(logType):
         pass
     else:
         os.mkdir(logType)
+
+    if os.path.exists(logType_1):
+        pass
+    else:
+        os.mkdir(logType_1)
 
     if os.path.exists(LOGDIR):
         pass
