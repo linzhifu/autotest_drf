@@ -675,7 +675,7 @@ class webAutoTest(APIView):
             else:
                 ip = request.META['REMOTE_ADDR']
             # 如果是jenkins请求，测试运行在10.2.20.131
-            if ip == '127.0.0.1':
+            if ip == '127.0.0.1' or ip == '172.16.9.88':
                 ip = '10.2.20.131'
             host = ip + ':4444/wd/hub'
             result = {}
