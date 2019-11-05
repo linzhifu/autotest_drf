@@ -674,9 +674,15 @@ class webAutoTest(APIView):
                 ip = request.META['HTTP_X_FORWARDED_FOR']
             else:
                 ip = request.META['REMOTE_ADDR']
+            # 如果是jenkins请求，测试运行在10.2.20.131
+            if ip == '127.0.0.1':
+                ip = '10.2.20.131'
             host = ip + ':4444/wd/hub'
             result = {}
-            cases = request.data
+            if request.data:
+                cases = request.data
+            else:
+                cases = mpcloudCases
             for case in cases:
                 result = testMpcloudCase(host, case, url)
                 if result['errcode']:
